@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Landing Page</title>
+  <title>PT. Performa Inti Nusantara</title>
+  <link rel="icon" type="image/webp" href="{{ asset('images/logo-footer.webp') }}">
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
@@ -19,17 +20,49 @@
         transform: translateX(-100%);
       }
     }
-
+  </style>
+  
   <style>
+    /* Position arrows outside the swiper container */
+    .testimonial-swiper .swiper-button-prev,
+    .testimonial-swiper .swiper-button-next {
+      top: 50% !important;
+      transform: translateY(-50%);
+      color: #2C2C2C !important;
+      width: 44px;
+      height: 44px;
+      margin-top: 0;
+      z-index: 10;
+    }
+
+    .testimonial-swiper .swiper-button-prev {
+      left: -60px !important; /* Position outside left */
+    }
+
+    .testimonial-swiper .swiper-button-next {
+      right: -60px !important; /* Position outside right */
+    }
+
+    /* For smaller screens, position arrows closer */
+    @media (max-width: 768px) {
+      .testimonial-swiper .swiper-button-prev {
+        left: -40px !important;
+      }
+      .testimonial-swiper .swiper-button-next {
+        right: -40px !important;
+      }
+    }
+
+    /* Regular swiper arrows */
     .swiper-button-prev, .swiper-button-next {
-    top: 50% !important;
-    transform: translateY(-50%);
-    color: #2C2C2C !important;
+      top: 50% !important;
+      transform: translateY(-50%);
+      color: #2C2C2C !important;
     }
 
     .swiper-pagination {
-    position: static !important;
-    margin-top: 1rem;
+      position: static !important;
+      margin-top: 1rem;
     }
 
     .swiper-pagination-bullets {
@@ -46,14 +79,61 @@
     .swiper-pagination-bullet-active {
       background: #2c2c2c;
     }
-  </style>
 
-  <style>
-  .swiper-button-prev::after,
-  .swiper-button-next::after {
-    color: #2C2C2C !important; /* or any color you want */
-    font-size: 1.5rem; /* optional: control arrow size */
-  }
+    .swiper-button-prev::after,
+    .swiper-button-next::after {
+      color: #2C2C2C !important;
+      font-size: 1.5rem;
+    }
+
+    /* Position client swiper arrows outside the container */
+    .client-swiper .swiper-button-prev,
+    .client-swiper .swiper-button-next {
+      top: 50% !important;
+      transform: translateY(-50%);
+      color: #2C2C2C !important;
+      width: 44px;
+      height: 44px;
+      margin-top: 0;
+      z-index: 10;
+    }
+
+    .client-swiper .swiper-button-prev {
+      left: -60px !important; /* Position outside left */
+    }
+
+    .client-swiper .swiper-button-next {
+      right: -60px !important; /* Position outside right */
+    }
+
+    /* For smaller screens, position client arrows closer */
+    @media (max-width: 768px) {
+      .client-swiper .swiper-button-prev {
+        left: -40px !important;
+      }
+      .client-swiper .swiper-button-next {
+        right: -40px !important;
+      }
+    }
+
+    /* Add padding to testimonial container to accommodate external arrows */
+    .testimonial-container {
+      padding: 0 80px;
+    }
+
+    /* Add padding to client container to accommodate external arrows */
+    .client-container {
+      padding: 0 80px;
+    }
+
+    @media (max-width: 768px) {
+      .testimonial-container {
+        padding: 0 60px;
+      }
+      .client-container {
+        padding: 0 60px;
+      }
+    }
   </style>
 
 </head>
@@ -66,6 +146,7 @@
   </main>
 
   @include('partials.footer')
+    
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
     const swiper = new Swiper(".mySwiper", {
@@ -117,5 +198,7 @@
     });
     </script>
 
+    
+    
 </body>
 </html>

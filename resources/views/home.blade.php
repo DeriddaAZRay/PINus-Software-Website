@@ -10,13 +10,24 @@
 
     <div class="relative z-10 container mx-auto">
       <h1 class="text-4xl font-bold mb-4">PINus Software</h1>
+      <div class="w-24 h-1 bg-gradient-to-r from-blue-500 to-red-500 mx-auto mb-4"></div>
       <p class="text-lg font-semibold max-w-2xl mx-auto mb-6">
         At PT. Performa Inti Nusantara, we are more than just a software provider —
         we are your partner in building smart, efficient, and integrated systems tailored to your business needs.
       </p>
       <div class="flex justify-center gap-4">
-        <a href="#" class="border border-gray-600 px-6 py-2 rounded hover:bg-gray-300 hover:bg-opacity-60 transition">About Us</a>
-        <a href="#" class="bg-red-600 text-white px-6 py-2 rounded hover:bg-red-700">Watch Video</a>
+        <a 
+          href="{{ url('/about/introduction') }}" 
+          class="inline-flex items-center border border-gray-600 text-gray-800 font-semibold px-8 py-3 rounded-lg shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-gray-300 hover:bg-gray-300 hover:bg-opacity-60"
+        >
+          About Us
+        </a>
+        <a 
+          href="#videos-section" 
+          class="inline-flex items-center bg-red-600 hover:bg-red-700 text-white font-semibold px-8 py-3 rounded-lg shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-red-300"
+        >
+          Watch Video
+        </a>
       </div>
       <img src="/images/logo-footer.webp" alt="PINus Logo" class="mx-auto mt-10 h-52">
     </div>
@@ -50,16 +61,26 @@
         <p class="text-sm text-gray-600">Helping your business operate faster and more efficiently.</p>
       </div>
     </div>
-    <div class="mt-8">
-      <a href="#" class="bg-red-600 text-white px-6 py-2 rounded hover:bg-red-700">Our Products</a>
+    <div class="text-center mt-8">
+      <a 
+        href="{{ url('/articles') }}" 
+        class="inline-flex items-center bg-red-600 hover:bg-red-700 text-white font-semibold px-8 py-3 rounded-lg shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-red-300"
+        aria-label="Read more articles"
+      >
+        Our Products
+        <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+        </svg>
+      </a>
     </div>
   </div>
 </section>
 
 {{-- Videos Section --}}
-<section class="bg-white py-16 px-6">
+<section id="videos-section" class="bg-white py-16 px-6">
   <div class="container mx-auto text-center">
-    <h2 class="text-3xl font-bold mb-10">Videos</h2>
+    <h2 class="text-3xl font-bold mb-4">Videos</h2>
+    <div class="w-24 h-1 bg-gradient-to-r from-blue-500 to-red-500 mx-auto mb-4"></div>
 
     <div class="relative max-w-6xl mx-auto">
       <div class="relative px-16">
@@ -67,7 +88,7 @@
           <div class="swiper-wrapper">
             @foreach ($videos as $video)
               @php
-                $videoId = Str::before($video->youtube_link, '?');
+                $videoId = Str::before($video->cLink, '?');
               @endphp
               <div class="swiper-slide flex justify-center">
                 <div 
@@ -87,8 +108,8 @@
                     </div>
                   </div>
                   <div class="p-4 text-left">
-                    <h3 class="text-lg font-semibold mb-1">{{ $video->title }}</h3>
-                    <p class="text-sm text-gray-600">{{ $video->description }}</p>
+                    <h3 class="text-lg font-semibold mb-1">{{ $video->cJudul }}</h3>
+                    <p class="text-sm text-gray-600">{{ $video->cDeskripsi }}</p>
                   </div>
                 </div>
               </div>
@@ -131,39 +152,124 @@
   {{-- Logos Scroll Row --}}
   <div class="overflow-hidden relative">
     <div class="flex items-center justify-center space-x-10 animate-scroll-x whitespace-nowrap">
-      @foreach (['client1.png', 'client2.png', 'client3.png', 'client4.png', 'client5.png', 'client6.png', 'client7.png', 'client8.png', 'client9.png', 'client10.png', 'client11.png', 'client12.png', 'client13.png'] as $logo)
-        <img src="/images/clients/{{ $logo }}" class="h-12 inline-block" alt="Client Logo">
+      @foreach ($clients as $client)
+        <img src="data:image/png;base64,{{ base64_encode($client->cLogo) }}" class="h-12 inline-block" alt="Client Logo">
       @endforeach
-      {{-- Repeat logos for seamless scroll --}}
-      @foreach (['client1.png', 'client2.png', 'client3.png', 'client4.png', 'client5.png', 'client6.png', 'client7.png', 'client8.png', 'client9.png', 'client10.png', 'client11.png', 'client12.png', 'client13.png'] as $logo)
-        <img src="/images/clients/{{ $logo }}" class="h-12 inline-block" alt="Client Logo">
+      @foreach ($clients as $client)
+        <img src="data:image/png;base64,{{ base64_encode($client->cLogo) }}" class="h-12 inline-block" alt="Client Logo">
       @endforeach
     </div>
+      <div class="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-gray-100 to-transparent pointer-events-none"></div>
+      <div class="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-gray-100 to-transparent pointer-events-none"></div>
   </div>
 
   {{-- Button --}}
-  <div class="text-center mt-8 relative z-10">
-    <a href="#" class="bg-blue-400 text-white px-6 py-2 rounded hover:bg-blue-600 transition">
-      Testimonials
-    </a>
-  </div>
+    <div class="text-center mt-12">
+      <a 
+        href="{{ url('/testimonials') }}" 
+        class="inline-flex items-center bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-3 rounded-lg shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-blue-300"
+        aria-label="View all testimonials"
+      >
+        View All Testimonials
+        <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+        </svg>
+      </a>
+    </div>
 </section>
 
 {{-- Articles Section --}}
-<section class="bg-white py-16 px-10">
-  <div class="container mx-auto text-center">
-    <h2 class="text-3xl font-bold mb-10">JUDUL ARTIKEL</h2>
-    <div class="relative">
-      <img src="/images/article-sample.jpg" alt="Article" class="w-full h-64 object-cover rounded shadow">
-      <div class="absolute bottom-0 bg-gradient-to-t from-black/70 to-transparent text-left p-4 w-full text-white">
-        <p>Lorem ipsum dolor sit amet...</p>
-        <p class="text-sm mt-2">by: User 1 | DD/MM/YYYY</p>
-      </div>
+<section class="bg-gray-50 py-20 px-6">
+  <div class="container mx-auto max-w-7xl">
+    <!-- Section Header -->
+    <div class="text-center mb-16">
+      <h2 class="text-4xl font-bold text-gray-900 mb-4">Latest Articles</h2>
+      <div class="w-20 h-1 bg-gradient-to-r from-blue-500 to-red-500 mx-auto mb-6"></div>
+    </div>  
+    
+    <!-- Articles Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+      @if(isset($articles) && $articles->isNotEmpty())
+        @foreach($articles->take(3) as $article)
+          <article class="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group">
+            <!-- Article Image -->
+            <div class="relative overflow-hidden">
+              <img 
+                src="{{ $article->image }}"
+                alt="{{ $article->title }}" 
+                class="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-300"
+              >
+              <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            </div>
+            
+            <!-- Article Content -->
+            <div class="p-6">
+              <a href="{{ route('articles.show', $article->ID) }}" class="block group-link">
+                <h3 class="font-bold text-xl text-gray-900 mb-3 line-clamp-2 group-hover:text-blue-600 transition-colors duration-200">
+                  {{ $article->title }}
+                </h3>
+              </a>
+              
+              <p class="text-gray-600 text-base leading-relaxed mb-4 line-clamp-3">
+                {{ $article->excerpt }}
+              </p>
+              
+              <!-- Article Meta -->
+              <div class="flex items-center justify-between text-sm text-gray-500 pt-4 border-t border-gray-100">
+                <span class="font-medium">{{ $article->author }}</span>
+                <time datetime="{{ $article->created_at }}">
+                  {{ \Carbon\Carbon::parse($article->created_at)->format('M j, Y') }}
+                </time>
+              </div>
+            </div>
+          </article>
+        @endforeach
+      @else
+        <div class="col-span-full text-center py-12">
+          <div class="max-w-md mx-auto">
+            <svg class="mx-auto h-12 w-12 text-gray-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+            <h3 class="text-lg font-medium text-gray-900 mb-2">No Articles Available</h3>
+            <p class="text-gray-500">Check back soon for new content and updates.</p>
+          </div>
+        </div>
+      @endif
     </div>
-    <div class="mt-6">
-      <a href="#" class="bg-red-600 text-white px-6 py-2 rounded hover:bg-red-700">Read more articles</a>
+    
+    <!-- Call to Action -->
+    <div class="text-center">
+      <a 
+        href="{{ url('/articles') }}" 
+        class="inline-flex items-center bg-red-600 hover:bg-red-700 text-white font-semibold px-8 py-3 rounded-lg shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-red-300"
+        aria-label="Read more articles"
+      >
+        Read More Articles
+        <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+        </svg>
+      </a>
     </div>
   </div>
 </section>
 
+<style>
+.line-clamp-2 {
+  display: -webkit-box;
+  line-clamp: 2;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  line-clamp: 3;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+</style>
 @endsection
+
+

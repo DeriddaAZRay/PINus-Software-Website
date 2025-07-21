@@ -1,6 +1,8 @@
 <header class="bg-white border-b-2 shadow-md sticky top-0 z-50">
   <div class="container mx-auto flex justify-between items-center p-4 px-10">
-    <img src="/images/logo.webp" alt="PINUS Logo" class="h-16">
+    <a href="{{ url('/') }}">
+      <img src="/images/logo.webp" alt="PINUS Logo" class="h-16">
+    </a>
     <nav class="space-x-6">
       <a href="{{ request()->is('/') ? '#' : url('/') }}" class="font-medium {{ request()->is('/') ? 'underline' : 'text-gray-700' }}">Home</a>
       <div class="relative inline-block">
