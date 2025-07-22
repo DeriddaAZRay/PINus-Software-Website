@@ -146,7 +146,8 @@
 <section class="bg-gray-100 py-10 px-4 overflow-hidden">
   {{-- Heading --}}
   <div class="container mx-auto mb-8">
-    <h2 class="text-xl font-semibold text-center">Hear more from our clients</h2>
+    <h2 class="text-3xl font-bold text-center mb-4">Our Clients</h2>
+    <div class="w-24 h-1 bg-gradient-to-r from-blue-500 to-red-500 mx-auto mb-4"></div>
   </div>
 
   {{-- Logos Scroll Row --}}

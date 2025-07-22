@@ -26,7 +26,7 @@ class ArticleController extends Controller
             $query->byCategoryName($request->category);
         }
 
-        $articles = $query->latest()->paginate(12);
+        $articles = $query->latest()->paginate(3);
         
         // Get categories that have published articles - all active categories
         $categories = Category::active()

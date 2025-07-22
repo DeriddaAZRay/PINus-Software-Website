@@ -72,9 +72,7 @@
                                             <img src="data:image/png;base64,{{ base64_encode($testimonial->client->cLogo) }}"
                                                 class="h-12 w-auto" alt="{{ $testimonial->client->cKeterangan ?? 'Client Logo' }}">
                                         @else
-                                            <div class="h-12 w-20 bg-gray-200 rounded flex items-center justify-center">
-                                                <span class="text-gray-500 text-xs">No Logo</span>
-                                            </div>
+                                            
                                         @endif
                                     </div>
 
@@ -215,7 +213,7 @@ document.addEventListener('DOMContentLoaded', function () {
         spaceBetween: 30,
         loop: true,
         autoplay: {
-            delay: 3000,
+            delay: 1500,
             disableOnInteraction: false,
         },
         navigation: {
