@@ -3,7 +3,7 @@
 @section('content')
 
 <section class="text-center">
-  <div class="bg-white py-16 relative overflow-hidden">
+  <div class="bg-white py-8 relative overflow-hidden">
       <img src="{{ asset('images/title-bg-left.png') }}" alt=""
           class="h-24 md:h-32 absolute top-1/2 left-0 transform -translate-y-1/2 opacity-80 z-0">
 
@@ -35,10 +35,10 @@
         <div id="popupContent" class="mt-8">
           <div class="flex items-center mb-6">
             <img id="popupLogo" src="" alt="" class="h-12 w-12 mr-4 flex-shrink-0">
-            <h2 id="popupTitle" class="text-2xl font-bold text-gray-800"></h2>
+            <h2 id="popupTitle" class="text-xl font-bold text-gray-800 text-left"></h2>
           </div>
           
-          <div class="mb-6">
+          <div class="mb-6 text-left">
             <p id="popupDescription" class="text-gray-600 leading-relaxed"></p>
           </div>
           
@@ -56,29 +56,26 @@
     <div id="overlay" class="absolute bg-black bg-opacity-50 z-40 opacity-0 invisible transition-all duration-300"></div>
 
     <!-- Product Grid -->
-    <div id="productGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 transition-all duration-300">
+    <div id="productGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 transition-all duration-300 mb-16">
       @foreach($products as $product)
-      <div class="product-card bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer group"
+      <div class="product-card bg-gray-100 rounded-lg shadow-lg overflow-hidden transition-all duration-300 cursor-pointer group relative"
            data-product-id="{{ $product->id }}"
            data-title="{{ $product->cJudul }}"
            data-description="{{ $product->cKeterangan }}"
            data-logo="{{ base64_encode($product->cLogo) }}"
-           data-features="{{ json_encode($product->features->pluck('cFitur')) }}">
+           data-features="{{ json_encode($product->features->pluck('cFitur')) }}"
+           style="filter: drop-shadow(0 0 0 transparent); transition: all 0.3s ease;">
         
-        <div class="p-6 h-36 flex flex-col justify-between relative overflow-hidden">
-          <!-- Background gradient effect on hover -->
-          <div class="absolute inset-0 bg-gradient-to-br from-blue-50 to-indigo-100 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-          
+        <div class="p-6 h-36 flex flex-col justify-between relative">
           <div class="relative z-10">
             <!-- Icon and Title Row -->
             <div class="flex items-start mb-4">
               <img src="data:image/png;base64,{{ base64_encode($product->cLogo) }}" 
                    alt="{{ $product->cJudul }}" 
                    class="h-10 w-10 mr-4 flex-shrink-0">
-              <h3 class="text-xl font-semibold text-gray-800 text-left leading-tight">{{ $product->cJudul }}</h3>
+              <h3 class="text-lg font-semibold text-gray-800 text-left leading-tight">{{ $product->cJudul }}</h3>
             </div>
           </div>
-          
           <!-- Learn More Button -->
           <div class="relative z-10 flex items-center justify-start mt-4">
             <div class="learn-more-btn flex items-center text-blue-600 font-medium transition-all duration-300 group-hover:text-blue-700">
@@ -92,9 +89,6 @@
       </div>
       @endforeach
     </div>
-  </div>
-</section>
-
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const productCards = document.querySelectorAll('.product-card');
@@ -210,7 +204,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <style>
-/* Additional custom styles for smooth animations */
+
 .product-card {
     transform: scale(1);
     transition: all 0.3s ease;
@@ -218,6 +212,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
 .product-card:hover {
     transform: scale(1.02);
+    box-shadow: -8px 8px 20px rgba(62, 216, 255, 0.3),
+                0 12px 25px rgba(255, 233, 254, 0.3),
+                8px 8px 20px rgba(234, 63, 63, 0.3) !important;
 }
 
 .learn-more-btn span {

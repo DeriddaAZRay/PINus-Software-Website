@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Article;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class ArticleController extends Controller
@@ -253,7 +254,7 @@ class ArticleController extends Controller
                 ->header('Expires', gmdate('D, d M Y H:i:s', time() + 3600) . ' GMT');
                 
         } catch (\Exception $e) {
-            \Log::error("Error serving blob image for article {$id}: " . $e->getMessage());
+            \Illuminate\Support\Facades\Log::error("Error serving blob image for article {$id}: " . $e->getMessage());
             return redirect(asset('images/default-article.webp'));
         }
     }
@@ -308,8 +309,102 @@ class ArticleController extends Controller
             ->header('Expires', gmdate('D, d M Y H:i:s', time() + 3600) . ' GMT');
             
     } catch (\Exception $e) {
-        \Log::error("Error serving cached blob image for article {$id}: " . $e->getMessage());
+        \Illuminate\Support\Facades\Log::error("Error serving cached blob image for article {$id}: " . $e->getMessage());
         return redirect(asset('images/default-article.webp'));
     }
     }
+
+    public function adminIndex()
+    {
+        $articles = Article::with('category')->get();
+        $categories = Category::all(); // for the form
+
+        return view('admin.articles.index', compact('articles', 'categories'));
+    }
+
+    public function create()
+    {
+        $categories = Category::orderByName()->get();
+        return view('admin.articles.create', compact('categories'));
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'cJudul' => 'required|string|max:255',
+            'cKeterangan' => 'required',
+            'nID_Kategori' => 'required|exists:tb_kategori,ID',
+            'cThumbnail' => 'nullable|image|max:2048',
+        ]);
+
+        $data = $request->only(['cJudul', 'cKeterangan', 'nID_Kategori']);
+        $data['cUserID_Input'] = session('admin_user') ?? 'admin';
+
+        if ($request->hasFile('cThumbnail')) {
+            $data['cThumbnailPath'] = $request->file('cThumbnail')->store('images/articles', 'public');
+        }
+
+        Article::create($data);
+        return redirect()->route('admin.articles.index')->with('success', 'Article created successfully.');
+    }
+
+    public function edit($id)
+    {
+        $article = Article::findOrFail($id);
+        $categories = Category::orderByName()->get();
+        return view('admin.articles.edit', compact('article', 'categories'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $article = Article::findOrFail($id);
+
+        $request->validate([
+            'cJudul' => 'required|string|max:255',
+            'cKeterangan' => 'required',
+            'nID_Kategori' => 'required|exists:tb_kategori,ID',
+            'cThumbnail' => 'nullable|image|max:2048',
+        ]);
+
+        $article->cJudul = $request->cJudul;
+        $article->cKeterangan = $request->cKeterangan;
+        $article->nID_Kategori = $request->nID_Kategori;
+        $article->cUserID_Edit = session('admin_user') ?? 'admin';
+
+        if ($request->hasFile('cThumbnail')) {
+            $article->cThumbnailPath = $request->file('cThumbnail')->store('images/articles', 'public');
+        }
+
+        $article->save();
+        return redirect()->route('admin.articles.index')->with('success', 'Article updated successfully.');
+    }
+
+    public function destroy($id)
+    {
+        $article = Article::findOrFail($id);
+        $article->lVoid = 1; // Soft delete
+        $article->save();
+        return redirect()->route('admin.articles.index')->with('success', 'Article deleted.');
+    }
+    public function storeCategory(Request $request)
+    {
+        $request->validate([
+            'cKeterangan' => 'required|string|max:255'
+        ]);
+
+        Category::create([
+            'cKeterangan' => $request->cKeterangan,
+            'cUserID_Input' => session('admin_user') ?? 'admin',
+        ]);
+
+        return redirect()->back()->with('success', 'Category created successfully.');
+    }
+    public function destroyCategory($id)
+    {
+        $category = Category::findOrFail($id);
+        $category->delete();
+
+        return redirect()->route('admin.articles.index')->with('success', 'Category deleted.');
+    }
+    
 }

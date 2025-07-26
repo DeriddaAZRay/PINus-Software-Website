@@ -21,9 +21,6 @@
         transform: translateX(-100%);
       }
     }
-  </style>
-  
-  <style>
     /* Position arrows outside the swiper container */
     .testimonial-swiper .swiper-button-prev,
     .testimonial-swiper .swiper-button-next {
@@ -135,6 +132,16 @@
         padding: 0 60px;
       }
     }
+    .trix-content ul {
+    list-style-type: disc;
+    margin-left: 1.5rem;
+  }
+
+  .trix-content ol {
+    list-style-type: decimal;
+    margin-left: 1.5rem;
+  }
+
   </style>
 
 <!-- Floating WhatsApp Button -->

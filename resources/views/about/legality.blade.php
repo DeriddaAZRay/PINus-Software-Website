@@ -15,12 +15,12 @@
         <div class="w-full md:ml-auto md:w-3/4 bg-white/10 backdrop-blur-md border border-white/30 shadow-lg min-h-screen md:min-h-auto">
             <div class="relative z-10 bg-gradient-to-b md:bg-gradient-to-r from-white/80 md:from-white/60 via-white/70 md:via-white/40 to-white/60 md:to-white/20 backdrop-blur-sm">
                 <!-- Header -->
-                <div class="py-10 md:py-10 pt-16 md:pt-10 relative overflow-hidden">
+                <div class="py-6 md:py-6 pt-12 md:pt-8 relative overflow-hidden">
                     <div class="container mx-auto relative z-10">
-                        <div class="flex items-center justify-center mb-8 relative">
+                        <div class="flex items-center justify-center mb-4 relative">
                             <div class="text-center">
                                 <h1 class="text-3xl md:text-4xl font-bold text-gray-800 mb-2">Company Legality</h1>
-                                <div class="w-24 h-1 bg-gradient-to-r from-blue-500 to-red-500 mx-auto mb-4"></div>
+                                <div class="w-24 h-1 bg-gradient-to-r from-blue-500 to-red-500 mx-auto mb-2"></div>
                             </div>
                         </div>
                     </div>

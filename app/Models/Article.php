@@ -187,7 +187,7 @@ class Article extends Model
             return "data:{$mimeType};base64,{$base64}";
             
         } catch (\Exception $e) {
-            \Log::error("Error converting blob to data URL for article {$this->ID}: " . $e->getMessage());
+            \Illuminate\Support\Facades\Log::error("Error converting blob to data URL for article {$this->ID}: " . $e->getMessage());
             return asset('images/default-article.webp');
         }
     }

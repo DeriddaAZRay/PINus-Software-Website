@@ -16,3 +16,13 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withExceptions(function (Exceptions $exceptions): void {
         //
     })->create();
+
+$app = new Illuminate\Foundation\Application(
+    $_ENV['APP_BASE_PATH'] ?? dirname(__DIR__)
+);
+
+    $app->routeMiddleware([
+    'admin' => App\Http\Middleware\AdminAuth::class,
+]);
+
+

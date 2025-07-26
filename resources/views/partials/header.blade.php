@@ -41,11 +41,14 @@
             <a href="/about/legality" class="block px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-150">Company Legality</a>
             <hr class="border-t border-gray-100">
             <a href="/about/visimisi" class="block px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-150 rounded-b-lg">Vision & Mission</a>
+            <a href="/about/logo-philosophy" class="block px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-150 rounded-b-lg">Logo Philosophy</a>
+            <a href="/about/logo-transition" class="block px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-150 rounded-b-lg">Logo Transition</a>
           </div>
         </div>
 
         <a href="/articles" class="font-medium text-sm xl:text-base transition-colors duration-200 hover:text-blue-600 text-gray-700 {{ request()->is('articles') ? 'border-b-2 border-blue-600' : '' }}">Articles</a>
         <a href="/products" class="font-medium text-sm xl:text-base transition-colors duration-200 hover:text-blue-600 text-gray-700 {{ request()->is('products') ? 'border-b-2 border-blue-600' : '' }}">Our Products</a>
+        <a href="/gallery" class="font-medium text-sm xl:text-base transition-colors duration-200 hover:text-blue-600 text-gray-700 {{ request()->is('gallery') ? 'border-b-2 border-blue-600' : '' }}">Gallery</a>
         <a href="/testimonials" class="font-medium text-sm xl:text-base transition-colors duration-200 hover:text-blue-600 text-gray-700 {{ request()->is('testimonials') ? 'border-b-2 border-blue-600' : '' }}">Testimonials</a>
       </nav>
 
@@ -81,15 +84,17 @@
             </svg>
           </button>
           <div id="mobileAboutMenu" class="hidden pl-4 space-y-1 mt-1">
-            <a href="/about/introduction" class="block px-4 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors duration-150">Introduction</a>
-            <a href="/about/legality" class="block px-4 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors duration-150">Company Legality</a>
             <a href="/about/history" class="block px-4 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors duration-150">Our History</a>
+            <a href="/about/legality" class="block px-4 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors duration-150">Company Legality</a>
             <a href="/about/visimisi" class="block px-4 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors duration-150">Vision & Mission</a>
+            <a href="/about/logo-philosophy" class="block px-4 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors duration-150">Logo Philosophy</a>
+            <a href="/about/logo-transition" class="block px-4 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors duration-150">Logo Transition</a>
           </div>
         </div>
 
         <a href="/articles" class="block px-4 py-3 text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-md transition-colors duration-200">Articles</a>
         <a href="/products" class="block px-4 py-3 text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-md transition-colors duration-200">Our Products</a>
+        <a href="/gallery" class="block px-4 py-3 text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-md transition-colors duration-200">Gallery</a>
         <a href="/testimonials" class="block px-4 py-3 text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-md transition-colors duration-200">Testimonials</a>
       </nav>
     </div>

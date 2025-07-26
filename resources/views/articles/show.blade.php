@@ -26,33 +26,13 @@
         <div class="mb-6 flex justify-center">
             <img src="{{ $article->image }}" 
                  alt="{{ $article->title }}"
-                 class="w-11/12 h-auto rounded-lg shadow-md">
+                 class="w-full max-w-3xl h-[400px] object-cover rounded-lg shadow-md">
         </div>
         @endif
 
         <!-- Article Content -->
-        <div class="prose prose-lg max-w-none whitespace-pre-line">
-            @php
-                $content = $article->content;
-                // Regular expression to match YouTube URLs
-                $pattern = '/(https?:\/\/)?(www\.)?(youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/';
-                
-                // Replace YouTube links with embeds
-                $content = preg_replace_callback($pattern, function($matches) {
-                    $videoId = $matches[4];
-                    $videoId = preg_replace('/\?.*/', '', $videoId);
-                    return '<div class="relative w-full" style="padding-bottom: 56.25%;">
-                              <iframe src="https://www.youtube.com/embed/' . $videoId . '" 
-                                      frameborder="0" 
-                                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                      allowfullscreen
-                                      class="absolute top-0 left-0 w-full h-full">
-                              </iframe>
-                           </div>';
-                }, $content);
-            @endphp
-            
-            {!! $content !!}
+        <div class="prose prose-lg max-w-none whitespace-pre-line trix-content">
+            {!! $article->content !!}
         </div>
 
         <!-- Category -->

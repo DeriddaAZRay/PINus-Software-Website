@@ -105,6 +105,9 @@ return [
         ),
     ],
 
+    'password_salt' => env('PASSWORD_SALT', 'pinus-software-admin-account-salt:-electric-boogaloo-v2-the-remix'),
+    'bcrypt_rounds' => env('BCRYPT_ROUNDS', 12),
+
     /*
     |--------------------------------------------------------------------------
     | Maintenance Mode Driver

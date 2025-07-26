@@ -165,10 +165,10 @@
                 <article class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow hover-lift">
                     <div class="md:flex">
                         <div class="md:w-1/3 relative">
-                            <div class="image-container">
+                            <div class="image-container h-48">
                                 <img src="{{ $article->image }}" 
                                      alt="{{ $article->title }}" 
-                                     class="w-full h-48 md:h-full object-cover transition-opacity duration-300"
+                                     class="w-full h-full object-cover transition-opacity duration-300"
                                      loading="lazy">
                             </div>
                         </div>

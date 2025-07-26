@@ -25,4 +25,14 @@ class AboutController extends Controller
     {
         return view('about.visimisi');
     }
+
+    public function logoPhilosophy()
+    {
+        return view('about.logoPhilosophy');
+    }
+
+    public function logoTransition()
+    {
+        return view('about.logoTransition');
+    }
 }

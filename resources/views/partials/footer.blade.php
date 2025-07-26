@@ -27,20 +27,30 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
                                 </svg>
-                                0878-1327-1683 (Marketing)
+                                0878-1327-1683 (Office)
                             </a>
-                            <a href="https://wa.me/6285183057190" class="hover:text-blue-600 break-all block flex items-center gap-2">
+                            <div class="flex items-center gap-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
                                 </svg>
-                                0851-8305-7190 (CS)
-                            </a>
-                            <a href="https://wa.me/6285791719805" class="hover:text-blue-600 break-all block flex items-center gap-2">
+                                <span class="flex gap-1">
+                                    <a href="https://wa.me/6285183057190" class="hover:text-blue-600">0851-8305-7190</a>,
+                                    <a href="https://wa.me/6285791719805" class="hover:text-blue-600">0857-9171-9805</a>
+                                    (CS)
+                                </span>
+                            </div>
+                            <div class="flex items-center gap-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21.582 6.186c-.23-.86-.908-1.538-1.768-1.768C18.254 4 12 4 12 4s-6.254 0-7.814.418c-.86.23-1.538.908-1.768 1.768C2 7.746 2 12 2 12s0 4.254.418 5.814c.23.86.908 1.538 1.768 1.768C5.746 20 12 20 12 20s6.254 0 7.814-.418c.861-.23 1.538-.908 1.768-1.768C22 16.254 22 12 22 12s0-4.254-.418-5.814zM10 15.464V8.536L16 12l-6 3.464z" />
                                 </svg>
-                                0857-9171-9805 (CS)
-                            </a>
+                                <a href="http://www.youtube.com/@performaintinusantara6547" target="_blank" class="hover:text-blue-600">YouTube: Performa Inti Nusantara</a>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 2c2.717 0 3.056.01 4.122.06 1.065.05 1.79.217 2.428.465.66.254 1.216.598 1.772 1.153a4.908 4.908 0 0 1 1.153 1.772c.247.637.415 1.363.465 2.428.047 1.066.06 1.405.06 4.122 0 2.717-.01 3.056-.06 4.122-.05 1.065-.218 1.79-.465 2.428a4.883 4.883 0 0 1-1.153 1.772 4.915 4.915 0 0 1-1.772 1.153c-.637.247-1.363.415-2.428.465-1.066.047-1.405.06-4.122.06-2.717 0-3.056-.01-4.122-.06-1.065-.05-1.79-.218-2.428-.465a4.89 4.89 0 0 1-1.772-1.153 4.904 4.904 0 0 1-1.153-1.772c-.248-.637-.415-1.363-.465-2.428C2.013 15.056 2 14.717 2 12c0-2.717.01-3.056.06-4.122.05-1.066.217-1.79.465-2.428a4.88 4.88 0 0 1 1.153-1.772A4.897 4.897 0 0 1 5.45 2.525c.638-.248 1.362-.415 2.428-.465C8.944 2.013 9.283 2 12 2zm0 5a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm6.5-.25a1.25 1.25 0 1 0-2.5 0 1.25 1.25 0 0 0 2.5 0zM12 9a3 3 0 1 1 0 6 3 3 0 0 1 0-6z" />
+                                </svg>
+                                <a href="https://www.instagram.com/pinus_it?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="hover:text-blue-600">Instagram: @pinus_it</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -53,8 +63,10 @@
                     <a href="/about/history" class="hover:text-blue-600 block">Our History</a>
                     <a href="/about/legality" class="hover:text-blue-600 block">Company Legality</a>
                     <a href="/about/visimisi" class="hover:text-blue-600 block">Vision & Mission</a>
+                    <a href="/about/logo-philosophy" class="hover:text-blue-600 block">Logo Philosophy</a>
+                    <a href="/about/logo-transition" class="hover:text-blue-600 block">Logo Transition</a>
                     <a href="/articles" class="hover:text-blue-600 block">Articles</a>
-                    <a href="/products" class="hover:text-blue-600 block">Our Products</a>
+                    <a href="/gallery" class="hover:text-blue-600 block">Gallery</a>
                 </div>
             </div>
 
@@ -63,7 +75,7 @@
                 <strong class="block mb-3">Our Products</strong>
                 <div class="space-y-2">
                     <a href="/products" class="hover:text-blue-600 block">Featured Products</a>
-                    <a href="#" class="hover:text-blue-600 block">Integration Capability</a>
+                    <a href="/products#integration-capabilities" class="hover:text-blue-600 block">Integration Capability</a>
                 </div>
             </div>
 

@@ -17,8 +17,8 @@
       </p>
       <div class="flex justify-center gap-4">
         <a 
-          href="{{ url('/about/introduction') }}" 
-          class="inline-flex items-center border border-gray-600 text-gray-800 font-semibold px-8 py-3 rounded-lg shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-gray-300 hover:bg-gray-300 hover:bg-opacity-60"
+          href="{{ url('/about/history') }}" 
+          class="inline-flex items-center bg-white/20 backdrop-blur-sm border border-gray/50 text-gray-800 font-semibold px-8 py-3 rounded-lg hover:bg-white/30 transform hover:-translate-y-0.5 transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-white/20 shadow-md hover:shadow-lg"
         >
           About Us
         </a>
@@ -92,7 +92,7 @@
               @endphp
               <div class="swiper-slide flex justify-center">
                 <div 
-                  class="bg-white rounded-xl shadow-lg overflow-hidden w-72 sm:w-80 cursor-pointer group"
+                  class="bg-white rounded-xl shadow-lg overflow-hidden w-72 sm:w-80 cursor-pointer group hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-red-300"
                   onclick="openVideoModal('{{ $videoId }}')"
                 >
                   <div class="relative w-full" style="padding-top: 56.25%;">
@@ -169,9 +169,9 @@
       <a 
         href="{{ url('/testimonials') }}" 
         class="inline-flex items-center bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-3 rounded-lg shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-blue-300"
-        aria-label="View all testimonials"
+        aria-label="View Testimonials"
       >
-        View All Testimonials
+        View Testimonials
         <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
         </svg>

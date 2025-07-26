@@ -3,7 +3,7 @@
 @section('content')
 <div class="bg-gray-50 min-h-screen">
     <!-- Header -->
-    <div class="bg-white py-16 relative overflow-hidden">
+    <div class="bg-white py-8 relative overflow-hidden">
         <img src="{{ asset('images/title-bg-left.png') }}" alt=""
             class="h-24 md:h-32 absolute top-1/2 left-0 transform -translate-y-1/2 opacity-80 z-0">
 
@@ -55,7 +55,7 @@
     <div class="py-16 bg-gray-50">
         <div class="container mx-auto px-4">
             <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold text-gray-800 mb-2">Hear what our clients said</h2>
+                <h2 class="text-3xl font-bold text-gray-800 mb-2">Hear our client's testimonials</h2>
                 <div class="w-20 h-1 bg-gradient-to-r from-blue-500 to-red-500 mx-auto mb-4"></div>
             </div>
 
