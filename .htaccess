@@ -1,0 +1,21 @@
+RewriteEngine On
+
+# Handle Angular/React routes - prevent redirect for API calls
+RewriteCond %{REQUEST_URI} ^/api/ [OR]
+RewriteCond %{REQUEST_URI} \.(css|js|png|jpg|jpeg|gif|ico|svg)$ [OR]
+RewriteCond %{REQUEST_URI} ^/storage/
+RewriteRule ^ - [L]
+
+# Redirect root to /company/public/
+RewriteRule ^$ /company/public/ [R=301,L]
+
+# Redirect requests that don't start with /company/public/ (but preserve Laravel routes)
+RewriteCond %{REQUEST_URI} !^/company/public/
+RewriteCond %{REQUEST_URI} !^/api/
+RewriteRule ^(.*)$ /company/public/$1 [R=301,L]
+
+# Handle Laravel routing within /company/public/
+RewriteCond %{REQUEST_URI} ^/company/public/
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^company/public/(.*)$ /company/public/index.php [QSA,L]

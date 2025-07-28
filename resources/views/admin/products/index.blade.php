@@ -7,17 +7,17 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
-    <div class="flex min-h-screen">
+    <div class="flex min-h-screen flex-col md:flex-row">
         <!-- Include Sidebar -->
         @include('admin.sidebar')
         <!-- Main Content -->
-        <div class="flex-1 flex flex-col ml-64 max-w-full">
+        <div class="flex-1 flex flex-col md:ml-64 w-full">
             <!-- Top Header -->
-            <header class="bg-white shadow-sm border-b border-gray-100 p-6">
-                <div class="flex flex-wrap items-center justify-between gap-4">
+            <header class="bg-white shadow-sm border-b border-gray-100 p-4 md:p-6">
+                <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
                     <div>
-                        <h1 class="text-2xl font-bold text-gray-800">Product Management</h1>
-                        <p class="text-gray-600 mt-1">Manage your products and features</p>
+                        <h1 class="text-xl md:text-2xl font-bold text-gray-800">Product Management</h1>
+                        <p class="text-sm md:text-base text-gray-600 mt-1">Manage your products and features</p>
                     </div>
                     <div class="flex items-center space-x-4">
                         <div class="text-right">
@@ -148,25 +148,25 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td class="px-6 py-4">
-                                                <div class="flex items-center">
-                                                    <div class="h-12 w-16 rounded-lg overflow-hidden bg-gray-100 border border-gray-200 flex-shrink-0">
-                                                        @if($product->cLogo)
-                                                            <img 
-                                                                src="{{ $product->cLogo }}" 
-                                                                alt="Logo" 
-                                                                class="h-full w-full object-cover"
-                                                                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
-                                                            >
-                                                        @endif
-                                                        <div class="h-full w-full items-center justify-center {{ $product->cLogo ? 'hidden' : 'flex' }}">
-                                                            <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                                                            </svg>
-                                                        </div>
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-center">
+                                                <div class="h-12 w-12 rounded-lg overflow-hidden bg-gray-100 border border-gray-200 flex-shrink-0">
+                                                    @if($product->cLogo)
+                                                        <img 
+                                                            src="data:image/jpeg;base64,{{ base64_encode($product->cLogo) }}"
+                                                            alt="Logo" 
+                                                            class="h-full w-full object-contain"
+                                                            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                                                        >
+                                                    @endif
+                                                    <div class="h-full w-full items-center justify-center {{ $product->cLogo ? 'hidden' : 'flex' }}">
+                                                        <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                                        </svg>
                                                     </div>
                                                 </div>
-                                            </td>
+                                            </div>
+                                        </td>
                                             <td class="px-6 py-4">
                                                 <div class="text-sm text-gray-900 max-w-xs truncate">
                                                     {{ Str::limit($product->cKeterangan, 100) }}

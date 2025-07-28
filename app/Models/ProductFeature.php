@@ -13,14 +13,11 @@ class ProductFeature extends Model
     protected $primaryKey = 'ID';
     public $incrementing = true;
     protected $keyType = 'int';
+    public $timestamps = false;
 
     protected $fillable = [
         'nID_Product',
         'cFitur',
-        'cUserID_Input',
-        'dTgl_Input',
-        'cUserID_Edit',
-        'dTgl_Edit'
     ];
 
     protected $casts = [

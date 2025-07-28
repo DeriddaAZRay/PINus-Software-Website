@@ -4,11 +4,21 @@
 <div class="container mx-auto px-4 py-8">
     <div class="max-w-4xl mx-auto">
         <div class="mb-2">
-            <a href="/articles" class="inline-flex items-center text-sm text-gray-600 hover:text-gray-800">
+            <a href="{{route('articles')}}" class="inline-flex items-center text-sm text-gray-600 hover:text-gray-800">
                 <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
                 </svg>
                 Articles
+            </a>
+        </div>
+        <div class="mb-4 text-right">
+            @php
+                $isEnglish = request()->get('lang') === 'en';
+                $url = request()->fullUrlWithQuery(['lang' => $isEnglish ? 'id' : 'en']);
+            @endphp
+            <a href="{{ $url }}"
+            class="text-sm text-blue-600 hover:underline">
+                Switch to {{ $isEnglish ? 'Bahasa Indonesia' : 'English' }}
             </a>
         </div>
         <!-- Article Header -->
@@ -95,7 +105,7 @@
                     @endif
                     <div class="p-4">
                         <h4 class="font-semibold mb-2">
-                            <a href="{{ route('articles.show', $relatedArticle) }}" 
+                           <a href="{{ route('articles.show', $relatedArticle) }}?lang={{ request()->get('lang', 'id') }}"
                                class="hover:text-blue-600">
                                 {{ $relatedArticle->title }}
                             </a>

@@ -5,43 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Product</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.0/dist/trix.css">
-    <script type="text/javascript" src="https://unpkg.com/trix@2.0.0/dist/trix.umd.min.js"></script>
-
-    <style>
-    trix-editor {
-        min-height: 200px;
-        background-color: white;
-        border-radius: 0.5rem;
-        padding: 1rem;
-    }
-       /* Fix for bullet points and numbering */
-    .trix-content ul {
-        list-style-type: disc !important;
-        padding-left: 2.5em !important;
-    }
-
-    .trix-content ol {
-        list-style-type: decimal !important;
-        padding-left: 2.5em !important;
-    }
-
-    .trix-content ul ul {
-        list-style-type: circle !important;
-    }
-
-    .trix-content ul ul ul {
-        list-style-type: square !important;
-    }
-
-    .trix-content ol ol {
-        list-style-type: lower-alpha !important;
-    }
-
-    .trix-content ol ol ol {
-        list-style-type: lower-roman !important;
-    }
-    </style>
 </head>
 <body class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
     <div class="flex min-h-screen">
@@ -140,12 +103,13 @@
                                 <label for="cKeterangan" class="block text-sm font-semibold text-gray-700 mb-3">
                                     Product Description
                                 </label>
-                                <input id="cKeterangan" type="hidden" name="cKeterangan">
-                                <trix-editor 
-                                    input="cKeterangan" 
-                                    class="trix-content bg-white border border-gray-300 rounded-lg p-4 focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors duration-200"
-                                    placeholder="Write your product description here...">
-                                </trix-editor>
+                                <textarea
+                                    name="cKeterangan"
+                                    id="cKeterangan"
+                                    rows="6"
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors duration-200"
+                                    placeholder="Write your product description here..."
+                                ></textarea>
                             </div>
 
                             <!-- Logo Upload -->
@@ -227,12 +191,6 @@
                                 </a>
                                 
                                 <div class="flex space-x-3">
-                                    <button 
-                                        type="button" 
-                                        class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-3 px-6 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-4 focus:ring-gray-300"
-                                    >
-                                        Save as Draft
-                                    </button>
                                     <button 
                                         type="submit" 
                                         class="bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-4 focus:ring-green-300 flex items-center"

@@ -11,7 +11,7 @@ class HomeController extends Controller
     public function index()
     {
         $clients = Client::all();
-        $videos = Videos::all();
+        $videos = Videos::all(); 
         $articles = \App\Models\Article::published()->withActiveCategory()->latest()->take(3)->get();
         return view('home', compact('clients', 'videos', 'articles'));
     }

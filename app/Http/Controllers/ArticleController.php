@@ -15,6 +15,7 @@ class ArticleController extends Controller
      */
     public function index(Request $request)
     {
+        $lang = $request->get('lang', 'id');
         $query = Article::published()->withActiveCategory();
 
         // Search functionality
@@ -27,7 +28,7 @@ class ArticleController extends Controller
             $query->byCategoryName($request->category);
         }
 
-        $articles = $query->latest()->paginate(3);
+        $articles = $query->latest()->paginate(3)->appends(['lang' => $lang]);
         
         // Get categories that have published articles - all active categories
         $categories = Category::active()
@@ -42,7 +43,7 @@ class ArticleController extends Controller
             ->take(3)
             ->get();
 
-        return view('articles.index', compact('articles', 'categories', 'featuredArticles'));
+        return view('articles.index', compact('articles', 'categories', 'featuredArticles', 'lang'));
     }
 
     /**
@@ -50,6 +51,7 @@ class ArticleController extends Controller
      */
     public function show($id)
     {
+        $lang = request()->get('lang', 'id');
         $article = Article::where('ID', $id)
             ->published()
             ->withActiveCategory()
@@ -64,7 +66,7 @@ class ArticleController extends Controller
             ->take(3)
             ->get();
 
-        return view('articles.show', compact('article', 'relatedArticles'));
+        return view('articles.show', compact('article', 'relatedArticles', 'lang'));
     }
 
     /**
@@ -331,20 +333,33 @@ class ArticleController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'cJudul' => 'required|string|max:255',
+            'cJudul' => 'required|string|max:500',
+            'cTitle' => 'nullable|string|max:500', 
             'cKeterangan' => 'required',
+            'cContent' => 'nullable|string',
             'nID_Kategori' => 'required|exists:tb_kategori,ID',
             'cThumbnail' => 'nullable|image|max:2048',
         ]);
 
-        $data = $request->only(['cJudul', 'cKeterangan', 'nID_Kategori']);
-        $data['cUserID_Input'] = session('admin_user') ?? 'admin';
+        // Create article with validated data
+        $article = new Article();
+        $article->cJudul = $request->cJudul;
+        $article->cTitle = $request->cTitle;
+        $article->cKeterangan = $request->cKeterangan;
+        $article->cContent = $request->cContent; // Explicitly set cContent
+        $article->nID_Kategori = $request->nID_Kategori;
+        $article->cUserID_Input = session('admin_user') ?? 'admin';
+        $article->lVoid = 0; // Ensure it's not voided
+        $article->dTgl_Input = now();
 
+        // Handle thumbnail upload if present
         if ($request->hasFile('cThumbnail')) {
-            $data['cThumbnailPath'] = $request->file('cThumbnail')->store('images/articles', 'public');
+            $article->cThumbnail = file_get_contents($request->file('cThumbnail')->getRealPath());
+            $article->cThumbnailPath = null;
         }
 
-        Article::create($data);
+        $article->save();
+        
         return redirect()->route('admin.articles.index')->with('success', 'Article created successfully.');
     }
 
@@ -360,30 +375,36 @@ class ArticleController extends Controller
         $article = Article::findOrFail($id);
 
         $request->validate([
-            'cJudul' => 'required|string|max:255',
+            'cJudul' => 'required|string|max:500',
+            'cTitle' => 'nullable|string|max:500',
             'cKeterangan' => 'required',
+            'cContent' => 'nullable|string',
             'nID_Kategori' => 'required|exists:tb_kategori,ID',
             'cThumbnail' => 'nullable|image|max:2048',
         ]);
 
         $article->cJudul = $request->cJudul;
+        $article->cTitle = $request->cTitle;
         $article->cKeterangan = $request->cKeterangan;
+        $article->cContent = $request->cContent;
         $article->nID_Kategori = $request->nID_Kategori;
         $article->cUserID_Edit = session('admin_user') ?? 'admin';
+        $article->dTgl_Edit = now(); // Set edit timestamp
+
 
         if ($request->hasFile('cThumbnail')) {
-            $article->cThumbnailPath = $request->file('cThumbnail')->store('images/articles', 'public');
+            $article->cThumbnail = file_get_contents($request->file('cThumbnail')->getRealPath());
+            $article->cThumbnailPath = null;
         }
 
         $article->save();
         return redirect()->route('admin.articles.index')->with('success', 'Article updated successfully.');
     }
-
+    
     public function destroy($id)
     {
         $article = Article::findOrFail($id);
-        $article->lVoid = 1; // Soft delete
-        $article->save();
+        $article->delete();
         return redirect()->route('admin.articles.index')->with('success', 'Article deleted.');
     }
     public function storeCategory(Request $request)

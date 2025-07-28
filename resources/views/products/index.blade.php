@@ -4,12 +4,6 @@
 
 <section class="text-center">
   <div class="bg-white py-8 relative overflow-hidden">
-      <img src="{{ asset('images/title-bg-left.png') }}" alt=""
-          class="h-24 md:h-32 absolute top-1/2 left-0 transform -translate-y-1/2 opacity-80 z-0">
-
-      <img src="{{ asset('images/title-bg-right.png') }}" alt=""
-          class="h-24 md:h-32 absolute top-1/2 right-0 transform -translate-y-1/2 opacity-80 z-0">
-
       <div class="container mx-auto relative z-10">
           <div class="flex items-center justify-center mb-8 relative">
               <div class="text-center">
@@ -42,7 +36,7 @@
             <p id="popupDescription" class="text-gray-600 leading-relaxed"></p>
           </div>
           
-          <div class="space-y-4">
+          <div class="space-y-4 text-left">
             <h3 class="text-lg font-semibold text-gray-700">Key features</h3>
             <ul id="popupFeatures" class="space-y-3">
               <!-- Features will be populated here -->

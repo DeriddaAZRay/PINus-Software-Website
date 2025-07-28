@@ -94,7 +94,7 @@
                             <!-- Title Field -->
                             <div>
                                 <label for="cJudul" class="block text-sm font-semibold text-gray-700 mb-3">
-                                    Article Title
+                                    Article Title (Indonesia)
                                 </label>
                                 <div class="relative">
                                     <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -107,8 +107,30 @@
                                         name="cJudul" 
                                         id="cJudul"
                                         class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
-                                        placeholder="Enter article title"
-                                        value="{{ $article->title }}"
+                                        placeholder="Enter article title in Indonesian"
+                                        value="{{ $article->cJudul }}"
+                                        required
+                                    >
+                                </div>
+                            </div>
+
+                            <div>
+                                <label for="cTitle" class="block text-sm font-semibold text-gray-700 mb-3">
+                                    Article Title (English)
+                                </label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"></path>
+                                        </svg>
+                                    </div>
+                                    <input 
+                                        type="text" 
+                                        name="cTitle" 
+                                        id="cTitle"
+                                        class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
+                                        placeholder="Enter article title in English"
+                                        value="{{ $article->cTitle }}"
                                         required
                                     >
                                 </div>
@@ -148,11 +170,23 @@
                             <!-- Content Field -->
                             <div>
                                 <label for="cKeterangan" class="block text-sm font-semibold text-gray-700 mb-3">
-                                    Article Content
+                                    Article Content (Indonesia)
                                 </label>
                                 <input id="cKeterangan" type="hidden" name="cKeterangan" value="{{ old('cKeterangan', $article->cKeterangan ?? '') }}">
                                 <trix-editor 
                                     input="cKeterangan" 
+                                    class="trix-content bg-white border border-gray-300 rounded-lg p-4 focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors duration-200"
+                                    placeholder="Write your article content here...">
+                                </trix-editor>
+                            </div>
+
+                            <div>
+                                <label for="cContent" class="block text-sm font-semibold text-gray-700 mb-3">
+                                    Article Content (English)
+                                </label>
+                                <input id="cContent" type="hidden" name="cContent" value="{{ old('cContent', $article->cContent ?? '') }}">
+                                <trix-editor 
+                                    input="cContent" 
                                     class="trix-content bg-white border border-gray-300 rounded-lg p-4 focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors duration-200"
                                     placeholder="Write your article content here...">
                                 </trix-editor>
@@ -225,12 +259,6 @@
                                 
                                 <div class="flex space-x-3">
                                     <button 
-                                        type="button" 
-                                        class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-3 px-6 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-4 focus:ring-gray-300"
-                                    >
-                                        Save as Draft
-                                    </button>
-                                    <button 
                                         type="submit" 
                                         class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-4 focus:ring-blue-300 flex items-center"
                                     >
@@ -257,5 +285,17 @@
             </main>
         </div>
     </div>
+
+    <script>
+        // File upload preview
+        document.getElementById('cThumbnail').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const label = e.target.closest('label');
+                const fileName = file.name;
+                label.querySelector('p').innerHTML = `<span class="font-semibold text-green-600">Selected:</span> ${fileName}`;
+            }
+        });
+    </script>
 </body>
 </html>

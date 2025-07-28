@@ -143,12 +143,12 @@
                                 <label for="cKeterangan" class="block text-sm font-semibold text-gray-700 mb-3">
                                     Product Description
                                 </label>
-                                <input id="cKeterangan" type="hidden" name="cKeterangan" value="{{ old('cKeterangan', $product->cKeterangan ?? '') }}">
-                                <trix-editor 
-                                    input="cKeterangan" 
-                                    class="trix-content bg-white border border-gray-300 rounded-lg p-4 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
-                                    placeholder="Write your product description here...">
-                                </trix-editor>
+                                <textarea
+                                    id="cKeterangan"
+                                    name="cKeterangan"
+                                    class="w-full min-h-[200px] px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
+                                    placeholder="Write your product description here..."
+                                >{{ old('cKeterangan', $product->cKeterangan ?? '') }}</textarea>
                             </div>
 
                             <!-- Current Logo Display & Upload -->
@@ -284,12 +284,6 @@
                                 </a>
                                 
                                 <div class="flex space-x-3">
-                                    <button 
-                                        type="button" 
-                                        class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-3 px-6 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-4 focus:ring-gray-300"
-                                    >
-                                        Save as Draft
-                                    </button>
                                     <button 
                                         type="submit" 
                                         class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-4 focus:ring-blue-300 flex items-center"

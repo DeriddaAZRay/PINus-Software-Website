@@ -4,12 +4,6 @@
 <div class="bg-gray-50 min-h-screen">
     <!-- Header -->
     <div class="bg-white py-8 relative overflow-hidden">
-        <img src="{{ asset('images/title-bg-left.png') }}" alt=""
-            class="h-24 md:h-32 absolute top-1/2 left-0 transform -translate-y-1/2 opacity-80 z-0">
-
-        <img src="{{ asset('images/title-bg-right.png') }}" alt=""
-            class="h-24 md:h-32 absolute top-1/2 right-0 transform -translate-y-1/2 opacity-80 z-0">
-
         <div class="container mx-auto relative z-10">
             <div class="flex items-center justify-center mb-8 relative">
                 <div class="text-center">

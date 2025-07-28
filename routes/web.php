@@ -11,17 +11,14 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Middleware\AdminAuth;
 
-Route::get('/', function () {
-    return view('home');
-});
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get('/', [HomeController::class, 'index']);
 Route::prefix('about')->group(function () {
-    Route::get('/legality', [AboutController::class, 'legality']);
-    Route::get('/history', [AboutController::class, 'history']);
-    Route::get('/visimisi', [AboutController::class, 'visiMisi']);
-    Route::get('/logo-philosophy', [AboutController::class, 'logoPhilosophy']);
-    Route::get('/logo-transition', [AboutController::class, 'logoTransition']);
+    Route::get('/legality', [AboutController::class, 'legality'])->name('about.legality');
+    Route::get('/history', [AboutController::class, 'history'])->name('about.history');
+    Route::get('/visimisi', [AboutController::class, 'visiMisi'])->name('about.visimisi');
+    Route::get('/logo-philosophy', [AboutController::class, 'logoPhilosophy'])->name('about.logo-philosophy');
+    Route::get('/logo-transition', [AboutController::class, 'logoTransition'])->name('about.logo-transition');
 });
 Route::get('/testimonials', [TestimonialController::class, 'index'])->name('testimonials.index');
 Route::get('/testimonials/create', [TestimonialController::class, 'create'])->name('testimonials.create');
@@ -85,6 +82,7 @@ Route::middleware([AdminAuth::class])->group(function () {
     Route::get('/admin/products/{id}/edit', [ProductController::class, 'edit'])->name('admin.products.edit');
     Route::put('/admin/products/{id}', [ProductController::class, 'update'])->name('admin.products.update');
     Route::delete('/admin/products/{id}', [ProductController::class, 'destroy'])->name('admin.products.destroy');
+    Route::get('admin/products/product-logo/{id}', [ProductController::class, 'getLogo'])->name('product.logo');
 
 });
 

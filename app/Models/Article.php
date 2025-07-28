@@ -32,9 +32,11 @@ class Article extends Model
     protected $fillable = [
         'nID_Kategori',
         'cJudul',
+        'cTitle',
         'cThumbnailPath',
         'cThumbnail',
         'cKeterangan',
+        'cContent',
         'lVoid',
         'cUserID_Input',
         'cUserID_Edit',
@@ -86,7 +88,8 @@ class Article extends Model
      */
     public function getTitleAttribute()
     {
-        return $this->cJudul;
+        $lang = request()->get('lang', 'id'); // 'id' is default
+        return $lang === 'en' && !empty($this->cTitle) ? $this->cTitle : $this->cJudul;
     }
 
     /**
@@ -94,7 +97,8 @@ class Article extends Model
      */
     public function getContentAttribute()
     {
-        return $this->cKeterangan;
+        $lang = request()->get('lang', 'id');
+        return $lang === 'en' && !empty($this->cContent) ? $this->cContent : $this->cKeterangan;
     }
 
     /**
@@ -102,7 +106,7 @@ class Article extends Model
      */
     public function getExcerptAttribute()
     {
-        $content = strip_tags($this->cKeterangan);
+        $content = strip_tags($this->content);
         return strlen($content) > 150 ? substr($content, 0, 147) . '...' : $content;
     }
 
@@ -119,10 +123,11 @@ class Article extends Model
      */
     public function getImageAttribute()
     {
-        // First priority: cThumbnailPath (file path/URL)
-        if (!empty($this->cThumbnailPath) && trim($this->cThumbnailPath) !== '') {
-            $thumbnailPath = trim($this->cThumbnailPath);
-            
+        // Second priority: cThumbnail (blob data)
+        if (!empty($this->cThumbnail)) {
+            // Option 1: Return blob as base64 data URL (immediate solution)
+            return $this->getBlobAsDataUrl();
+
             // Check if it's already a full URL
             if (str_starts_with($thumbnailPath, 'http://') || str_starts_with($thumbnailPath, 'https://')) {
                 return $thumbnailPath;
@@ -137,11 +142,11 @@ class Article extends Model
             if (str_contains($thumbnailPath, '/')) {
                 return asset($thumbnailPath);
             }
-            
+
             // Just a filename, add the standard path
             return asset('images/articles/' . $thumbnailPath);
         }
-        
+
         // Second priority: cThumbnail (blob data)
         if (!empty($this->cThumbnail)) {
             // Option 1: Return blob as base64 data URL (immediate solution)
@@ -150,7 +155,7 @@ class Article extends Model
             // Option 2: Use route to serve blob (uncomment if you prefer this approach)
             // return route('article.image', ['id' => $this->ID]);
         }
-        
+
         // Default fallback
         return asset('images/default-article.webp');
     }
@@ -226,10 +231,7 @@ class Article extends Model
      */
     public function getImageFilenameAttribute()
     {
-        if ($this->cThumbnailPath) {
-            return $this->cThumbnailPath;
-        }
-        
+   
         if ($this->cThumbnail) {
             return "article_{$this->ID}_thumbnail";
         }

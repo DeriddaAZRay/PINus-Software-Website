@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Gallery;
+use App\Models\Videos;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -16,11 +17,15 @@ class GalleryController extends Controller
         try {
             // Get all gallery items ordered by input date (newest first)
             $galleries = Gallery::orderBy('dTgl_Input', 'desc')->get();
+            $videos = Videos::all();
             
-            return view('gallery.index', compact('galleries'));
+            return view('gallery.index', compact('galleries', 'videos'));
         } catch (\Exception $e) {
             // Handle any database errors
-            return view('gallery.index', ['galleries' => collect()]);
+            return view('gallery.index', [
+                'galleries' => collect(),
+                'videos' => collect()
+            ]);
         }
     }
 

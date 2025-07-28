@@ -12,14 +12,14 @@
     <div class="flex justify-between items-center py-3 sm:py-4">
       <!-- Logo -->
       <div class="flex-shrink-0">
-        <a href="/">
-          <img src="/images/logo.webp" alt="PINUS Logo" class="h-12 sm:h-14 lg:h-16 w-auto">
+        <a href="{{route('home')}}">
+          <img src="{{asset('/images/logo.webp')}}" alt="PINUS Logo" class="h-12 sm:h-14 lg:h-16 w-auto">
         </a>
       </div>
 
       <!-- Desktop Navigation -->
       <nav class="hidden lg:flex items-center space-x-6 xl:space-x-8">
-        <a href="/" class="font-medium text-sm xl:text-base transition-colors duration-200 hover:text-blue-600 {{ request()->is('/') ? 'border-b-2 border-blue-600' : '' }}">Home</a>
+        <a href="{{route('home')}}" class="font-medium text-sm xl:text-base transition-colors duration-200 hover:text-blue-600 {{ request()->is('/') ? 'border-b-2 border-blue-600' : '' }}">Home</a>
         
         <!-- About Us Dropdown -->
         <div class="relative group">
@@ -36,20 +36,20 @@
           <div 
             id="aboutDropdownMenu"
             class="absolute left-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform translate-y-2 group-hover:translate-y-0">
-            <a href="/about/history" class="block px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-150">Our History</a>
+            <a href="{{route('about.history')}}" class="block px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-150">Our History</a>
             <hr class="border-t border-gray-100">
-            <a href="/about/legality" class="block px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-150">Company Legality</a>
+            <a href="{{route('about.legality')}}" class="block px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-150">Company Legality</a>
             <hr class="border-t border-gray-100">
-            <a href="/about/visimisi" class="block px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-150 rounded-b-lg">Vision & Mission</a>
-            <a href="/about/logo-philosophy" class="block px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-150 rounded-b-lg">Logo Philosophy</a>
-            <a href="/about/logo-transition" class="block px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-150 rounded-b-lg">Logo Transition</a>
+            <a href="{{route('about.visimisi')}}" class="block px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-150 rounded-b-lg">Vision & Mission</a>
+            <a href="{{route('about.logo-philosophy')}}" class="block px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-150 rounded-b-lg">Logo Philosophy</a>
+            <a href="{{route('about.logo-transition')}}" class="block px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-150 rounded-b-lg">Logo Transition</a>
           </div>
         </div>
 
-        <a href="/articles" class="font-medium text-sm xl:text-base transition-colors duration-200 hover:text-blue-600 text-gray-700 {{ request()->is('articles') ? 'border-b-2 border-blue-600' : '' }}">Articles</a>
-        <a href="/products" class="font-medium text-sm xl:text-base transition-colors duration-200 hover:text-blue-600 text-gray-700 {{ request()->is('products') ? 'border-b-2 border-blue-600' : '' }}">Our Products</a>
-        <a href="/gallery" class="font-medium text-sm xl:text-base transition-colors duration-200 hover:text-blue-600 text-gray-700 {{ request()->is('gallery') ? 'border-b-2 border-blue-600' : '' }}">Gallery</a>
-        <a href="/testimonials" class="font-medium text-sm xl:text-base transition-colors duration-200 hover:text-blue-600 text-gray-700 {{ request()->is('testimonials') ? 'border-b-2 border-blue-600' : '' }}">Testimonials</a>
+        <a href="{{route('articles')}}" class="font-medium text-sm xl:text-base transition-colors duration-200 hover:text-blue-600 text-gray-700 {{ request()->is('articles') ? 'border-b-2 border-blue-600' : '' }}">Articles</a>
+        <a href="{{route('products.index')}}" class="font-medium text-sm xl:text-base transition-colors duration-200 hover:text-blue-600 text-gray-700 {{ request()->is('products') ? 'border-b-2 border-blue-600' : '' }}">Our Products</a>
+        <a href="{{route('gallery.index')}}" class="font-medium text-sm xl:text-base transition-colors duration-200 hover:text-blue-600 text-gray-700 {{ request()->is('gallery') ? 'border-b-2 border-blue-600' : '' }}">Gallery</a>
+        <a href="{{route('testimonials.index')}}" class="font-medium text-sm xl:text-base transition-colors duration-200 hover:text-blue-600 text-gray-700 {{ request()->is('testimonials') ? 'border-b-2 border-blue-600' : '' }}">Testimonials</a>
       </nav>
 
       <!-- Mobile Menu Button -->
@@ -70,13 +70,13 @@
     <!-- Mobile Navigation Menu -->
     <div id="mobileMenu" class="lg:hidden hidden border-t border-gray-200">
       <nav class="py-4 space-y-1">
-        <a href="/" class="block px-4 py-3 text-base font-medium text-blue-600 bg-blue-50 rounded-md">Home</a>
+        <a href="/" class="block px-4 py-3 text-base font-medium {{ request()->is('/') ? 'text-blue-600 bg-blue-50' : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50' }} rounded-md transition-colors duration-200">Home</a>
         
         <!-- Mobile About Us Section -->
         <div>
           <button 
             id="mobileAboutButton"
-            class="w-full text-left px-4 py-3 text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-md transition-colors duration-200 flex items-center justify-between"
+            class="w-full text-left px-4 py-3 text-base font-medium {{ request()->is('about/*') ? 'text-blue-600 bg-blue-50' : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50' }} rounded-md transition-colors duration-200 flex items-center justify-between"
           >
             About Us
             <svg class="w-5 h-5 transition-transform duration-200" id="mobileAboutIcon" fill="currentColor" viewBox="0 0 20 20">
@@ -84,18 +84,18 @@
             </svg>
           </button>
           <div id="mobileAboutMenu" class="hidden pl-4 space-y-1 mt-1">
-            <a href="/about/history" class="block px-4 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors duration-150">Our History</a>
-            <a href="/about/legality" class="block px-4 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors duration-150">Company Legality</a>
-            <a href="/about/visimisi" class="block px-4 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors duration-150">Vision & Mission</a>
-            <a href="/about/logo-philosophy" class="block px-4 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors duration-150">Logo Philosophy</a>
-            <a href="/about/logo-transition" class="block px-4 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors duration-150">Logo Transition</a>
+            <a href="{{ route('about.history') }}" class="block px-4 py-2 text-sm {{ request()->is('about/history') ? 'text-blue-600 bg-blue-50' : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50' }} rounded-md transition-colors duration-150">Our History</a>
+            <a href="{{ route('about.legality') }}" class="block px-4 py-2 text-sm {{ request()->is('about/legality') ? 'text-blue-600 bg-blue-50' : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50' }} rounded-md transition-colors duration-150">Company Legality</a>
+            <a href="{{ route('about.visimisi') }}" class="block px-4 py-2 text-sm {{ request()->is('about/visimisi') ? 'text-blue-600 bg-blue-50' : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50' }} rounded-md transition-colors duration-150">Vision & Mission</a>
+            <a href="{{ route('about.logo-philosophy') }}" class="block px-4 py-2 text-sm {{ request()->is('about/logo-philosophy') ? 'text-blue-600 bg-blue-50' : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50' }} rounded-md transition-colors duration-150">Logo Philosophy</a>
+            <a href="{{ route('about.logo-transition') }}" class="block px-4 py-2 text-sm {{ request()->is('about/logo-transition') ? 'text-blue-600 bg-blue-50' : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50' }} rounded-md transition-colors duration-150">Logo Transition</a>
           </div>
         </div>
 
-        <a href="/articles" class="block px-4 py-3 text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-md transition-colors duration-200">Articles</a>
-        <a href="/products" class="block px-4 py-3 text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-md transition-colors duration-200">Our Products</a>
-        <a href="/gallery" class="block px-4 py-3 text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-md transition-colors duration-200">Gallery</a>
-        <a href="/testimonials" class="block px-4 py-3 text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-md transition-colors duration-200">Testimonials</a>
+        <a href="{{route('articles')}}" class="block px-4 py-3 text-base font-medium {{ request()->is('articles') ? 'text-blue-600 bg-blue-50' : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50' }} rounded-md transition-colors duration-200">Articles</a>
+        <a href="{{route('products.index')}}" class="block px-4 py-3 text-base font-medium {{ request()->is('products') ? 'text-blue-600 bg-blue-50' : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50' }} rounded-md transition-colors duration-200">Our Products</a>
+        <a href="{{route('gallery.index')}}" class="block px-4 py-3 text-base font-medium {{ request()->is('gallery') ? 'text-blue-600 bg-blue-50' : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50' }} rounded-md transition-colors duration-200">Gallery</a>
+        <a href="{{route('testimonials.index')}}" class="block px-4 py-3 text-base font-medium {{ request()->is('testimonials') ? 'text-blue-600 bg-blue-50' : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50' }} rounded-md transition-colors duration-200">Testimonials</a>
       </nav>
     </div>
   </div>

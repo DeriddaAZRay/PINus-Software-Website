@@ -16,10 +16,10 @@
                     @foreach($featuredArticles as $index => $featuredArticle)
                     <div class="carousel-slide {{ $index === 0 ? 'active' : '' }}">
                         <div class="w-full md:w-1/2 relative">
-                            <div class="image-container">
+                            <div class="aspect-video relative overflow-hidden">
                                 <img src="{{ $featuredArticle->image }}" 
                                      alt="{{ $featuredArticle->title }}" 
-                                     class="w-full h-64 md:h-80 object-cover transition-opacity duration-300"
+                                     class="absolute inset-0 w-full h-full object-cover transition-opacity duration-300"
                                      loading="{{ $index === 0 ? 'eager' : 'lazy' }}">                              
                             </div>
                         </div>
@@ -165,10 +165,10 @@
                 <article class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow hover-lift">
                     <div class="md:flex">
                         <div class="md:w-1/3 relative">
-                            <div class="image-container h-48">
+                            <div class="aspect-video relative overflow-hidden">
                                 <img src="{{ $article->image }}" 
                                      alt="{{ $article->title }}" 
-                                     class="w-full h-full object-cover transition-opacity duration-300"
+                                     class="absolute inset-0 w-full h-full object-cover transition-opacity duration-300"
                                      loading="lazy">
                             </div>
                         </div>
@@ -370,6 +370,28 @@ document.addEventListener('DOMContentLoaded', function() {
     
     .carousel-slide .w-full.md\:w-1\/2:last-child {
         order: 2;
+    }
+}
+
+/* 16:9 Aspect Ratio Container */
+.aspect-video {
+    aspect-ratio: 16 / 9;
+}
+
+/* Fallback for browsers that don't support aspect-ratio */
+@supports not (aspect-ratio: 16 / 9) {
+    .aspect-video {
+        position: relative;
+        padding-bottom: 56.25%; /* 16:9 aspect ratio */
+        height: 0;
+    }
+    
+    .aspect-video img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
     }
 }
 

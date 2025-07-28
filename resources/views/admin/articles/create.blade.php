@@ -95,7 +95,7 @@
                             <!-- Title Field -->
                             <div>
                                 <label for="cJudul" class="block text-sm font-semibold text-gray-700 mb-3">
-                                    Article Title
+                                    Article Title (Indonesia)
                                 </label>
                                 <div class="relative">
                                     <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -107,6 +107,27 @@
                                         type="text" 
                                         name="cJudul" 
                                         id="cJudul"
+                                        class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors duration-200"
+                                        placeholder="Enter article title"
+                                        required
+                                    >
+                                </div>
+                            </div>
+
+                            <div>
+                                <label for="cTitle" class="block text-sm font-semibold text-gray-700 mb-3">
+                                    Article Title (English)
+                                </label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"></path>
+                                        </svg>
+                                    </div>
+                                    <input 
+                                        type="text" 
+                                        name="cTitle" 
+                                        id="cTitle"
                                         class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors duration-200"
                                         placeholder="Enter article title"
                                         required
@@ -146,11 +167,19 @@
 
                             <!-- Content Field with Updated Trix Editor -->
                             <div>
-                                <label for="x" class="block text-sm font-semibold text-gray-700 mb-3">
-                                    Article Content
+                                <label for="cKeterangan" class="block text-sm font-semibold text-gray-700 mb-3">
+                                    Article Content (Indonesia)
                                 </label>
-                                <input id="x" type="hidden" name="cKeterangan">
-                                <trix-editor input="x" class="trix-content"></trix-editor>
+                                <input id="cKeterangan" type="hidden" name="cKeterangan">
+                                <trix-editor input="cKeterangan" class="trix-content"></trix-editor>
+                            </div>
+
+                            <div>
+                                <label for="cContent" class="block text-sm font-semibold text-gray-700 mb-3">
+                                    Article Content (English)
+                                </label>
+                                <input id="cContent" type="hidden" name="cContent">
+                                <trix-editor input="cContent" class="trix-content"></trix-editor>
                             </div>
 
                             <!-- Rest of the form remains the same -->
@@ -194,12 +223,6 @@
                                 </a>
                                 
                                 <div class="flex space-x-3">
-                                    <button 
-                                        type="button" 
-                                        class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-3 px-6 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-4 focus:ring-gray-300"
-                                    >
-                                        Save as Draft
-                                    </button>
                                     <button 
                                         type="submit" 
                                         class="bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-4 focus:ring-green-300 flex items-center"

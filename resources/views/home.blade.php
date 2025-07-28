@@ -4,7 +4,7 @@
 
 {{-- Hero Section --}}
 <section class="bg-white text-center px-0 py-0">
-  <div class="relative bg-cover bg-center min-h-[500px] px-12 py-16" style="background-image: url('/images/hero-bg.png');">
+  <div class="relative bg-cover bg-center min-h-[500px] px-12 py-16" style="background-image: url('{{asset('/images/hero-bg.png')}}');">
     
     <div class="absolute inset-0 bg-white bg-opacity-70"></div>
 
@@ -29,7 +29,7 @@
           Watch Video
         </a>
       </div>
-      <img src="/images/logo-footer.webp" alt="PINus Logo" class="mx-auto mt-10 h-52">
+      <img src="{{asset('/images/logo-footer.webp')}}" alt="PINus Logo" class="mx-auto mt-10 h-52">
     </div>
   </div>
 </section>
@@ -41,22 +41,22 @@
     <h2 class="text-2xl font-bold mb-12">WHY CHOOSE <span class="text-red-600">PINUS SOFTWARE?</span></h2>
     <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
       <div>
-        <img src="/icons/flexible.png" class="mx-auto h-12 mb-2">
+        <img src="{{asset('/icons/flexible.png')}}" class="mx-auto h-12 mb-2">
         <h3 class="font-bold text-red-600">Modular & Flexible</h3>
         <p class="text-sm text-gray-600">Each module can be implemented individually or fully integrated.</p>
       </div>
       <div>
-        <img src="/icons/custom.png" class="mx-auto h-12 mb-2">
+        <img src="{{asset('/icons/custom.png')}}" class="mx-auto h-12 mb-2">
         <h3 class="font-bold text-red-600">Consultation & Customization</h3>
         <p class="text-sm text-gray-600">We provide IT consulting and tailored feature development.</p>
       </div>
       <div>
-        <img src="/icons/trust.png" class="mx-auto h-12 mb-2">
+        <img src="{{asset('/icons/trust.png')}}" class="mx-auto h-12 mb-2">
         <h3 class="font-bold text-red-600">Experienced & Trusted</h3>
         <p class="text-sm text-gray-600">Over 15 years of experience across clinics, pharmacies, factories.</p>
       </div>
       <div>
-        <img src="/icons/motto.png" class="mx-auto h-12 mb-2">
+        <img src="{{asset('/icons/motto.png')}}" class="mx-auto h-12 mb-2">
         <h3 class="font-bold text-red-600">Our Motto: Provide Better Performance</h3>
         <p class="text-sm text-gray-600">Helping your business operate faster and more efficiently.</p>
       </div>
