@@ -36,12 +36,13 @@
           <div 
             id="aboutDropdownMenu"
             class="absolute left-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform translate-y-2 group-hover:translate-y-0">
-            <a href="{{route('about.history')}}" class="block px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-150">Our History</a>
+            <a href="{{route('about.history')}}" class="block px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-150">Our Journey</a>
             <hr class="border-t border-gray-100">
             <a href="{{route('about.legality')}}" class="block px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-150">Company Legality</a>
             <hr class="border-t border-gray-100">
             <a href="{{route('about.visimisi')}}" class="block px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-150 rounded-b-lg">Vision & Mission</a>
-            <a href="{{route('about.logo-philosophy')}}" class="block px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-150 rounded-b-lg">Logo Philosophy</a>
+            <a href="{{route('about.company-logo-philosophy')}}" class="block px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-150 rounded-b-lg">Company Logo Philosophy</a>
+            <a href="{{route('about.product-logo-philosophy')}}" class="block px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-150 rounded-b-lg">Product Logo Philosophy</a>
             <a href="{{route('about.logo-transition')}}" class="block px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-150 rounded-b-lg">Logo Transition</a>
           </div>
         </div>
@@ -70,7 +71,7 @@
     <!-- Mobile Navigation Menu -->
     <div id="mobileMenu" class="lg:hidden hidden border-t border-gray-200">
       <nav class="py-4 space-y-1">
-        <a href="/" class="block px-4 py-3 text-base font-medium {{ request()->is('/') ? 'text-blue-600 bg-blue-50' : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50' }} rounded-md transition-colors duration-200">Home</a>
+        <a href="{{route('home')}}" class="block px-4 py-3 text-base font-medium {{ request()->is('/') ? 'text-blue-600 bg-blue-50' : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50' }} rounded-md transition-colors duration-200">Home</a>
         
         <!-- Mobile About Us Section -->
         <div>
@@ -84,10 +85,11 @@
             </svg>
           </button>
           <div id="mobileAboutMenu" class="hidden pl-4 space-y-1 mt-1">
-            <a href="{{ route('about.history') }}" class="block px-4 py-2 text-sm {{ request()->is('about/history') ? 'text-blue-600 bg-blue-50' : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50' }} rounded-md transition-colors duration-150">Our History</a>
+            <a href="{{ route('about.history') }}" class="block px-4 py-2 text-sm {{ request()->is('about/history') ? 'text-blue-600 bg-blue-50' : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50' }} rounded-md transition-colors duration-150">Our Journey</a>
             <a href="{{ route('about.legality') }}" class="block px-4 py-2 text-sm {{ request()->is('about/legality') ? 'text-blue-600 bg-blue-50' : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50' }} rounded-md transition-colors duration-150">Company Legality</a>
             <a href="{{ route('about.visimisi') }}" class="block px-4 py-2 text-sm {{ request()->is('about/visimisi') ? 'text-blue-600 bg-blue-50' : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50' }} rounded-md transition-colors duration-150">Vision & Mission</a>
-            <a href="{{ route('about.logo-philosophy') }}" class="block px-4 py-2 text-sm {{ request()->is('about/logo-philosophy') ? 'text-blue-600 bg-blue-50' : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50' }} rounded-md transition-colors duration-150">Logo Philosophy</a>
+            <a href="{{ route('about.company-logo-philosophy') }}" class="block px-4 py-2 text-sm {{ request()->is('about/company-logo-philosophy') ? 'text-blue-600 bg-blue-50' : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50' }} rounded-md transition-colors duration-150">Company Logo Philosophy</a>
+            <a href="{{ route('about.product-logo-philosophy') }}" class="block px-4 py-2 text-sm {{ request()->is('about/product-logo-philosophy') ? 'text-blue-600 bg-blue-50' : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50' }} rounded-md transition-colors duration-150">Product Logo Philosophy</a>
             <a href="{{ route('about.logo-transition') }}" class="block px-4 py-2 text-sm {{ request()->is('about/logo-transition') ? 'text-blue-600 bg-blue-50' : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50' }} rounded-md transition-colors duration-150">Logo Transition</a>
           </div>
         </div>

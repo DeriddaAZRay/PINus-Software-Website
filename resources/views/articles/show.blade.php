@@ -27,7 +27,7 @@
             <div class="flex items-center text-gray-600 text-sm">
                 <span>{{ $article->created_at->format('F d, Y') }}</span>
                 <span class="mx-2">•</span>
-                <span>By {{ $article->author }}</span>
+                <span>By: Admin</span>
             </div>
         </div>
 

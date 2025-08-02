@@ -24,6 +24,11 @@ class Testimonial extends Model
         'nID_Client',
     ];
 
+    protected $casts = [
+        'dTgl_Input' => 'datetime',
+        'lVoid' => 'boolean'
+    ];
+
     public function client()
     {
         return $this->belongsTo(Client::class, 'nID_Client', 'ID');

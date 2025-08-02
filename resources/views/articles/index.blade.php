@@ -32,7 +32,7 @@
                             </h2>
                             <p class="text-gray-600 mb-6">{{ $featuredArticle->excerpt }}</p>
                             <p class="text-sm text-gray-500">
-                                by: {{ $featuredArticle->author }}<br>
+                                by: Admin<br>
                                 {{ $featuredArticle->created_at ? $featuredArticle->created_at->format('d/m/Y') : 'N/A' }}
                                 @if($featuredArticle->category_name)
                                 <br>Category: {{ $featuredArticle->category_name }}
@@ -181,7 +181,7 @@
                             </h3>
                             <p class="text-gray-600 mb-4">{{ $article->excerpt }}</p>
                             <div class="text-sm text-gray-500">
-                                <p>by: {{ $article->author }}</p>
+                                <p>by: Admin</p>
                                 <p>{{ $article->created_at ? $article->created_at->format('d/m/Y') : 'N/A' }}</p>
                                 @if($article->category_name)
                                 <p class="mt-2">

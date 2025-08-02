@@ -2,7 +2,7 @@
 @section('content')
 <div class="relative min-h-screen w-full">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative">
-        <div class="w-full bg-white/80 backdrop-blur-md border border-white/30 min-h-screen">
+        <div class="w-full bg-white/80 backdrop-blur-md border border-white/30">
             <div class="relative z-10 bg-gradient-to-b from-white/90 via-white/80 to-white/70 backdrop-blur-sm">
                 <!-- Success/Error Messages -->
                 @if(session('success'))
@@ -21,87 +21,212 @@
                     </div>
                 @endif
 
-                <!-- Photo Carousel Section -->
-                @if($galleries->count() > 0)
-                <section id="photos-section" class="bg-white py-16 px-6">
-                    <div class="container mx-auto text-center">
-                        <h2 class="text-3xl font-bold mb-4">Photo Gallery</h2>
-                        <div class="w-24 h-1 bg-gradient-to-r from-blue-500 to-red-500 mx-auto mb-8"></div>
+                <div class="flex flex-col space-y-4">
+                    <!-- Photo Carousel Section -->
+                    @if($galleries->count() > 0)
+                    <section id="photos-section" class="bg-white py-8 px-6">
+                        <div class="container mx-auto text-center">
+                            <h2 class="text-4xl font-bold mb-4">Photo Gallery</h2>
+                            <div class="w-24 h-1 bg-gradient-to-r from-blue-500 to-red-500 mx-auto mb-8"></div>
 
-                        <div class="relative max-w-6xl mx-auto">
-                            <div class="relative px-16">
-                                <div class="swiper photoSwiper">
-                                    <div class="swiper-wrapper">
-                                        @php
-                                            $chunkedGalleries = $galleries->chunk(4);
-                                        @endphp
-                                        @foreach ($chunkedGalleries as $galleryChunk)
-                                            <div class="swiper-slide">
-                                                <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-                                                    @foreach($galleryChunk as $gallery)
-                                                        <div class="group relative bg-white/70 backdrop-blur-sm rounded-lg shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden cursor-pointer">
-                                                            <!-- Image Container -->
-                                                            <div class="relative aspect-square overflow-hidden"
-                                                                 onclick="openModal('{{ route('gallery.image', $gallery->ID) }}', '{{ $gallery->cJudul }}')">
-                                                                <img 
-                                                                    src="{{ route('gallery.image', $gallery->ID) }}" 
-                                                                    alt="{{ $gallery->cJudul }}"
-                                                                    class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-                                                                    loading="lazy"
-                                                                >
-                                                                <!-- Overlay on hover -->
-                                                                <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                                                                    <div class="bg-white/20 backdrop-blur-sm border border-white/30 text-white px-3 py-2 rounded-lg hover:bg-white/30 transition-colors duration-200">
-                                                                        <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                                                                        </svg>
-                                                                        View
+                            <!-- Photo Carousel with Fixed Pagination -->
+                            <div class="relative max-w-6xl mx-auto">
+                                <div class="relative px-16">
+                                    <div class="swiper photoSwiper">
+                                        <div class="swiper-wrapper">
+                                            @php
+                                                $chunkedGalleries = $galleries->chunk(4);
+                                            @endphp
+                                            @foreach ($chunkedGalleries as $galleryChunk)
+                                                <div class="swiper-slide">
+                                                    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 pb-4">
+                                                        @foreach($galleryChunk as $gallery)
+                                                            <!-- Photo Card with Uniform Size -->
+                                                            <div class="group relative bg-white/70 backdrop-blur-sm rounded-lg shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden cursor-pointer h-64 flex flex-col">
+                                                                <!-- Image Container -->
+                                                                <div class="relative flex-1 overflow-hidden"
+                                                                     onclick="openModal('{{ route('gallery.image', $gallery->ID) }}', '{{ $gallery->cJudul }}')">
+                                                                    <img 
+                                                                        src="{{ route('gallery.image', $gallery->ID) }}" 
+                                                                        alt="{{ $gallery->cJudul }}"
+                                                                        class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                                                                        loading="lazy"
+                                                                    >
+                                                                    <!-- Overlay on hover -->
+                                                                    <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                                                        <div class="bg-white/20 backdrop-blur-sm border border-white/30 text-white px-3 py-2 rounded-lg hover:bg-white/30 transition-colors duration-200">
+                                                                            <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                                                            </svg>
+                                                                            View
+                                                                        </div>
                                                                     </div>
                                                                 </div>
+                                                                
+                                                                <!-- Title - Fixed Height -->
+                                                                <div class="p-3 h-16 flex-shrink-0 flex flex-col justify-center">
+                                                                    <h3 class="font-medium text-gray-800 text-center text-sm line-clamp-2 leading-tight">
+                                                                        {{ $gallery->cJudul }}
+                                                                    </h3>
+                                                                    @if($gallery->dTgl_Input)
+                                                                        <p class="text-xs text-gray-500 text-center mt-1">
+                                                                            {{ $gallery->dTgl_Input->format('M d, Y') }}
+                                                                        </p>
+                                                                    @endif
+                                                                </div>
                                                             </div>
-                                                            
-                                                            <!-- Title -->
-                                                            <div class="p-3">
-                                                                <h3 class="font-medium text-gray-800 text-center text-sm line-clamp-2 leading-tight">
-                                                                    {{ $gallery->cJudul }}
-                                                                </h3>
-                                                                @if($gallery->dTgl_Input)
-                                                                    <p class="text-xs text-gray-500 text-center mt-1">
-                                                                        {{ $gallery->dTgl_Input->format('M d, Y') }}
-                                                                    </p>
-                                                                @endif
+                                                        @endforeach
+                                                    </div>
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    </div>
+
+                                    <div class="swiper-button-prev photo-prev absolute left-4 top-1/2 -translate-y-1/2 z-20 text-gray-600"></div>
+                                    <div class="swiper-button-next photo-next absolute right-4 top-1/2 -translate-y-1/2 z-20 text-gray-600"></div>
+                                </div>
+                                
+                                <!-- Photo Pagination moved outside and below -->
+                                <div class="photo-swiper-pagination mt-8"></div>
+                            </div>
+                        </div>
+                    </section>
+                    @else
+                        <!-- Empty State -->
+                        <div class="text-center py-8">
+                            <div class="max-w-md mx-auto">
+                                <div class="w-24 h-24 mx-auto mb-6 bg-gradient-to-br from-gray-200 to-gray-300 rounded-full flex items-center justify-center">
+                                    <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                    </svg>
+                                </div>
+                                <h3 class="text-xl font-medium text-gray-800 mb-2">No Gallery Items</h3>
+                                <p class="text-gray-600 mb-6">
+                                    There are no gallery items to display at the moment.
+                                </p>
+                            </div>
+                        </div>
+                    @endif
+
+                    <!-- Videos Section -->
+                    <section id="videos-section" class="bg-white py-8 px-6">
+                        <div class="container mx-auto text-center">
+                            <h2 class="text-4xl font-bold mb-4">Video Gallery</h2>
+                            <div class="w-24 h-1 bg-gradient-to-r from-blue-500 to-red-500 mx-auto mb-4"></div>
+
+                            <div class="relative max-w-6xl mx-auto">
+                                <div class="relative px-16">
+                                    <div class="swiper mySwiper">
+                                        <div class="swiper-wrapper">
+                                            @foreach ($videos as $video)
+                                                @php
+                                                    $videoId = Str::before($video->cLink, '?');
+                                                @endphp
+                                                <div class="swiper-slide flex justify-center pb-4">
+                                                    <div 
+                                                        class="bg-white rounded-xl shadow-lg overflow-hidden w-72 sm:w-80 h-72 cursor-pointer group hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-red-300 flex flex-col"
+                                                        onclick="openVideoModal('{{ $videoId }}')"
+                                                    >
+                                                        <div class="relative w-full flex-shrink-0" style="padding-top: 56.25%;">
+                                                            <img 
+                                                                src="https://img.youtube.com/vi/{{ $videoId }}/hqdefault.jpg"
+                                                                alt="Video thumbnail"
+                                                                class="absolute top-0 left-0 w-full h-full object-cover"
+                                                            >
+                                                            <div class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
+                                                                <svg class="w-12 h-12 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                                                    <path d="M8 5v14l11-7z" />
+                                                                </svg>
                                                             </div>
                                                         </div>
-                                                    @endforeach
+                                                        <div class="p-4 text-left flex-1 flex flex-col h-20">
+                                                            <h3 class="text-base font-semibold mb-1 line-clamp-2">{{ $video->cJudul }}</h3>
+                                                            <p class="text-sm text-gray-600 line-clamp-2 flex-1">{{ $video->cDeskripsi }}</p>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        @endforeach
+                                            @endforeach
+                                        </div>
                                     </div>
-                                    <div class="swiper-pagination mt-8"></div>
-                                </div>
 
-                                <div class="swiper-button-prev photo-prev absolute left-4 top-1/2 -translate-y-1/2 z-20 text-gray-600"></div>
-                                <div class="swiper-button-next photo-next absolute right-4 top-1/2 -translate-y-1/2 z-20 text-gray-600"></div>
+                                    <div class="swiper-button-prev absolute left-4 top-1/2 -translate-y-1/2 z-20 text-gray-600"></div>
+                                    <div class="swiper-button-next absolute right-4 top-1/2 -translate-y-1/2 z-20 text-gray-600"></div>
+                                </div>
+                                
+                                <!-- Video Pagination moved outside and below -->
+                                <div class="video-swiper-pagination mt-8"></div>
                             </div>
                         </div>
-                    </div>
-                </section>
-                @else
-                    <!-- Empty State -->
-                    <div class="text-center py-16">
-                        <div class="max-w-md mx-auto">
-                            <div class="w-24 h-24 mx-auto mb-6 bg-gradient-to-br from-gray-200 to-gray-300 rounded-full flex items-center justify-center">
-                                <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                                </svg>
-                            </div>
-                            <h3 class="text-xl font-medium text-gray-800 mb-2">No Gallery Items</h3>
-                            <p class="text-gray-600 mb-6">
-                                There are no gallery items to display at the moment.
-                            </p>
+                    </section>
+
+                    <!-- Testimonial Videos Section -->
+                    <section id="testimonial-videos-section" class="bg-white py-8 px-6">
+                        <div class="container mx-auto text-center">
+                            <h2 class="text-4xl font-bold mb-4">Testimonial Videos</h2>
+                            <div class="w-24 h-1 bg-gradient-to-r from-blue-500 to-red-500 mx-auto mb-4"></div>
+
+                            @if(isset($testimonialVideos) && $testimonialVideos->count() > 0)
+                                <div class="relative max-w-6xl mx-auto">
+                                    <div class="relative px-16">
+                                        <div class="swiper testimonialVideoSwiper">
+                                            <div class="swiper-wrapper">
+                                                @foreach ($testimonialVideos as $video)
+                                                    @php
+                                                        $videoId = Str::before($video->cLink, '?');
+                                                    @endphp
+                                                    <div class="swiper-slide flex justify-center pb-4">
+                                                        <div 
+                                                            class="bg-white rounded-xl shadow-lg overflow-hidden w-72 sm:w-80 h-72 cursor-pointer group hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-red-300 flex flex-col"
+                                                            onclick="openVideoModal('{{ $videoId }}')"
+                                                        >
+                                                            <div class="relative w-full flex-shrink-0" style="padding-top: 56.25%;">
+                                                                <img 
+                                                                    src="https://img.youtube.com/vi/{{ $videoId }}/hqdefault.jpg"
+                                                                    alt="Video thumbnail"
+                                                                    class="absolute top-0 left-0 w-full h-full object-cover"
+                                                                >
+                                                                <div class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
+                                                                    <svg class="w-12 h-12 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                                                        <path d="M8 5v14l11-7z" />
+                                                                    </svg>
+                                                                </div>
+                                                            </div>
+                                                            <div class="p-4 text-left flex-1 flex flex-col h-20">
+                                                                <h3 class="text-base font-semibold mb-1 line-clamp-2">{{ $video->cJudul }}</h3>
+                                                                <p class="text-sm text-gray-600 line-clamp-2 flex-1">{{ $video->cDeskripsi }}</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                @endforeach
+                                            </div>
+                                        </div>
+
+                                        <div class="swiper-button-prev testimonial-video-prev absolute left-4 top-1/2 -translate-y-1/2 z-20 text-gray-600"></div>
+                                        <div class="swiper-button-next testimonial-video-next absolute right-4 top-1/2 -translate-y-1/2 z-20 text-gray-600"></div>
+                                    </div>
+                                    
+                                    <!-- Testimonial Video Pagination moved outside and below -->
+                                    <div class="testimonial-video-swiper-pagination mt-8"></div>
+                                </div>
+                            @else
+                                <!-- Empty State for Testimonial Videos -->
+                                <div class="text-center py-8">
+                                    <div class="max-w-md mx-auto">
+                                        <div class="w-24 h-24 mx-auto mb-6 bg-gradient-to-br from-gray-200 to-gray-300 rounded-full flex items-center justify-center">
+                                            <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                                            </svg>
+                                        </div>
+                                        <h3 class="text-xl font-medium text-gray-800 mb-2">No Testimonial Videos</h3>
+                                        <p class="text-gray-600 mb-6">
+                                            There are no testimonial videos to display at the moment.
+                                        </p>
+                                    </div>
+                                </div>
+                            @endif
                         </div>
-                    </div>
-                @endif
+                    </section>
+                </div>
             </div>
         </div>
     </div>
@@ -139,55 +264,6 @@
     </div>
 </div>
 
-{{-- Videos Section --}}
-<section id="videos-section" class="bg-white py-16 px-6">
-  <div class="container mx-auto text-center">
-    <h2 class="text-3xl font-bold mb-4">Video Gallery</h2>
-    <div class="w-24 h-1 bg-gradient-to-r from-blue-500 to-red-500 mx-auto mb-4"></div>
-
-    <div class="relative max-w-6xl mx-auto">
-      <div class="relative px-16">
-        <div class="swiper mySwiper">
-          <div class="swiper-wrapper">
-            @foreach ($videos as $video)
-              @php
-                $videoId = Str::before($video->cLink, '?');
-              @endphp
-              <div class="swiper-slide flex justify-center">
-                <div 
-                  class="bg-white rounded-xl shadow-lg overflow-hidden w-72 sm:w-80 cursor-pointer group hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-red-300"
-                  onclick="openVideoModal('{{ $videoId }}')"
-                >
-                  <div class="relative w-full" style="padding-top: 56.25%;">
-                    <img 
-                      src="https://img.youtube.com/vi/{{ $videoId }}/hqdefault.jpg"
-                      alt="Video thumbnail"
-                      class="absolute top-0 left-0 w-full h-full object-cover"
-                    >
-                    <div class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
-                      <svg class="w-12 h-12 text-white" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M8 5v14l11-7z" />
-                      </svg>
-                    </div>
-                  </div>
-                  <div class="p-4 text-left">
-                    <h3 class="text-lg font-semibold mb-1">{{ $video->cJudul }}</h3>
-                    <p class="text-sm text-gray-600">{{ $video->cDeskripsi }}</p>
-                  </div>
-                </div>
-              </div>
-            @endforeach
-          </div>
-          <div class="swiper-pagination mt-8"></div>
-        </div>
-
-        <div class="swiper-button-prev absolute left-4 top-1/2 -translate-y-1/2 z-20 text-gray-600"></div>
-        <div class="swiper-button-next absolute right-4 top-1/2 -translate-y-1/2 z-20 text-gray-600"></div>
-      </div>
-    </div>
-  </div>
-</section>
-
 {{-- Video Modal --}}
 <div id="videoModal" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 hidden">
   <div class="bg-white rounded-lg overflow-hidden shadow-lg max-w-3xl w-full relative">
@@ -205,8 +281,97 @@
   </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script>
-// Initialize Swiper for photos
+        document.addEventListener('DOMContentLoaded', function () {
+        const modal = document.getElementById('videoModal');
+        const iframe = document.getElementById('videoModalIframe');
+
+        document.addEventListener('click', function (e) {
+        if (e.target === modal) {
+            closeVideoModal();
+        }
+        });
+
+        document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+            closeVideoModal();
+        }
+        });
+
+        window.openVideoModal = function(videoId) {
+        iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+        modal.classList.remove('hidden');
+        };
+
+        window.closeVideoModal = function() {
+        iframe.src = '';
+        modal.classList.add('hidden');
+        };
+    });
+
+    // Video Swiper
+    const swiper = new Swiper(".mySwiper", {
+        slidesPerView: 3,
+        slidesPerGroup: 3, // Move 3 slides at once
+        spaceBetween: 20,
+        loop: true,
+        pagination: {
+            el: ".video-swiper-pagination", // Updated to use the new class
+            clickable: true,
+        },
+        navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+        },
+        breakpoints: {
+        320: {
+            slidesPerView: 1,
+            slidesPerGroup: 1,
+        },
+        768: {
+            slidesPerView: 2,
+            slidesPerGroup: 2,
+        },
+        1024: {
+            slidesPerView: 3,
+            slidesPerGroup: 3,
+        }
+        }
+    });
+
+    // Testimonial Video Swiper - only initialize if videos exist
+    @if(isset($testimonialVideos) && $testimonialVideos->count() > 0)
+    const testimonialVideoSwiper = new Swiper(".testimonialVideoSwiper", {
+        slidesPerView: 3,
+        slidesPerGroup: 3, // Move 3 slides at once
+        spaceBetween: 20,
+        loop: true,
+        pagination: {
+            el: ".testimonial-video-swiper-pagination",
+            clickable: true,
+        },
+        navigation: {
+        nextEl: ".testimonial-video-next",
+        prevEl: ".testimonial-video-prev",
+        },
+        breakpoints: {
+        320: {
+            slidesPerView: 1,
+            slidesPerGroup: 1,
+        },
+        768: {
+            slidesPerView: 2,
+            slidesPerGroup: 2,
+        },
+        1024: {
+            slidesPerView: 3,
+            slidesPerGroup: 3,
+        }
+        }
+    });
+    @endif
+
 document.addEventListener('DOMContentLoaded', function() {
     // Photo Swiper
     const photoSwiper = new Swiper('.photoSwiper', {
@@ -218,7 +383,7 @@ document.addEventListener('DOMContentLoaded', function() {
             disableOnInteraction: false,
         },
         pagination: {
-            el: '.photoSwiper .swiper-pagination',
+            el: '.photo-swiper-pagination', // Updated to use the new class
             clickable: true,
         },
         navigation: {
@@ -234,36 +399,6 @@ document.addEventListener('DOMContentLoaded', function() {
             },
             1024: {
                 slidesPerView: 1,
-            },
-        }
-    });
-
-    // Video Swiper (autoplay removed)
-    const videoSwiper = new Swiper('.mySwiper', {
-        slidesPerView: 'auto',
-        spaceBetween: 20,
-        centeredSlides: true,
-        loop: true,
-        pagination: {
-            el: '.mySwiper .swiper-pagination',
-            clickable: true,
-        },
-        navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-        },
-        breakpoints: {
-            640: {
-                slidesPerView: 1,
-                centeredSlides: true,
-            },
-            768: {
-                slidesPerView: 2,
-                centeredSlides: true,
-            },
-            1024: {
-                slidesPerView: 3,
-                centeredSlides: true,
             },
         }
     });
@@ -325,6 +460,7 @@ function closeVideoModal() {
 </script>
 
 <style>
+
 .line-clamp-2 {
     display: -webkit-box;
     -webkit-line-clamp: 2;
@@ -333,13 +469,61 @@ function closeVideoModal() {
     overflow: hidden;
 }
 
-/* Custom styles for photo carousel navigation */
-.photo-prev, .photo-next {
+.line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Make carousel arrows the right size */
+.swiper-button-next,
+.swiper-button-prev,
+.photo-prev, .photo-next,
+.testimonial-video-prev, .testimonial-video-next {
+    width: 50px !important;
+    height: 50px !important;
+    margin-top: -25px !important;
     color: #4B5563 !important;
 }
 
-.photo-prev:hover, .photo-next:hover {
+.swiper-button-next:after,
+.swiper-button-prev:after,
+.photo-prev:after, .photo-next:after,
+.testimonial-video-prev:after, .testimonial-video-next:after {
+    font-size: 22px !important;
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover,
+.photo-prev:hover, .photo-next:hover,
+.testimonial-video-prev:hover, .testimonial-video-next:hover {
     color: #1F2937 !important;
 }
+
+/* Custom pagination styles */
+.photo-swiper-pagination,
+.video-swiper-pagination,
+.testimonial-video-swiper-pagination {
+    text-align: center;
+}
+
+.photo-swiper-pagination .swiper-pagination-bullet,
+.video-swiper-pagination .swiper-pagination-bullet,
+.testimonial-video-swiper-pagination .swiper-pagination-bullet {
+    width: 8px;
+    height: 8px;
+    background: #d1d5db;
+    opacity: 1;
+    margin: 0 3px;
+}
+
+.photo-swiper-pagination .swiper-pagination-bullet-active,
+.video-swiper-pagination .swiper-pagination-bullet-active,
+.testimonial-video-swiper-pagination .swiper-pagination-bullet-active {
+    background: #3b82f6;
+}
+
 </style>
 @endsection

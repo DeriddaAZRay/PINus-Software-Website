@@ -349,7 +349,6 @@ class ArticleController extends Controller
         $article->cContent = $request->cContent; // Explicitly set cContent
         $article->nID_Kategori = $request->nID_Kategori;
         $article->cUserID_Input = session('admin_user') ?? 'admin';
-        $article->lVoid = 0; // Ensure it's not voided
         $article->dTgl_Input = now();
 
         // Handle thumbnail upload if present
@@ -410,15 +409,25 @@ class ArticleController extends Controller
     public function storeCategory(Request $request)
     {
         $request->validate([
-            'cKeterangan' => 'required|string|max:255'
+            'name' => 'required|string|max:255'  // Changed from 'cKeterangan' to 'name'
         ]);
 
-        Category::create([
-            'cKeterangan' => $request->cKeterangan,
-            'cUserID_Input' => session('admin_user') ?? 'admin',
-        ]);
+        try {
+            $category = new Category();
+            $category->cKeterangan = $request->name;  // Changed from $request->cKeterangan to $request->name
+            $category->cUserID_Input = session('admin_user') ?? 'admin';
+            $category->dTgl_Input = now();
+            
+            if (!$category->save()) {
+                throw new \Exception('Failed to save category');
+            }
 
-        return redirect()->back()->with('success', 'Category created successfully.');
+            return redirect()->back()->with('success', 'Category created successfully.');
+        } catch (\Exception $e) {
+            return redirect()->back()
+                ->with('error', 'Failed to create category: ' . $e->getMessage())
+                ->withInput();
+        }
     }
     public function destroyCategory($id)
     {

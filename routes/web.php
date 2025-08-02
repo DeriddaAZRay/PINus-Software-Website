@@ -9,7 +9,10 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\GalleryController;
+use App\Http\Controllers\VideoController;
+use App\Http\Controllers\ClientController;
 use App\Http\Middleware\AdminAuth;
+use App\Http\Controllers\AdminDashboardController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -17,7 +20,8 @@ Route::prefix('about')->group(function () {
     Route::get('/legality', [AboutController::class, 'legality'])->name('about.legality');
     Route::get('/history', [AboutController::class, 'history'])->name('about.history');
     Route::get('/visimisi', [AboutController::class, 'visiMisi'])->name('about.visimisi');
-    Route::get('/logo-philosophy', [AboutController::class, 'logoPhilosophy'])->name('about.logo-philosophy');
+    Route::get('/product-logo-philosophy', [AboutController::class, 'productlogoPhilosophy'])->name('about.product-logo-philosophy');
+    Route::get('/company-logo-philosophy', [AboutController::class, 'companylogoPhilosophy'])->name('about.company-logo-philosophy');
     Route::get('/logo-transition', [AboutController::class, 'logoTransition'])->name('about.logo-transition');
 });
 Route::get('/testimonials', [TestimonialController::class, 'index'])->name('testimonials.index');
@@ -57,9 +61,10 @@ Route::get('/dashboard', function () {
 })->middleware('admin.auth')->name('dashboard');
 
 Route::middleware([AdminAuth::class])->group(function () {
-    Route::get('/admin', function () {
-        return view('admin.dashboard');
-    })->name('admin.dashboard');
+    Route::get('/admin', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+    Route::get('/admin/api/stats', [AdminDashboardController::class, 'apiStats'])->name('admin.api.stats');
+    Route::get('/admin/api/activities', [AdminDashboardController::class, 'apiActivities'])->name('admin.api.activities');
+    Route::get('/admin/api/stats/{type}', [AdminDashboardController::class, 'getDetailedStats'])->name('admin.api.detailed-stats');
 
     Route::get('/admin/users', [UserController::class, 'index'])->name('admin.users');
     Route::post('/admin/users', [UserController::class, 'store'])->name('admin.users.store');
@@ -72,7 +77,7 @@ Route::middleware([AdminAuth::class])->group(function () {
     Route::get('/admin/articles/{id}/edit', [ArticleController::class, 'edit'])->name('admin.articles.edit');
     Route::put('/admin/articles/{id}', [ArticleController::class, 'update'])->name('admin.articles.update');
     Route::delete('/admin/articles/{id}', [ArticleController::class, 'destroy'])->name('admin.articles.destroy');
-    Route::post('/admin/categories/store', [ArticleController::class, 'storeCategory'])->name('admin.articles.storeCategory');
+
     Route::post('/admin/categories', [ArticleController::class, 'storeCategory'])->name('admin.categories.store');
     Route::delete('/admin/categories/{id}', [ArticleController::class, 'destroyCategory'])->name('admin.categories.destroy');
 
@@ -83,6 +88,38 @@ Route::middleware([AdminAuth::class])->group(function () {
     Route::put('/admin/products/{id}', [ProductController::class, 'update'])->name('admin.products.update');
     Route::delete('/admin/products/{id}', [ProductController::class, 'destroy'])->name('admin.products.destroy');
     Route::get('admin/products/product-logo/{id}', [ProductController::class, 'getLogo'])->name('product.logo');
+
+    Route::get('/admin/videos', [VideoController::class, 'index'])->name('admin.videos.index');
+    Route::get('/admin/videos/create', [VideoController::class, 'create'])->name('admin.videos.create');
+    Route::post('/admin/videos', [VideoController::class, 'store'])->name('admin.videos.store');
+    Route::get('/admin/videos/{id}', [VideoController::class, 'show'])->name('admin.videos.show');
+    Route::get('/admin/videos/{id}/edit', [VideoController::class, 'edit'])->name('admin.videos.edit');
+    Route::put('/admin/videos/{id}', [VideoController::class, 'update'])->name('admin.videos.update');
+    Route::delete('/admin/videos/{id}', [VideoController::class, 'destroy'])->name('admin.videos.destroy');
+    Route::post('/admin/videos/bulk-delete', [VideoController::class, 'bulkDelete'])->name('admin.videos.bulk-delete');
+    Route::patch('/admin/videos/{id}/toggle-type', [VideoController::class, 'toggleType'])->name('admin.videos.toggle-type');
+    Route::get('/admin/videos/type/{type}', [VideoController::class, 'getVideosByType'])->name('admin.videos.by-type'); 
+
+    Route::get('/admin/gallery', [GalleryController::class, 'adminIndex'])->name('admin.gallery.index');
+    Route::get('/admin/gallery/image/{id}', [GalleryController::class, 'getImage'])->name('admin.gallery.image');
+    Route::get('/admin/gallery/create', [GalleryController::class, 'create'])->name('admin.gallery.create');
+    Route::post('/admin/gallery', [GalleryController::class, 'store'])->name('admin.gallery.store');
+    Route::get('/admin/gallery/{id}/edit', [GalleryController::class, 'edit'])->name('admin.gallery.edit');
+    Route::put('/admin/gallery/{id}', [GalleryController::class, 'update'])->name('admin.gallery.update');
+    Route::delete('/admin/gallery/{id}', [GalleryController::class, 'destroy'])->name('admin.gallery.destroy');
+
+    Route::get('/admin/clients', [ClientController::class, 'index'])->name('admin.clients.index');
+    Route::get('/admin/clients/create', [ClientController::class, 'create'])->name('admin.clients.create');
+    Route::post('/admin/clients', [ClientController::class, 'store'])->name('admin.clients.store');
+    Route::get('/admin/clients/{id}/edit', [ClientController::class, 'edit'])->name('admin.clients.edit');
+    Route::put('/admin/clients/{id}', [ClientController::class, 'update'])->name('admin.clients.update');
+    Route::delete('/admin/clients/{id}', [ClientController::class, 'destroy'])->name('admin.clients.destroy');
+
+    Route::get('/admin/testimonials', [TestimonialController::class, 'adminIndex'])->name('admin.testimonials.index');
+    Route::get('/admin/testimonials/{id}', [TestimonialController::class, 'show'])->name('admin.testimonials.show');
+    Route::put('/admin/testimonials/{id}', [TestimonialController::class, 'update'])->name('admin.testimonials.update');
+    Route::delete('/admin/testimonials/{id}', [TestimonialController::class, 'destroy'])->name('admin.testimonials.destroy');
+    Route::patch('/admin/testimonials/{id}/toggle-status', [TestimonialController::class, 'toggleStatus'])->name('admin.testimonials.toggle-status');
 
 });
 

@@ -3,9 +3,9 @@
 <div class="relative w-full overflow-hidden min-h-screen flex justify-center">
     <div class="relative w-full max-w-7xl mx-auto flex">
         <!-- Background image -->
-        <div class="absolute left-0 top-0 h-full w-full md:w-1/2">
+        <div class="absolute left-0 top-0 h-auto w-full md:w-1/2">
             <img src="{{ asset('images/about/logo-philosophy.png') }}" alt="Logo Philosophy"
-                class="h-full w-full object-cover md:object-left object-center">
+                class="w-full object-contain md:object-left object-top">
             <!-- Gradient overlay -->
             <div class="absolute inset-0 bg-gradient-to-b md:bg-gradient-to-r from-transparent via-transparent to-white/40 md:to-white/40"></div>
             <!-- Mobile overlay -->
@@ -16,97 +16,97 @@
             <div class="w-full md:ml-auto md:w-1/2 bg-white/10 backdrop-blur-md border border-white/30 shadow-lg min-h-screen md:min-h-auto">
                 <div class="relative z-10 bg-gradient-to-b md:bg-gradient-to-r from-white/80 md:from-white/60 via-white/70 md:via-white/40 to-white/60 md:to-white/20 backdrop-blur-sm h-full">
                     <!-- Header -->
-                    <div class="py-6 md:py-8 pt-12 md:pt-8 relative overflow-hidden">
-                        <div class="container mx-auto relative z-10">
-                            <div class="flex items-center justify-center mb-4 relative">
+                    <div class="py-4 md:py-8 pt-8 md:pt-8 relative overflow-hidden">
+                        <div class="container mx-auto relative z-10 px-4 md:px-0">
+                            <div class="flex items-center justify-center mb-3 md:mb-4 relative">
                                 <div class="text-center">
-                                    <h1 class="text-3xl md:text-3xl font-bold text-gray-800 mb-2">Logo Philosophy</h1>
-                                    <div class="w-24 h-1 bg-gradient-to-r from-blue-500 to-red-500 mx-auto mb-2"></div>
+                                    <h1 class="text-2xl md:text-3xl font-bold text-gray-800 mb-2">Logo Philosophy</h1>
+                                    <div class="w-20 md:w-24 h-1 bg-gradient-to-r from-blue-500 to-red-500 mx-auto mb-2"></div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <!-- Content section -->
-                    <div class="px-6 py-6 md:px-8 md:py-8">
-                        <div class="max-w-4xl mx-auto space-y-8">
+                    <div class="px-4 py-4 md:px-8 md:py-8 overflow-y-auto h-[calc(100vh-140px)] md:h-auto">
+                        <div class="max-w-4xl mx-auto space-y-6 md:space-y-8">
                             
                             <!-- Company Logo Philosophy -->
-                            <div class="bg-white/70 backdrop-blur-sm rounded-lg p-6 shadow-md">
-                                <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Our Company Logo Philosophy</h2>
-                                <div class="flex justify-center mb-6">
-                                    <div class="w-64 h-24">
+                            <div class="bg-white/70 backdrop-blur-sm rounded-lg p-4 md:p-6 shadow-md">
+                                <h2 class="text-lg md:text-2xl font-bold text-gray-800 mb-4 md:mb-6 text-center">Our Company Logo Philosophy</h2>
+                                <div class="flex justify-center mb-4 md:mb-6">
+                                    <div class="w-48 md:w-64 h-16 md:h-24">
                                         <img src="{{ asset('images/logo-footer.png') }}" alt="Company Logo" class="h-full w-full object-contain">
                                     </div>
                                 </div>
-                                <p class="text-sm text-gray-700 mb-6 leading-relaxed">
+                                <p class="text-sm text-gray-700 mb-4 md:mb-6 leading-relaxed">
                                     The logo of <strong>PT Performa Inti Nusantara</strong> represents the company's commitment to being a trusted software house and IT consultant, offering collaboration and technology-driven solutions that continually evolve to address digital challenges and Provide Better Performance.
                                 </p>
                                 
-                                <div class="space-y-4">
+                                <div class="space-y-3 md:space-y-4">
                                     <div>
-                                        <h3 class="font-semibold text-gray-800 mb-2">• Hexagon Shape.</h3>
-                                        <p class="text-sm text-gray-700 ml-4">Symbolizes strength, structure, and efficiency—qualities commonly found in both technology and nature (e.g., honeycomb). In design, stability, and system integrity. The hexagon shape, aesthetic qualities, alongside business success indicator. PINus innovative and collaborative aspects.</p>
+                                        <h3 class="font-semibold text-gray-800 mb-2 text-sm md:text-base">• Hexagon Shape.</h3>
+                                        <p class="text-xs md:text-sm text-gray-700 ml-3 md:ml-4 leading-relaxed">Symbolizes strength, structure, and efficiency—qualities commonly found in both technology and nature (e.g., honeycomb). In design, stability, and system integrity. The hexagon shape, aesthetic qualities, alongside business success indicator. PINus innovative and collaborative aspects.</p>
                                     </div>
                                     
                                     <div>
-                                        <h3 class="font-semibold text-gray-800 mb-2">• Supporting Hands (Top and Bottom).</h3>
-                                        <p class="text-sm text-gray-700 ml-4">represent trust, collaboration, and service. The upper hand symbolizes PINus as a provider of solutions and support, while the lower hand represents clients receiving services from PINus. Together, they reflect a professional and human-centered commitment to partnership and service excellence.</p>
+                                        <h3 class="font-semibold text-gray-800 mb-2 text-sm md:text-base">• Supporting Hands (Top and Bottom).</h3>
+                                        <p class="text-xs md:text-sm text-gray-700 ml-3 md:ml-4 leading-relaxed">represent trust, collaboration, and service. The upper hand symbolizes PINus as a provider of solutions and support, while the lower hand represents clients receiving services from PINus. Together, they reflect a professional and human-centered commitment to partnership and service excellence.</p>
                                     </div>
                                     
                                     <div>
-                                        <h3 class="font-semibold text-gray-800 mb-2">• Blue Dots on Both Sides.</h3>
-                                        <p class="text-sm text-gray-700 ml-4">Indicate connectivity and represent technology and humanity. They highlight the company's focus not only on technological innovation but also on human relationships—with clients and communities alike.</p>
+                                        <h3 class="font-semibold text-gray-800 mb-2 text-sm md:text-base">• Blue Dots on Both Sides.</h3>
+                                        <p class="text-xs md:text-sm text-gray-700 ml-3 md:ml-4 leading-relaxed">Indicate connectivity and represent technology and humanity. They highlight the company's focus not only on technological innovation but also on human relationships—with clients and communities alike.</p>
                                     </div>
                                     
                                     <div>
-                                        <h3 class="font-semibold text-gray-800 mb-2">• "PINus" Inside the Hexagon.</h3>
-                                        <p class="text-sm text-gray-700 ml-4">"PINus" at the center reinforces the company's mission. The unique and memorable name represents our values: innovation, reliability, and high performance.</p>
+                                        <h3 class="font-semibold text-gray-800 mb-2 text-sm md:text-base">• "PINus" Inside the Hexagon.</h3>
+                                        <p class="text-xs md:text-sm text-gray-700 ml-3 md:ml-4 leading-relaxed">"PINus" at the center reinforces the company's mission. The unique and memorable name represents our values: innovation, reliability, and high performance.</p>
                                     </div>
                                     
                                     <div>
-                                        <h3 class="font-semibold text-gray-800 mb-2">• "PROVIDE BETTER PERFORMANCE" Tagline.</h3>
-                                        <p class="text-sm text-gray-700 ml-4">Emphasizes the company's mission to deliver superior performance and results across all services and operations.</p>
+                                        <h3 class="font-semibold text-gray-800 mb-2 text-sm md:text-base">• "PROVIDE BETTER PERFORMANCE" Tagline.</h3>
+                                        <p class="text-xs md:text-sm text-gray-700 ml-3 md:ml-4 leading-relaxed">Emphasizes the company's mission to deliver superior performance and results across all services and operations.</p>
                                     </div>
                                     
                                     <div>
-                                        <h3 class="font-semibold text-gray-800 mb-2">• Red and Blue Color Scheme.</h3>
-                                        <p class="text-sm text-gray-700 ml-4">Red signifies passion, energy, and determination—used in the tagline and service focus areas to highlight strength. Blue conveys trust, professionalism, and technology—seen in the outline and lines, representing modernity and reliability. Gray used in the company name underlines professionalism and maturity.</p>
+                                        <h3 class="font-semibold text-gray-800 mb-2 text-sm md:text-base">• Red and Blue Color Scheme.</h3>
+                                        <p class="text-xs md:text-sm text-gray-700 ml-3 md:ml-4 leading-relaxed">Red signifies passion, energy, and determination—used in the tagline and service focus areas to highlight strength. Blue conveys trust, professionalism, and technology—seen in the outline and lines, representing modernity and reliability. Gray used in the company name underlines professionalism and maturity.</p>
                                     </div>
                                 </div>
                             </div>
                             
                             <!-- Product Logo Philosophy -->
-                            <div class="bg-white/70 backdrop-blur-sm rounded-lg p-6 shadow-md">
-                                <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Our Product Logo Philosophy</h2>
-                                <div class="flex justify-center mb-6">
-                                    <div class="w-32 h-24">
+                            <div class="bg-white/70 backdrop-blur-sm rounded-lg p-4 md:p-6 shadow-md">
+                                <h2 class="text-lg md:text-2xl font-bold text-gray-800 mb-4 md:mb-6 text-center">Our Product Logo Philosophy</h2>
+                                <div class="flex justify-center mb-4 md:mb-6">
+                                    <div class="w-24 md:w-32 h-16 md:h-24">
                                         <img src="{{ asset('images/logo.png') }}" alt="Product Logo" class="h-full w-full object-contain">
                                     </div>
                                 </div>
                                 
-                                <p class="text-sm text-gray-700 mb-6 leading-relaxed">
+                                <p class="text-sm text-gray-700 mb-4 md:mb-6 leading-relaxed">
                                     The logo of <strong>PINus Software</strong> reflects the company's product identity as a technology solutions provider that is innovative, professional, and service-oriented. Each element within the design carries thoughtful meaning:
                                 </p>
                                 
-                                <div class="space-y-4">
+                                <div class="space-y-3 md:space-y-4">
                                     <div>
-                                        <h3 class="font-semibold text-gray-800 mb-2">• Abstract Pine Tree Symbol (Top of Logo).</h3>
-                                        <p class="text-sm text-gray-700 ml-4">The graphic shape resembling a pine tree is constructed from red and blue wave-like dots, symbolizing growth, resilience, and structured systems—just like the real pine tree known for its endurance. The interconnected waves represent data flow, system integration, and seamless connectivity, essential for modern digital environments.</p>
+                                        <h3 class="font-semibold text-gray-800 mb-2 text-sm md:text-base">• Abstract Pine Tree Symbol (Top of Logo).</h3>
+                                        <p class="text-xs md:text-sm text-gray-700 ml-3 md:ml-4 leading-relaxed">The graphic shape resembling a pine tree is constructed from red and blue wave-like dots, symbolizing growth, resilience, and structured systems—just like the real pine tree known for its endurance. The interconnected waves represent data flow, system integration, and seamless connectivity, essential for modern digital environments.</p>
                                     </div>
                                     
                                     <div>
-                                        <h3 class="font-semibold text-gray-800 mb-2">• Wave-like Pattern.</h3>
-                                        <p class="text-sm text-gray-700 ml-4">Suggests dynamic movement, adaptability, and forward momentum—representing the seamless flow of services, care, and the company's commitment to helping clients grow and succeed. These waves also reflect human-centric values, where technology is built to save and empower people, communities, and communities.</p>
+                                        <h3 class="font-semibold text-gray-800 mb-2 text-sm md:text-base">• Wave-like Pattern.</h3>
+                                        <p class="text-xs md:text-sm text-gray-700 ml-3 md:ml-4 leading-relaxed">Suggests dynamic movement, adaptability, and forward momentum—representing the seamless flow of services, care, and the company's commitment to helping clients grow and succeed. These waves also reflect human-centric values, where technology is built to save and empower people, communities, and communities.</p>
                                     </div>
                                     
                                     <div>
-                                        <h3 class="font-semibold text-gray-800 mb-2">• Red and Blue Color Scheme.</h3>
-                                        <p class="text-sm text-gray-700 ml-4">Red symbolizes passion, energy, and boldness, expressing the company's drive to deliver impactful and innovative solutions. Blue represents trust, professionalism, stability, and technology, underscoring PINus Software's role as a dependable digital partner.</p>
+                                        <h3 class="font-semibold text-gray-800 mb-2 text-sm md:text-base">• Red and Blue Color Scheme.</h3>
+                                        <p class="text-xs md:text-sm text-gray-700 ml-3 md:ml-4 leading-relaxed">Red symbolizes passion, energy, and boldness, expressing the company's drive to deliver impactful and innovative solutions. Blue represents trust, professionalism, stability, and technology, underscoring PINus Software's role as a dependable digital partner.</p>
                                     </div>
                                     
                                     <div>
-                                        <h3 class="font-semibold text-gray-800 mb-2">• "PINus" Text & SOFTWARE Typography.</h3>
-                                        <p class="text-sm text-gray-700 ml-4">"PINus" stands for Performa Inti Nusantara, prominently displayed in bold and contrasting colors to emphasize the company's core identity—innovation, reliability, and high performance. Software typography placed neatly below the main name, it clearly communicates the company's focus in software development and IT consultancy services.</p>
+                                        <h3 class="font-semibold text-gray-800 mb-2 text-sm md:text-base">• "PINus" Text & SOFTWARE Typography.</h3>
+                                        <p class="text-xs md:text-sm text-gray-700 ml-3 md:ml-4 leading-relaxed">"PINus" stands for Performa Inti Nusantara, prominently displayed in bold and contrasting colors to emphasize the company's core identity—innovation, reliability, and high performance. Software typography placed neatly below the main name, it clearly communicates the company's focus in software development and IT consultancy services.</p>
                                     </div>
                                 </div>
                             </div>

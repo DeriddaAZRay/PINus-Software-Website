@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Product</title>
+    <title>Edit Client</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.0/dist/trix.css">
     <script type="text/javascript" src="https://unpkg.com/trix@2.0.0/dist/trix.umd.min.js"></script>
@@ -19,8 +19,8 @@
             <header class="bg-white shadow-sm border-b border-gray-100 p-6">
                 <div class="flex items-center justify-between">
                     <div>
-                        <h1 class="text-2xl font-bold text-gray-800">Edit Product</h1>
-                        <p class="text-gray-600 mt-1">Update your product information and features</p>
+                        <h1 class="text-2xl font-bold text-gray-800">Edit Client</h1>
+                        <p class="text-gray-600 mt-1">Update your client informations.</p>
                     </div>
                     <div class="flex items-center space-x-4">
                         <div class="text-right">
@@ -38,7 +38,7 @@
 
             <!-- Main Content Area -->
             <main class="flex-1 p-6">
-                <!-- Product Form Card -->
+                <!-- Client Form Card -->
                 <div class="bg-white rounded-2xl shadow-md border border-gray-100">
                     <div class="p-6 border-b border-gray-100">
                         <div class="flex items-center">
@@ -47,19 +47,19 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path>
                                 </svg>
                             </div>
-                            <h2 class="text-lg font-semibold text-gray-800">Update Product Details</h2>
+                            <h2 class="text-lg font-semibold text-gray-800">Update Client Details</h2>
                         </div>
                     </div>
 
                     <div class="p-6">
-                        <form action="{{ route('admin.products.update', $product->ID) }}" method="POST" enctype="multipart/form-data" class="space-y-6">
+                        <form action="{{ route('admin.clients.update', $client->ID) }}" method="POST" enctype="multipart/form-data" class="space-y-6">
                             @csrf
                             @method('PUT')
 
-                            <!-- Title Field -->
+                            <!-- Company Name Field -->
                             <div>
                                 <label for="cJudul" class="block text-sm font-semibold text-gray-700 mb-3">
-                                    Product Title
+                                    Company Name
                                 </label>
                                 <div class="relative">
                                     <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -69,11 +69,11 @@
                                     </div>
                                     <input 
                                         type="text" 
-                                        name="cJudul" 
-                                        id="cJudul"
+                                        name="cKeterangan" 
+                                        id="cKeterangan"
                                         class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
-                                        placeholder="Enter product title"
-                                        value="{{ $product->cJudul }}"
+                                        placeholder="Enter company name"
+                                        value="{{ $client->cKeterangan }}"
                                         required
                                     >
                                 </div>
@@ -96,40 +96,27 @@
                                         id="nUrut"
                                         class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
                                         placeholder="Enter display order (e.g., 1, 2, 3)"
-                                        value="{{ $product->nUrut }}"
+                                        value="{{ $client->nUrut }}"
                                         required
                                         min="1"
                                     >
                                 </div>
                             </div>
 
-                            <!-- Description Field -->
-                            <div>
-                                <label for="cKeterangan" class="block text-sm font-semibold text-gray-700 mb-3">
-                                    Product Description
-                                </label>
-                                <textarea
-                                    id="cKeterangan"
-                                    name="cKeterangan"
-                                    class="w-full min-h-[200px] px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
-                                    placeholder="Write your product description here..."
-                                >{{ old('cKeterangan', $product->cKeterangan ?? '') }}</textarea>
-                            </div>
-
                             <!-- Current Logo Display & Upload -->
                             <div>
                                 <label class="block text-sm font-semibold text-gray-700 mb-3">
-                                    Product Logo
+                                    Company Logo
                                 </label>
                                 
                                 <!-- Current Logo -->
-                                @if($product->cLogo)
+                                @if($client->cLogo)
                                 <div class="mb-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
                                     <p class="text-xs text-gray-500 mb-2 uppercase tracking-wide font-medium">Current Logo</p>
                                     <div class="flex items-center space-x-4">
                                         <div class="h-20 w-28 rounded-lg overflow-hidden bg-gray-100 border border-gray-200 flex-shrink-0">
                                             <img 
-                                                src="data:image/png;base64,{{ chunk_split(base64_encode($product->cLogo)) }}"
+                                                src="data:image/png;base64,{{ base64_encode($client->cLogo) }}"
                                                 alt="Current logo" 
                                                 class="h-full w-full object-cover"
                                                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
@@ -171,75 +158,10 @@
                                 </div>
                             </div>
 
-                            <!-- Features Section -->
-                            <div>
-                                <label class="block text-sm font-semibold text-gray-700 mb-3">
-                                    Product Features
-                                </label>
-                                <div id="features-container" class="space-y-3">
-                                    @if($product->features && count($product->features) > 0)
-                                        @foreach($product->features as $feature)
-                                        <div class="feature-item flex items-center gap-3">
-                                            <div class="flex-1">
-                                                <input 
-                                                    type="text" 
-                                                    name="features[]" 
-                                                    value="{{ $feature->cFitur }}"
-                                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
-                                                    placeholder="Enter product feature"
-                                                >
-                                            </div>
-                                            <button 
-                                                type="button" 
-                                                onclick="removeFeature(this)"
-                                                class="bg-red-100 hover:bg-red-200 text-red-700 p-2 rounded-lg transition-colors duration-200"
-                                                title="Remove feature"
-                                            >
-                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                                                </svg>
-                                            </button>
-                                        </div>
-                                        @endforeach
-                                    @else
-                                        <div class="feature-item flex items-center gap-3">
-                                            <div class="flex-1">
-                                                <input 
-                                                    type="text" 
-                                                    name="features[]" 
-                                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
-                                                    placeholder="Enter product feature"
-                                                >
-                                            </div>
-                                            <button 
-                                                type="button" 
-                                                onclick="removeFeature(this)"
-                                                class="bg-red-100 hover:bg-red-200 text-red-700 p-2 rounded-lg transition-colors duration-200"
-                                                title="Remove feature"
-                                            >
-                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                                                </svg>
-                                            </button>
-                                        </div>
-                                    @endif
-                                </div>
-                                <button 
-                                    type="button" 
-                                    onclick="addFeature()"
-                                    class="mt-3 bg-blue-100 hover:bg-blue-200 text-blue-700 font-medium py-2 px-4 rounded-lg transition-colors duration-200 flex items-center"
-                                >
-                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-                                    </svg>
-                                    Add Feature
-                                </button>
-                            </div>
-
                             <!-- Action Buttons -->
                             <div class="flex items-center justify-between pt-6 border-t border-gray-100">
                                 <a 
-                                    href="{{ route('admin.products.index') }}" 
+                                    href="{{ route('admin.clients.index') }}" 
                                     class="inline-flex items-center text-gray-600 hover:text-gray-800 font-medium transition-colors duration-200"
                                 >
                                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -256,7 +178,7 @@
                                         <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
                                         </svg>
-                                        Update Product
+                                        Update Client
                                     </button>
                                 </div>
                             </div>
@@ -264,13 +186,13 @@
                     </div>
                 </div>
 
-                <!-- Back to Products Link -->
+                <!-- Back to Clients Link -->
                 <div class="mt-6">
-                    <a href="{{ route('admin.products.index') }}" class="inline-flex items-center text-indigo-600 hover:text-indigo-800 font-medium transition-colors duration-200">
+                    <a href="{{ route('admin.clients.index') }}" class="inline-flex items-center text-indigo-600 hover:text-indigo-800 font-medium transition-colors duration-200">
                         <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
                         </svg>
-                        Back to Products List
+                        Back to Clients List
                     </a>
                 </div>
             </main>
@@ -287,39 +209,6 @@
                 label.querySelector('p').innerHTML = `<span class="font-semibold text-blue-600">Selected:</span> ${fileName}`;
             }
         });
-
-        // Feature management functions
-        function addFeature() {
-            const container = document.getElementById('features-container');
-            const featureItem = document.createElement('div');
-            featureItem.className = 'feature-item flex items-center gap-3';
-            featureItem.innerHTML = `
-                <div class="flex-1">
-                    <input 
-                        type="text" 
-                        name="features[]" 
-                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
-                        placeholder="Enter product feature"
-                    >
-                </div>
-                <button 
-                    type="button" 
-                    onclick="removeFeature(this)"
-                    class="bg-red-100 hover:bg-red-200 text-red-700 p-2 rounded-lg transition-colors duration-200"
-                    title="Remove feature"
-                >
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                    </svg>
-                </button>
-            `;
-            container.appendChild(featureItem);
-        }
-
-        function removeFeature(button) {
-            const featureItem = button.closest('.feature-item');
-            featureItem.remove();
-        }
     </script>
 </body>
 </html>

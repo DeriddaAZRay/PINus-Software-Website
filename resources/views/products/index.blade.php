@@ -8,13 +8,13 @@
           <div class="flex items-center justify-center mb-8 relative">
               <div class="text-center">
                   <h1 class="text-4xl md:text-4xl font-bold text-gray-800 mb-2">Our Products</h1>
-                  <div class="w-24 h-1 bg-gradient-to-r from-blue-500 to-red-500 mx-auto mb-4"></div>
+                  <div class="w-24 h-1 bg-gradient-to-r from-blue-500 to-red-500 mx-auto mb-1"></div>
               </div>
           </div>
       </div>
   </div>
 
-  <div class="container mx-auto px-10 py-8 relative" id="contentSection">
+  <div class="container mx-auto px-10 relative" id="contentSection">
     <!-- Left Popup Panel -->
     <div id="productPopup" class="fixed left-0 h-full w-80 bg-white shadow-2xl z-50 transform -translate-x-full transition-transform duration-300 ease-in-out" style="top: var(--header-height, 0px);">
       <div class="p-6 h-full overflow-y-auto">

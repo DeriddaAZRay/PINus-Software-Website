@@ -66,7 +66,7 @@
 
                     <div class="p-6">
                         <!-- Add Category Form -->
-                        <form action="{{ route('admin.articles.storeCategory') }}" method="POST" class="mb-6">
+                        <form action="{{ route('admin.categories.store') }}" method="POST" class="mb-6">
                             @csrf
                             <div class="flex flex-col sm:flex-row gap-4">
                                 <div class="flex-1">

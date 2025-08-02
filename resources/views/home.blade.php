@@ -12,7 +12,7 @@
       <h1 class="text-4xl font-bold mb-4">PINus Software</h1>
       <div class="w-24 h-1 bg-gradient-to-r from-blue-500 to-red-500 mx-auto mb-4"></div>
       <p class="text-lg font-semibold max-w-2xl mx-auto mb-6">
-        At PT. Performa Inti Nusantara, we are more than just a software provider —
+        At PT. Performa Inti Nusantara, we are more than just a software provider,
         we are your partner in building smart, efficient, and integrated systems tailored to your business needs.
       </p>
       <div class="flex justify-center gap-4">
@@ -63,9 +63,8 @@
     </div>
     <div class="text-center mt-8">
       <a 
-        href="{{ url('/articles') }}" 
+        href="{{ route('products.index') }}" 
         class="inline-flex items-center bg-red-600 hover:bg-red-700 text-white font-semibold px-8 py-3 rounded-lg shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-red-300"
-        aria-label="Read more articles"
       >
         Our Products
         <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -87,40 +86,44 @@
         <div class="swiper mySwiper">
           <div class="swiper-wrapper">
             @foreach ($videos as $video)
-              @php
-                $videoId = Str::before($video->cLink, '?');
-              @endphp
-              <div class="swiper-slide flex justify-center">
-                <div 
-                  class="bg-white rounded-xl shadow-lg overflow-hidden w-72 sm:w-80 cursor-pointer group hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-red-300"
-                  onclick="openVideoModal('{{ $videoId }}')"
-                >
-                  <div class="relative w-full" style="padding-top: 56.25%;">
-                    <img 
-                      src="https://img.youtube.com/vi/{{ $videoId }}/hqdefault.jpg"
-                      alt="Video thumbnail"
-                      class="absolute top-0 left-0 w-full h-full object-cover"
-                    >
-                    <div class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
-                      <svg class="w-12 h-12 text-white" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M8 5v14l11-7z" />
-                      </svg>
+              @if($video->cJenis == 'v')
+                @php
+                  $videoId = Str::before($video->cLink, '?');
+                @endphp
+                <div class="swiper-slide flex justify-center pb-4">
+                  <div 
+                    class="bg-white rounded-xl shadow-lg overflow-hidden w-72 sm:w-80 h-72 cursor-pointer group hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-red-300 flex flex-col"
+                    onclick="openVideoModal('{{ $videoId }}')"
+                  >
+                    <div class="relative w-full flex-shrink-0" style="padding-top: 56.25%;">
+                      <img 
+                        src="https://img.youtube.com/vi/{{ $videoId }}/hqdefault.jpg"
+                        alt="Video thumbnail"
+                        class="absolute top-0 left-0 w-full h-full object-cover"
+                      >
+                      <div class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
+                        <svg class="w-12 h-12 text-white" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M8 5v14l11-7z" />
+                        </svg>
+                      </div>
+                    </div>
+                    <div class="p-4 text-left flex-1 flex flex-col h-20">
+                      <h3 class="text-base font-semibold mb-1 line-clamp-2">{{ $video->cJudul }}</h3>
+                      <p class="text-sm text-gray-600 line-clamp-2 flex-1">{{ $video->cDeskripsi }}</p>
                     </div>
                   </div>
-                  <div class="p-4 text-left">
-                    <h3 class="text-lg font-semibold mb-1">{{ $video->cJudul }}</h3>
-                    <p class="text-sm text-gray-600">{{ $video->cDeskripsi }}</p>
-                  </div>
                 </div>
-              </div>
+              @endif
             @endforeach
           </div>
-          <div class="swiper-pagination mt-8"></div>
         </div>
 
         <div class="swiper-button-prev absolute left-4 top-1/2 -translate-y-1/2 z-20 text-gray-600"></div>
         <div class="swiper-button-next absolute right-4 top-1/2 -translate-y-1/2 z-20 text-gray-600"></div>
       </div>
+      
+      <!-- Video Pagination moved outside and below -->
+      <div class="homepage-video-pagination mt-8"></div>
     </div>
   </div>
 </section>
@@ -217,7 +220,7 @@
               
               <!-- Article Meta -->
               <div class="flex items-center justify-between text-sm text-gray-500 pt-4 border-t border-gray-100">
-                <span class="font-medium">{{ $article->author }}</span>
+                <span class="font-medium">Admin</span>
                 <time datetime="{{ $article->created_at }}">
                   {{ \Carbon\Carbon::parse($article->created_at)->format('M j, Y') }}
                 </time>
@@ -241,7 +244,7 @@
     <!-- Call to Action -->
     <div class="text-center">
       <a 
-        href="{{ url('/articles') }}" 
+        href="{{ route('articles') }}" 
         class="inline-flex items-center bg-red-600 hover:bg-red-700 text-white font-semibold px-8 py-3 rounded-lg shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-red-300"
         aria-label="Read more articles"
       >
@@ -254,7 +257,78 @@
   </div>
 </section>
 
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+    const swiper = new Swiper(".mySwiper", {
+        slidesPerView: 3,
+        slidesPerGroup: 3, // Move 3 slides at once
+        spaceBetween: 20,
+        loop: true,
+        pagination: {
+        el: ".homepage-video-pagination", // Updated to use the new class
+        clickable: true,
+        },
+        navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+        },
+        breakpoints: {
+        320: {
+            slidesPerView: 1,
+            slidesPerGroup: 1,
+        },
+        768: {
+            slidesPerView: 2,
+            slidesPerGroup: 2,
+        },
+        1024: {
+            slidesPerView: 3,
+            slidesPerGroup: 3,
+        }
+        }
+    });
+    document.addEventListener('DOMContentLoaded', function () {
+        const modal = document.getElementById('videoModal');
+        const iframe = document.getElementById('videoModalIframe');
+
+        document.addEventListener('click', function (e) {
+        if (e.target === modal) {
+            closeVideoModal();
+        }
+        });
+
+        document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+            closeVideoModal();
+        }
+        });
+
+        window.openVideoModal = function(videoId) {
+        iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+        modal.classList.remove('hidden');
+        };
+
+        window.closeVideoModal = function() {
+        iframe.src = '';
+        modal.classList.add('hidden');
+        };
+    });
+    </script>
+
 <style>
+.animate-scroll-x {
+  animation: scroll-x 20s linear infinite;
+}
+
+@keyframes scroll-x {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
 .line-clamp-2 {
   display: -webkit-box;
   line-clamp: 2;
@@ -270,7 +344,49 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+/* Custom pagination styles */
+.homepage-video-pagination {
+    text-align: center;
+}
+
+.homepage-video-pagination .swiper-pagination-bullet {
+    width: 8px;
+    height: 8px;
+    background: #d1d5db;
+    opacity: 1;
+    margin: 0 3px;
+}
+
+.homepage-video-pagination .swiper-pagination-bullet-active {
+    background: #3b82f6;
+}
+
+/* Make carousel arrows smaller */
+/* Make carousel arrows the right size */
+.swiper-button-next,
+.swiper-button-prev,
+.photo-prev, .photo-next,
+.testimonial-video-prev, .testimonial-video-next {
+    width: 50px !important;
+    height: 50px !important;
+    margin-top: -25px !important;
+    color: #4B5563 !important;
+}
+
+.swiper-button-next:after,
+.swiper-button-prev:after,
+.photo-prev:after, .photo-next:after,
+.testimonial-video-prev:after, .testimonial-video-next:after {
+    font-size: 22px !important;
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover,
+.photo-prev:hover, .photo-next:hover,
+.testimonial-video-prev:hover, .testimonial-video-next:hover {
+    color: #1F2937 !important;
+}
+
 </style>
 @endsection
-
-

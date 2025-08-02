@@ -147,7 +147,7 @@
                                         <!-- Testimonial text - Fixed height -->
                                         <div class="text-gray-700 mb-6 leading-relaxed h-28 overflow-hidden">
                                             <div class="testimonial-text">
-                                                {{ \Illuminate\Support\Str::limit(strip_tags($testimonial->cTestimonial), 100) }}
+                                                {{ \Illuminate\Support\Str::limit(strip_tags($testimonial->cTestimonial), 120) }}
                                                 @if(strlen(strip_tags($testimonial->cTestimonial)) > 120)
                                                     <button @click="openModal{{ $index }} = true" class="text-blue-500 hover:text-blue-600 font-medium ml-1 underline">
                                                         Read more
@@ -169,20 +169,21 @@
                                     </div>
                                 </div>
 
-                                <!-- Replace your existing modal structure with this -->
+                                <!-- Enhanced Mobile-Friendly Modal -->
                                 <div x-show="openModal{{ $index }}" x-cloak 
-                                    class="modal-overlay"
-                                    @click.self="openModal{{ $index }} = false">
-                                    
-                                    <div class="modal-container" @click.stop>
+                                     class="fixed inset-0 flex items-center justify-center z-50 backdrop-blur-sm px-4 sm:px-6"
+                                     @click.away="openModal{{ $index }} = false">
+                                    <!-- Mobile: Full screen on small devices, centered modal on larger -->
+                                    <div class="bg-white rounded-2xl shadow-2xl w-full h-full sm:h-auto sm:max-w-2xl sm:max-h-[90vh] p-6 sm:p-8 relative overflow-y-auto"
+                                         @click.stop>
                                         <!-- Close button -->
                                         <button @click="openModal{{ $index }} = false" 
-                                                class="modal-close">
+                                                class="absolute top-4 right-4 z-10 text-gray-400 hover:text-gray-600 text-3xl sm:text-2xl font-light w-10 h-10 sm:w-8 sm:h-8 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors">
                                             &times;
                                         </button>
                                         
                                         <!-- Modal content -->
-                                        <div class="modal-content">
+                                        <div class="pt-8 sm:pt-0">
                                             <div class="mb-6">
                                                 @if(isset($testimonial->client) && !empty($testimonial->client->cLogo))
                                                     <img src="data:image/png;base64,{{ base64_encode($testimonial->client->cLogo) }}"
@@ -256,27 +257,6 @@
 <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-    // Keep track of original body styles for modal handling
-    let originalBodyStyle = '';
-    
-    // Function to prevent body scroll
-    function preventBodyScroll() {
-        originalBodyStyle = document.body.style.cssText;
-        const scrollY = window.scrollY;
-        document.body.style.position = 'fixed';
-        document.body.style.top = `-${scrollY}px`;
-        document.body.style.width = '100%';
-        document.body.classList.add('modal-open');
-    }
-    
-    // Function to restore body scroll
-    function restoreBodyScroll() {
-        document.body.classList.remove('modal-open');
-        const scrollY = document.body.style.top;
-        document.body.style.cssText = originalBodyStyle;
-        window.scrollTo(0, parseInt(scrollY || '0') * -1);
-    }
-
     // Video modal functions
     const modal = document.getElementById('videoModal');
     const iframe = document.getElementById('videoModalIframe');
@@ -296,48 +276,14 @@ document.addEventListener('DOMContentLoaded', function () {
     window.openVideoModal = function(videoId) {
         iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
         modal.classList.remove('hidden');
-        preventBodyScroll();
+        document.body.style.overflow = 'hidden';
     };
 
     window.closeVideoModal = function() {
         iframe.src = '';
         modal.classList.add('hidden');
-        restoreBodyScroll();
+        document.body.style.overflow = 'auto';
     };
-
-    // Enhanced Alpine.js modal handling
-    document.addEventListener('alpine:init', () => {
-        Alpine.data('modalHandler', (index) => ({
-            open: false,
-            
-            openModal() {
-                this.open = true;
-                preventBodyScroll();
-                
-                // Focus management for accessibility
-                this.$nextTick(() => {
-                    const modal = this.$el.querySelector('.modal-container');
-                    if (modal) {
-                        modal.focus();
-                    }
-                });
-            },
-            
-            closeModal() {
-                this.open = false;
-                restoreBodyScroll();
-            },
-            
-            init() {
-                // Handle escape key
-                this.$el.addEventListener('keydown', (e) => {
-                    if (e.key === 'Escape' && this.open) {
-                        this.closeModal();
-                    }
-                });
-            }
-        }));
-    });
 
     // Testimonial Video Swiper - only initialize if videos exist
     @if(isset($testimonialVideos) && $testimonialVideos->count() > 0)
@@ -459,74 +405,6 @@ document.addEventListener('DOMContentLoaded', function () {
     line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
-}
-
-/* Mobile Modal Scrolling Fix */
-.modal-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(4px);
-    z-index: 50;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 1rem;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-}
-
-.modal-container {
-    background: white;
-    border-radius: 1rem;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-    width: 100%;
-    max-width: 42rem;
-    max-height: 90vh;
-    position: relative;
-    margin: auto;
-    overflow: hidden;
-}
-
-.modal-content {
-    overflow-y: auto;
-    max-height: calc(90vh - 2rem);
-    padding: 1.5rem;
-    -webkit-overflow-scrolling: touch;
-}
-
-.modal-close {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    z-index: 60;
-    background: white;
-    border-radius: 50%;
-    width: 2.5rem;
-    height: 2.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-    color: #6b7280;
-    font-size: 1.5rem;
-    font-weight: 300;
-    border: none;
-    cursor: pointer;
-    transition: all 0.2s;
-}
-
-.modal-close:hover {
-    color: #374151;
-    background: #f9fafb;
-}
-
-/* Prevent body scroll when modal is open */
-.modal-open {
-    overflow: hidden;
-    position: fixed;
-    width: 100%;
-    height: 100%;
 }
 
 /* Position arrows outside the swiper container */
@@ -713,60 +591,46 @@ document.addEventListener('DOMContentLoaded', function () {
 
 /* Mobile-specific modal improvements */
 @media (max-width: 640px) {
-    .modal-overlay {
-        padding: 0;
-        align-items: stretch;
+    .fixed.inset-0.flex.items-center.justify-center {
+        align-items: flex-start;
+        padding-top: 0;
     }
     
-    .modal-container {
-        border-radius: 0;
-        max-height: 100vh;
-        height: 100vh;
-        max-width: none;
-        margin: 0;
-        display: flex;
-        flex-direction: column;
+    /* Full screen modal on mobile with proper scrolling */
+    .bg-white.rounded-2xl.shadow-2xl {
+        border-radius: 0 !important;
+        max-height: none !important;
+        height: 100vh !important;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
     }
     
-    .modal-content {
-        flex: 1;
-        overflow-y: auto;
-        max-height: none;
-        padding: 4rem 1.5rem 2rem;
-        -webkit-overflow-scrolling: touch;
-    }
-    
-    .modal-close {
-        position: fixed;
+    /* Adjust close button for mobile */
+    .absolute.top-4.right-4 {
         top: 1rem;
         right: 1rem;
-        z-index: 70;
-        width: 3rem;
-        height: 3rem;
-        font-size: 1.75rem;
+        position: sticky; /* Keep close button visible while scrolling */
+        z-index: 20;
+    }
+    
+    /* Ensure modal content has proper padding for scrolling */
+    .pt-8.sm\\:pt-0 {
+        padding-top: 3rem !important;
+        padding-bottom: 2rem !important;
     }
 }
 
-/* Additional mobile improvements */
+
+/* Improve readability on mobile */
 @media (max-width: 480px) {
-    .modal-content {
-        padding: 5rem 1rem 2rem;
-    }
-    
-    .modal-content h3 {
+    .text-xl.sm\\:text-2xl {
         font-size: 1.25rem !important;
         line-height: 1.4;
-        margin-bottom: 1rem;
     }
     
-    .modal-content p {
+    .text-base.sm\\:text-lg {
         font-size: 1rem !important;
         line-height: 1.6;
-    }
-    
-    .modal-content .border-t {
-        margin-top: 2rem;
-        padding-top: 1.5rem;
     }
 }
 </style>
