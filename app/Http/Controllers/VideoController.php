@@ -7,7 +7,6 @@ use App\Models\Videos;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Carbon;
 
 class VideoController extends Controller
 {
@@ -31,6 +30,7 @@ class VideoController extends Controller
 
     /**
      * Store a newly created video in storage.
+     * WORKS WITHOUT AUTHENTICATION
      */
     public function store(Request $request)
     {
@@ -55,20 +55,29 @@ class VideoController extends Controller
         }
 
         try {
-            $video = new videos();
+            $video = new Videos();
             $video->cJudul = $request->cJudul;
             $video->cLink = $request->cLink;
             $video->cDeskripsi = $request->cDeskripsi;
             $video->cJenis = $request->cJenis;
             $video->dTgl_Input = now();
-            $video->cUserID_Input = Auth::id(); // Assuming user authentication
+            
+            // Handle user tracking - use auth if available, otherwise use 'system'
+            if (Auth::check()) {
+                $video->cUserID_Input = (string) Auth::id();
+            } else {
+                $video->cUserID_Input = 'system'; // or 'anonymous' or '1'
+            }
+            
+            $video->cUserID_Edit = null; // Always null for new records
             $video->save();
 
             return redirect()->route('admin.videos.index')
                 ->with('success', 'Video has been added successfully!');
+                
         } catch (\Exception $e) {
             return redirect()->back()
-                ->with('error', 'Failed to add video. Please try again.')
+                ->with('error', 'Failed to add video. Error: ' . $e->getMessage())
                 ->withInput();
         }
     }
@@ -78,7 +87,7 @@ class VideoController extends Controller
      */
     public function show($id)
     {
-        $video = videos::findOrFail($id);
+        $video = Videos::findOrFail($id);
         
         return view('admin.videos.show', compact('video'));
     }
@@ -88,17 +97,18 @@ class VideoController extends Controller
      */
     public function edit($id)
     {
-        $video = videos::findOrFail($id);
+        $video = Videos::findOrFail($id);
         
         return view('admin.videos.edit', compact('video'));
     }
 
     /**
      * Update the specified video in storage.
+     * WORKS WITHOUT AUTHENTICATION
      */
     public function update(Request $request, $id)
     {
-        $video = videos::findOrFail($id);
+        $video = Videos::findOrFail($id);
 
         $validator = Validator::make($request->all(), [
             'cJudul' => 'required|string|max:255',
@@ -126,14 +136,22 @@ class VideoController extends Controller
             $video->cDeskripsi = $request->cDeskripsi;
             $video->cJenis = $request->cJenis;
             $video->dTgl_Edit = now();
-            $video->cUserID_Edit = Auth::id(); // Assuming user authentication
+            
+            // Handle user tracking for updates
+            if (Auth::check()) {
+                $video->cUserID_Edit = (string) Auth::id();
+            } else {
+                $video->cUserID_Edit = 'system'; // or 'anonymous' or '1'
+            }
+            
             $video->save();
 
             return redirect()->route('admin.videos.index')
                 ->with('success', 'Video has been updated successfully!');
+                
         } catch (\Exception $e) {
             return redirect()->back()
-                ->with('error', 'Failed to update video. Please try again.')
+                ->with('error', 'Failed to update video. Error: ' . $e->getMessage())
                 ->withInput();
         }
     }
@@ -144,7 +162,7 @@ class VideoController extends Controller
     public function destroy($id)
     {
         try {
-            $video = videos::findOrFail($id);
+            $video = Videos::findOrFail($id);
             $videoTitle = $video->cJudul;
             $video->delete();
 
@@ -161,7 +179,7 @@ class VideoController extends Controller
      */
     public function getVideosByType($type = 'v')
     {
-        $videos = videos::where('cJenis', $type)
+        $videos = Videos::where('cJenis', $type)
             ->orderBy('dTgl_Input', 'desc')
             ->get();
 
@@ -174,10 +192,10 @@ class VideoController extends Controller
     public function toggleType($id)
     {
         try {
-            $video = videos::findOrFail($id);
+            $video = Videos::findOrFail($id);
             $video->cJenis = $video->cJenis === 'v' ? 't' : 'v';
             $video->dTgl_Edit = now();
-            $video->cUserID_Edit = Auth::id(); // Assuming user authentication
+            $video->cUserID_Edit = Auth::check() ? (string) Auth::id() : 'system';
             $video->save();
 
             $newType = $video->cJenis === 'v' ? 'Video' : 'Testimonial';
@@ -206,7 +224,7 @@ class VideoController extends Controller
         }
 
         try {
-            $deletedCount = videos::whereIn('id', $request->video_ids)->delete();
+            $deletedCount = Videos::whereIn('id', $request->video_ids)->delete();
             
             return redirect()->route('admin.videos.index')
                 ->with('success', "{$deletedCount} video(s) have been deleted successfully!");

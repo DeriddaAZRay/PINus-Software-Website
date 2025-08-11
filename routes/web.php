@@ -13,6 +13,10 @@ use App\Http\Controllers\VideoController;
 use App\Http\Controllers\ClientController;
 use App\Http\Middleware\AdminAuth;
 use App\Http\Controllers\AdminDashboardController;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -52,7 +56,8 @@ Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery.index
 Route::get('/gallery/image/{id}', [GalleryController::class, 'getImage'])->name('gallery.image');
 
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [AuthController::class, 'login']);
+Route::post('/login', [AuthController::class, 'login'])
+    ->middleware('throttle:5,1');;
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Protected route (dashboard)
@@ -61,6 +66,7 @@ Route::get('/dashboard', function () {
 })->middleware('admin.auth')->name('dashboard');
 
 Route::middleware([AdminAuth::class])->group(function () {
+
     Route::get('/admin', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
     Route::get('/admin/api/stats', [AdminDashboardController::class, 'apiStats'])->name('admin.api.stats');
     Route::get('/admin/api/activities', [AdminDashboardController::class, 'apiActivities'])->name('admin.api.activities');
@@ -78,8 +84,8 @@ Route::middleware([AdminAuth::class])->group(function () {
     Route::put('/admin/articles/{id}', [ArticleController::class, 'update'])->name('admin.articles.update');
     Route::delete('/admin/articles/{id}', [ArticleController::class, 'destroy'])->name('admin.articles.destroy');
 
-    Route::post('/admin/categories', [ArticleController::class, 'storeCategory'])->name('admin.categories.store');
-    Route::delete('/admin/categories/{id}', [ArticleController::class, 'destroyCategory'])->name('admin.categories.destroy');
+    Route::post('/admin/articles/categories', [ArticleController::class, 'storeCategory'])->name('admin.categories.store');
+    Route::delete('/admin/articles/categories/{id}', [ArticleController::class, 'destroyCategory'])->name('admin.categories.destroy');
 
     Route::get('/admin/products', [ProductController::class, 'adminIndex'])->name('admin.products.index');
     Route::get('/admin/products/create', [ProductController::class, 'create'])->name('admin.products.create');
@@ -121,5 +127,6 @@ Route::middleware([AdminAuth::class])->group(function () {
     Route::delete('/admin/testimonials/{id}', [TestimonialController::class, 'destroy'])->name('admin.testimonials.destroy');
     Route::patch('/admin/testimonials/{id}/toggle-status', [TestimonialController::class, 'toggleStatus'])->name('admin.testimonials.toggle-status');
 
-});
+    Route::get('/debug-video-system', [VideoController::class, 'debugTest'])->name('debug.video.test');
 
+}); // Close AdminAuth middleware group

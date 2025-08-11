@@ -22,16 +22,16 @@
                 @endif
 
                 <div class="flex flex-col space-y-4">
-                    <!-- Photo Carousel Section -->
+                    <!-- Photo Carousel Section - Mobile Optimized -->
                     @if($galleries->count() > 0)
                     <section id="photos-section" class="bg-white py-8 px-6">
                         <div class="container mx-auto text-center">
                             <h2 class="text-4xl font-bold mb-4">Photo Gallery</h2>
                             <div class="w-24 h-1 bg-gradient-to-r from-blue-500 to-red-500 mx-auto mb-8"></div>
 
-                            <!-- Photo Carousel with Fixed Pagination -->
+                            <!-- Photo Carousel with Mobile-Friendly Layout -->
                             <div class="relative max-w-6xl mx-auto">
-                                <div class="relative px-16">
+                                <div class="relative px-4 sm:px-16">
                                     <div class="swiper photoSwiper">
                                         <div class="swiper-wrapper">
                                             @php
@@ -39,12 +39,12 @@
                                             @endphp
                                             @foreach ($chunkedGalleries as $galleryChunk)
                                                 <div class="swiper-slide">
-                                                    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 pb-4">
+                                                    <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 pb-4">
                                                         @foreach($galleryChunk as $gallery)
-                                                            <!-- Photo Card with Uniform Size -->
-                                                            <div class="group relative bg-white/70 backdrop-blur-sm rounded-lg shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden cursor-pointer h-64 flex flex-col">
-                                                                <!-- Image Container -->
-                                                                <div class="relative flex-1 overflow-hidden"
+                                                            <!-- Photo Card with Instagram 4:5 Aspect Ratio -->
+                                                            <div class="group relative bg-white/70 backdrop-blur-sm rounded-lg shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden cursor-pointer flex flex-col">
+                                                                <!-- Image Container with 4:5 aspect ratio -->
+                                                                <div class="relative w-full aspect-[4/5] overflow-hidden"
                                                                      onclick="openModal('{{ route('gallery.image', $gallery->ID) }}', '{{ $gallery->cJudul }}')">
                                                                     <img 
                                                                         src="{{ route('gallery.image', $gallery->ID) }}" 
@@ -54,18 +54,18 @@
                                                                     >
                                                                     <!-- Overlay on hover -->
                                                                     <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                                                                        <div class="bg-white/20 backdrop-blur-sm border border-white/30 text-white px-3 py-2 rounded-lg hover:bg-white/30 transition-colors duration-200">
-                                                                            <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                        <div class="bg-white/20 backdrop-blur-sm border border-white/30 text-white px-2 py-1 sm:px-3 sm:py-2 rounded-lg hover:bg-white/30 transition-colors duration-200">
+                                                                            <svg class="w-3 h-3 sm:w-4 sm:h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                                                                             </svg>
-                                                                            View
+                                                                            <span class="text-xs sm:text-sm">View</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                                 
-                                                                <!-- Title - Fixed Height -->
-                                                                <div class="p-3 h-16 flex-shrink-0 flex flex-col justify-center">
-                                                                    <h3 class="font-medium text-gray-800 text-center text-sm line-clamp-2 leading-tight">
+                                                                <!-- Title - Responsive Height -->
+                                                                <div class="p-2 sm:p-3 h-14 sm:h-16 flex-shrink-0 flex flex-col justify-center">
+                                                                    <h3 class="font-medium text-gray-800 text-center text-xs sm:text-sm line-clamp-2 leading-tight">
                                                                         {{ $gallery->cJudul }}
                                                                     </h3>
                                                                     @if($gallery->dTgl_Input)
@@ -82,12 +82,13 @@
                                         </div>
                                     </div>
 
-                                    <div class="swiper-button-prev photo-prev absolute left-4 top-1/2 -translate-y-1/2 z-20 text-gray-600"></div>
-                                    <div class="swiper-button-next photo-next absolute right-4 top-1/2 -translate-y-1/2 z-20 text-gray-600"></div>
+                                    <!-- Navigation arrows with responsive positioning -->
+                                    <div class="swiper-button-prev photo-prev absolute left-0 sm:left-4 top-1/2 -translate-y-1/2 z-20 text-gray-600 !bg-transparent !shadow-none"></div>
+                                    <div class="swiper-button-next photo-next absolute right-0 sm:right-4 top-1/2 -translate-y-1/2 z-20 text-gray-600 !bg-transparent !shadow-none"></div>
                                 </div>
                                 
                                 <!-- Photo Pagination moved outside and below -->
-                                <div class="photo-swiper-pagination mt-8"></div>
+                                <div class="photo-swiper-pagination mt-6 sm:mt-8"></div>
                             </div>
                         </div>
                     </section>
@@ -95,13 +96,13 @@
                         <!-- Empty State -->
                         <div class="text-center py-8">
                             <div class="max-w-md mx-auto">
-                                <div class="w-24 h-24 mx-auto mb-6 bg-gradient-to-br from-gray-200 to-gray-300 rounded-full flex items-center justify-center">
-                                    <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto mb-6 bg-gradient-to-br from-gray-200 to-gray-300 rounded-full flex items-center justify-center">
+                                    <svg class="w-10 h-10 sm:w-12 sm:h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                                     </svg>
                                 </div>
-                                <h3 class="text-xl font-medium text-gray-800 mb-2">No Gallery Items</h3>
-                                <p class="text-gray-600 mb-6">
+                                <h3 class="text-lg sm:text-xl font-medium text-gray-800 mb-2">No Gallery Items</h3>
+                                <p class="text-sm sm:text-base text-gray-600 mb-6">
                                     There are no gallery items to display at the moment.
                                 </p>
                             </div>
@@ -124,7 +125,7 @@
                                                 @endphp
                                                 <div class="swiper-slide flex justify-center pb-4">
                                                     <div 
-                                                        class="bg-white rounded-xl shadow-lg overflow-hidden w-72 sm:w-80 h-72 cursor-pointer group hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-red-300 flex flex-col"
+                                                        class="bg-white rounded-xl shadow-lg overflow-hidden w-80 sm:w-80 md:w-72 lg:w-80 h-72 cursor-pointer group hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-red-300 flex flex-col"
                                                         onclick="openVideoModal('{{ $videoId }}')"
                                                     >
                                                         <div class="relative w-full flex-shrink-0" style="padding-top: 56.25%;">
@@ -149,8 +150,8 @@
                                         </div>
                                     </div>
 
-                                    <div class="swiper-button-prev absolute left-4 top-1/2 -translate-y-1/2 z-20 text-gray-600"></div>
-                                    <div class="swiper-button-next absolute right-4 top-1/2 -translate-y-1/2 z-20 text-gray-600"></div>
+                                    <div class="swiper-button-prev absolute left-4 top-1/2 -translate-y-1/2 z-20 text-gray-600 !bg-transparent !shadow-none"></div>
+                                    <div class="swiper-button-next absolute right-4 top-1/2 -translate-y-1/2 z-20 text-gray-600 !bg-transparent !shadow-none"></div>
                                 </div>
                                 
                                 <!-- Video Pagination moved outside and below -->
@@ -176,7 +177,7 @@
                                                     @endphp
                                                     <div class="swiper-slide flex justify-center pb-4">
                                                         <div 
-                                                            class="bg-white rounded-xl shadow-lg overflow-hidden w-72 sm:w-80 h-72 cursor-pointer group hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-red-300 flex flex-col"
+                                                            class="bg-white rounded-xl shadow-lg overflow-hidden w-80 sm:w-80 md:w-72 lg:w-80 h-72 cursor-pointer group hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-red-300 flex flex-col"
                                                             onclick="openVideoModal('{{ $videoId }}')"
                                                         >
                                                             <div class="relative w-full flex-shrink-0" style="padding-top: 56.25%;">
@@ -201,8 +202,8 @@
                                             </div>
                                         </div>
 
-                                        <div class="swiper-button-prev testimonial-video-prev absolute left-4 top-1/2 -translate-y-1/2 z-20 text-gray-600"></div>
-                                        <div class="swiper-button-next testimonial-video-next absolute right-4 top-1/2 -translate-y-1/2 z-20 text-gray-600"></div>
+                                        <div class="swiper-button-prev testimonial-video-prev absolute left-4 top-1/2 -translate-y-1/2 z-20 text-gray-600 !bg-transparent !shadow-none"></div>
+                                        <div class="swiper-button-next testimonial-video-next absolute right-4 top-1/2 -translate-y-1/2 z-20 text-gray-600 !bg-transparent !shadow-none"></div>
                                     </div>
                                     
                                     <!-- Testimonial Video Pagination moved outside and below -->
@@ -283,60 +284,60 @@
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script>
-        document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function () {
         const modal = document.getElementById('videoModal');
         const iframe = document.getElementById('videoModalIframe');
 
         document.addEventListener('click', function (e) {
-        if (e.target === modal) {
-            closeVideoModal();
-        }
+            if (e.target === modal) {
+                closeVideoModal();
+            }
         });
 
         document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape') {
-            closeVideoModal();
-        }
+            if (e.key === 'Escape') {
+                closeVideoModal();
+            }
         });
 
         window.openVideoModal = function(videoId) {
-        iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
-        modal.classList.remove('hidden');
+            iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+            modal.classList.remove('hidden');
         };
 
         window.closeVideoModal = function() {
-        iframe.src = '';
-        modal.classList.add('hidden');
+            iframe.src = '';
+            modal.classList.add('hidden');
         };
     });
 
     // Video Swiper
     const swiper = new Swiper(".mySwiper", {
-        slidesPerView: 3,
-        slidesPerGroup: 3, // Move 3 slides at once
+        slidesPerView: 1, // Changed to 1 for mobile to accommodate wider cards
+        slidesPerGroup: 1, // Move 1 slide at once on mobile
         spaceBetween: 20,
         loop: true,
         pagination: {
-            el: ".video-swiper-pagination", // Updated to use the new class
+            el: ".video-swiper-pagination",
             clickable: true,
         },
         navigation: {
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev",
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
         },
         breakpoints: {
-        320: {
-            slidesPerView: 1,
-            slidesPerGroup: 1,
-        },
-        768: {
-            slidesPerView: 2,
-            slidesPerGroup: 2,
-        },
-        1024: {
-            slidesPerView: 3,
-            slidesPerGroup: 3,
-        }
+            640: {
+                slidesPerView: 2,
+                slidesPerGroup: 2,
+            },
+            768: {
+                slidesPerView: 2,
+                slidesPerGroup: 2,
+            },
+            1024: {
+                slidesPerView: 3,
+                slidesPerGroup: 3,
+            }
         }
     });
 
@@ -352,115 +353,115 @@
             clickable: true,
         },
         navigation: {
-        nextEl: ".testimonial-video-next",
-        prevEl: ".testimonial-video-prev",
+            nextEl: ".testimonial-video-next",
+            prevEl: ".testimonial-video-prev",
         },
         breakpoints: {
-        320: {
-            slidesPerView: 1,
-            slidesPerGroup: 1,
-        },
-        768: {
-            slidesPerView: 2,
-            slidesPerGroup: 2,
-        },
-        1024: {
-            slidesPerView: 3,
-            slidesPerGroup: 3,
-        }
+            320: {
+                slidesPerView: 1,
+                slidesPerGroup: 1,
+            },
+            768: {
+                slidesPerView: 2,
+                slidesPerGroup: 2,
+            },
+            1024: {
+                slidesPerView: 3,
+                slidesPerGroup: 3,
+            }
         }
     });
     @endif
 
-document.addEventListener('DOMContentLoaded', function() {
-    // Photo Swiper
-    const photoSwiper = new Swiper('.photoSwiper', {
-        slidesPerView: 1,
-        spaceBetween: 20,
-        loop: true,
-        autoplay: {
-            delay: 10000,
-            disableOnInteraction: false,
-        },
-        pagination: {
-            el: '.photo-swiper-pagination', // Updated to use the new class
-            clickable: true,
-        },
-        navigation: {
-            nextEl: '.photo-next',
-            prevEl: '.photo-prev',
-        },
-        breakpoints: {
-            640: {
-                slidesPerView: 1,
+    // Photo Swiper with Mobile-Friendly Configuration
+    document.addEventListener('DOMContentLoaded', function() {
+        const photoSwiper = new Swiper('.photoSwiper', {
+            slidesPerView: 1,
+            spaceBetween: 10,
+            loop: true,
+            autoplay: {
+                delay: 10000,
+                disableOnInteraction: false,
             },
-            768: {
-                slidesPerView: 1,
+            pagination: {
+                el: '.photo-swiper-pagination',
+                clickable: true,
             },
-            1024: {
-                slidesPerView: 1,
+            navigation: {
+                nextEl: '.photo-next',
+                prevEl: '.photo-prev',
             },
+            breakpoints: {
+                640: {
+                    spaceBetween: 15,
+                },
+                768: {
+                    spaceBetween: 20,
+                },
+                1024: {
+                    spaceBetween: 20,
+                },
+            }
+        });
+    });
+
+    function openModal(imageSrc, title) {
+        const modal = document.getElementById('imageModal');
+        const modalImage = document.getElementById('modalImage');
+        const modalTitle = document.getElementById('modalTitle');
+        
+        modalImage.src = imageSrc;
+        modalImage.alt = title;
+        modalTitle.textContent = title;
+        
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+        const modal = document.getElementById('imageModal');
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        document.body.style.overflow = 'auto';
+    }
+
+    // Close modal when clicking outside the image
+    document.getElementById('imageModal').addEventListener('click', function(e) {
+        if (e.target === this) {
+            closeModal();
         }
     });
-});
 
-function openModal(imageSrc, title) {
-    const modal = document.getElementById('imageModal');
-    const modalImage = document.getElementById('modalImage');
-    const modalTitle = document.getElementById('modalTitle');
-    
-    modalImage.src = imageSrc;
-    modalImage.alt = title;
-    modalTitle.textContent = title;
-    
-    modal.classList.remove('hidden');
-    modal.classList.add('flex');
-    document.body.style.overflow = 'hidden';
-}
+    // Close modal with Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            closeModal();
+        }
+    });
 
-function closeModal() {
-    const modal = document.getElementById('imageModal');
-    modal.classList.add('hidden');
-    modal.classList.remove('flex');
-    document.body.style.overflow = 'auto';
-}
-
-// Close modal when clicking outside the image
-document.getElementById('imageModal').addEventListener('click', function(e) {
-    if (e.target === this) {
-        closeModal();
+    // Video modal functions
+    function openVideoModal(videoId) {
+        const modal = document.getElementById('videoModal');
+        const iframe = document.getElementById('videoModalIframe');
+        
+        iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+        modal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
     }
-});
 
-// Close modal with Escape key
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-        closeModal();
+    function closeVideoModal() {
+        const modal = document.getElementById('videoModal');
+        const iframe = document.getElementById('videoModalIframe');
+        
+        iframe.src = '';
+        modal.classList.add('hidden');
+        document.body.style.overflow = 'auto';
     }
-});
-
-// Video modal functions
-function openVideoModal(videoId) {
-    const modal = document.getElementById('videoModal');
-    const iframe = document.getElementById('videoModalIframe');
-    
-    iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
-    modal.classList.remove('hidden');
-    document.body.style.overflow = 'hidden';
-}
-
-function closeVideoModal() {
-    const modal = document.getElementById('videoModal');
-    const iframe = document.getElementById('videoModalIframe');
-    
-    iframe.src = '';
-    modal.classList.add('hidden');
-    document.body.style.overflow = 'auto';
-}
 </script>
 
 <style>
-
+/* Line clamp utilities */
 .line-clamp-2 {
     display: -webkit-box;
     -webkit-line-clamp: 2;
@@ -477,28 +478,65 @@ function closeVideoModal() {
     overflow: hidden;
 }
 
-/* Make carousel arrows the right size */
+/* Instagram-style 4:5 aspect ratio utility */
+.aspect-\[4\/5\] {
+    aspect-ratio: 4 / 5;
+}
+
+/* Mobile-optimized carousel arrows */
 .swiper-button-next,
 .swiper-button-prev,
-.photo-prev, .photo-next,
-.testimonial-video-prev, .testimonial-video-next {
-    width: 50px !important;
-    height: 50px !important;
-    margin-top: -25px !important;
+.photo-prev, 
+.photo-next,
+.testimonial-video-prev, 
+.testimonial-video-next {
+    width: 40px !important;
+    height: 40px !important;
+    margin-top: -20px !important;
     color: #4B5563 !important;
+}
+
+/* Larger arrows on bigger screens */
+@media (min-width: 640px) {
+    .swiper-button-next,
+    .swiper-button-prev,
+    .photo-prev, 
+    .photo-next,
+    .testimonial-video-prev, 
+    .testimonial-video-next {
+        width: 50px !important;
+        height: 50px !important;
+        margin-top: -25px !important;
+    }
 }
 
 .swiper-button-next:after,
 .swiper-button-prev:after,
-.photo-prev:after, .photo-next:after,
-.testimonial-video-prev:after, .testimonial-video-next:after {
-    font-size: 22px !important;
+.photo-prev:after, 
+.photo-next:after,
+.testimonial-video-prev:after, 
+.testimonial-video-next:after {
+    font-size: 16px !important;
+    font-weight: bold !important;
+}
+
+@media (min-width: 640px) {
+    .swiper-button-next:after,
+    .swiper-button-prev:after,
+    .photo-prev:after, 
+    .photo-next:after,
+    .testimonial-video-prev:after, 
+    .testimonial-video-next:after {
+        font-size: 22px !important;
+    }
 }
 
 .swiper-button-next:hover,
 .swiper-button-prev:hover,
-.photo-prev:hover, .photo-next:hover,
-.testimonial-video-prev:hover, .testimonial-video-next:hover {
+.photo-prev:hover, 
+.photo-next:hover,
+.testimonial-video-prev:hover, 
+.testimonial-video-next:hover {
     color: #1F2937 !important;
 }
 
@@ -525,5 +563,42 @@ function closeVideoModal() {
     background: #3b82f6;
 }
 
+/* Mobile-specific improvements */
+@media (max-width: 640px) {
+    /* Make photo cards more touch-friendly */
+    .group {
+        min-height: 200px;
+    }
+    
+    /* Adjust text size for better readability */
+    .group h3 {
+        font-size: 0.75rem;
+        line-height: 1.2;
+    }
+    
+    /* Better spacing on mobile */
+    .swiper-slide {
+        padding: 0 5px;
+    }
+    
+    /* Improve modal on mobile */
+    #imageModal .max-w-4xl {
+        max-width: 95vw;
+        margin: 0 10px;
+    }
+    
+    #imageModal img {
+        max-height: 60vh;
+    }
+    
+    /* Better button positioning on mobile */
+    .photo-prev {
+        left: 10px !important;
+    }
+    
+    .photo-next {
+        right: 10px !important;
+    }
+}
 </style>
 @endsection

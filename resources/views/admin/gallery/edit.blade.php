@@ -107,15 +107,16 @@
                                 <div class="mb-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
                                     <p class="text-xs text-gray-500 mb-2 uppercase tracking-wide font-medium">Current Image</p>
                                     <div class="flex items-start space-x-4">
-                                        <div class="h-32 w-40 rounded-lg overflow-hidden bg-gray-100 border border-gray-200 flex-shrink-0">
+                                        <!-- 4:5 aspect ratio container -->
+                                        <div class="w-24 bg-gray-100 border border-gray-200 rounded-lg overflow-hidden flex-shrink-0" style="aspect-ratio: 4/5;">
                                             <img 
                                                 src="{{ route('admin.gallery.image', $gallery->ID) }}" 
                                                 alt="Current image" 
-                                                class="h-full w-full object-cover"
+                                                class="w-full h-full object-cover"
                                                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
                                             >
-                                            <div class="h-full w-full items-center justify-center hidden">
-                                                <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <div class="w-full h-full items-center justify-center hidden">
+                                                <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                                                 </svg>
                                             </div>
@@ -131,13 +132,14 @@
                                 <!-- New Image Upload -->
                                 <div class="relative">
                                     <div class="flex items-center justify-center w-full">
-                                        <label for="cFoto" class="flex flex-col items-center justify-center w-full h-40 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100 transition-colors duration-200" id="upload-area">
-                                            <div class="flex flex-col items-center justify-center pt-5 pb-6" id="upload-content">
-                                                <svg class="w-8 h-8 mb-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <label for="cFoto" class="flex flex-col items-center justify-center w-full max-w-md mx-auto border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100 transition-colors duration-200" id="upload-area" style="aspect-ratio: 4/5;">
+                                            <div class="flex flex-col items-center justify-center px-6 py-6" id="upload-content">
+                                                <svg class="w-8 h-8 mb-3 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
                                                 </svg>
-                                                <p class="mb-2 text-sm text-gray-500"><span class="font-semibold">Click to upload new image</span> or drag and drop</p>
-                                                <p class="text-xs text-gray-500">PNG, JPG, JPEG or GIF (MAX. 5MB)</p>
+                                                <p class="mb-2 text-sm text-gray-500 text-center"><span class="font-semibold">Click to upload new image</span> or drag and drop</p>
+                                                <p class="text-xs text-gray-500 text-center">PNG, JPG, JPEG or GIF (MAX. 5MB)</p>
+                                                <p class="text-xs text-gray-400 mt-1 text-center">4:5 aspect ratio recommended</p>
                                             </div>
                                             <input 
                                                 id="cFoto" 
@@ -150,15 +152,15 @@
                                     </div>
                                     <!-- Preview area -->
                                     <div id="preview-area" class="mt-4 hidden">
-                                        <div class="relative">
-                                            <img id="preview-image" class="w-full h-40 object-cover rounded-lg border border-gray-200" alt="Preview">
+                                        <div class="relative max-w-md mx-auto">
+                                            <img id="preview-image" class="w-full object-cover rounded-lg border border-gray-200" style="aspect-ratio: 4/5;" alt="Preview">
                                             <button type="button" id="remove-image" class="absolute top-2 right-2 bg-red-600 hover:bg-red-700 text-white rounded-full p-1 transition-colors duration-200">
                                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                                                 </svg>
                                             </button>
                                         </div>
-                                        <p class="text-sm text-gray-500 mt-2">New image selected - will replace current image when saved</p>
+                                        <p class="text-sm text-gray-500 mt-2 text-center">New image selected - will replace current image when saved</p>
                                     </div>
                                 </div>
                             </div>

@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Gallery Image</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Instagram-style 4:5 aspect ratio utility */
+        .aspect-4-5 {
+            aspect-ratio: 4 / 5;
+        }
+    </style>
 </head>
 <body class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
     <div class="flex min-h-screen">
@@ -102,13 +108,14 @@
                                 </label>
                                 <div class="relative">
                                     <div class="flex items-center justify-center w-full">
-                                        <label for="cFoto" class="flex flex-col items-center justify-center w-full h-48 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100 transition-colors duration-200" id="upload-area">
+                                        <label for="cFoto" class="flex flex-col items-center justify-center w-full aspect-4-5 max-w-md mx-auto border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100 transition-colors duration-200" id="upload-area">
                                             <div class="flex flex-col items-center justify-center pt-5 pb-6" id="upload-content">
                                                 <svg class="w-10 h-10 mb-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
                                                 </svg>
-                                                <p class="mb-2 text-sm text-gray-500"><span class="font-semibold">Click to upload</span> or drag and drop</p>
-                                                <p class="text-xs text-gray-500">PNG, JPG, JPEG or GIF (MAX. 5MB)</p>
+                                                <p class="mb-2 text-sm text-gray-500 text-center"><span class="font-semibold">Click to upload</span> or drag and drop</p>
+                                                <p class="text-xs text-gray-500 text-center">PNG, JPG, JPEG or GIF (MAX. 5MB)</p>
+                                                <p class="text-xs text-gray-400 mt-2 text-center">4:5 aspect ratio recommended</p>
                                             </div>
                                             <input 
                                                 id="cFoto" 
@@ -122,15 +129,15 @@
                                     </div>
                                     <!-- Preview area -->
                                     <div id="preview-area" class="mt-4 hidden">
-                                        <div class="relative">
-                                            <img id="preview-image" class="w-full h-48 object-cover rounded-lg border border-gray-200" alt="Preview">
+                                        <div class="relative max-w-md mx-auto">
+                                            <img id="preview-image" class="w-full aspect-4-5 object-cover rounded-lg border border-gray-200" alt="Preview">
                                             <button type="button" id="remove-image" class="absolute top-2 right-2 bg-red-600 hover:bg-red-700 text-white rounded-full p-1 transition-colors duration-200">
                                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                                                 </svg>
                                             </button>
                                         </div>
-                                        <p class="text-sm text-gray-500 mt-2">Click the X to remove and select a different image</p>
+                                        <p class="text-sm text-gray-500 mt-2 text-center">Click the X to remove and select a different image</p>
                                     </div>
                                 </div>
                             </div>

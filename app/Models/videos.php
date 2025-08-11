@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class videos extends Model
+class Videos extends Model
 {
     use HasFactory;
 
@@ -46,8 +46,8 @@ class videos extends Model
     protected $casts = [
         'dTgl_Input' => 'datetime',
         'dTgl_Edit' => 'datetime',
-        'cUserID_Input' => 'integer',
-        'cUserID_Edit' => 'integer',
+        'cUserID_Input' => 'string',
+        'cUserID_Edit' => 'string',
     ];
 
     /**

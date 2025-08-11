@@ -13,39 +13,51 @@
             </div>
         </div>
     </div>
+
     <!-- Client Logos Section -->
-    <div class="py-1 bg-white border-t border-gray-100">
+    <div class="py-12 bg-white border-t border-gray-100">
         <div class="container mx-auto px-4">
             <div class="text-center mb-8">
                 <h2 class="text-2xl font-semibold text-gray-800 mb-2">Trusted by</h2>
                 <div class="w-16 h-1 bg-gradient-to-r from-blue-500 to-red-500 mx-auto"></div>
             </div>
             
-            <div class="relative max-w-6xl mx-auto">
-                <div class="swiper client-swiper" data-swiper-options='{
-                    "navigation": false
-                }'>
+            <!-- Client Swiper Container -->
+            <div class="relative max-w-6xl mx-auto px-4 sm:px-8">
+                <div class="swiper client-swiper">
                     <div class="swiper-wrapper items-center">
                         @foreach($clients as $client)
                             <div class="swiper-slide flex justify-center">
-                                <div class="bg-white rounded-xl shadow-sm hover:shadow-lg transition-shadow duration-300 p-6 flex flex-col items-center min-w-[160px] w-full max-w-[200px] border border-gray-100">
-                                    <div class="w-full h-16 flex items-center justify-center mb-3">
+                                <div class="bg-white rounded-xl shadow-sm hover:shadow-lg transition-shadow duration-300 p-4 sm:p-6 flex flex-col items-center min-w-[120px] sm:min-w-[160px] w-full max-w-[150px] sm:max-w-[200px] border border-gray-100 mx-auto">
+                                    <div class="w-full h-12 sm:h-16 flex items-center justify-center mb-2 sm:mb-3">
                                         <img src="data:image/png;base64,{{ base64_encode($client->cLogo) }}" 
                                              class="object-contain max-w-full max-h-full" 
                                              alt="{{ $client->cKeterangan }}">
                                     </div>
-                                    <span class="text-sm font-medium text-center text-gray-700 leading-tight">{{ $client->cKeterangan }}</span>
+                                    <span class="text-xs sm:text-sm font-medium text-center text-gray-700 leading-tight">{{ $client->cKeterangan }}</span>
                                 </div>
                             </div>
                         @endforeach
                     </div>
+                </div>
+                
+                <!-- Custom Navigation Arrows for Client Swiper -->
+                <div class="client-swiper-button-prev absolute left-0 top-1/2 -translate-y-1/2 z-20 cursor-pointer">
+                    <svg class="w-6 h-6 sm:w-8 sm:h-8 text-gray-600 hover:text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                    </svg>
+                </div>
+                <div class="client-swiper-button-next absolute right-0 top-1/2 -translate-y-1/2 z-20 cursor-pointer">
+                    <svg class="w-6 h-6 sm:w-8 sm:h-8 text-gray-600 hover:text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                    </svg>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Testimonial Videos Section -->
-    <div class="py-8 bg-white border-t border-gray-100">
+    <div class="py-12 bg-white border-t border-gray-100">
         <div class="container mx-auto px-4">
             <div class="text-center mb-8">
                 <h2 class="text-2xl font-semibold text-gray-800 mb-2">Testimonial Videos</h2>
@@ -54,7 +66,7 @@
             
             @if(isset($testimonialVideos) && $testimonialVideos->count() > 0)
                 <div class="relative max-w-6xl mx-auto">
-                    <div class="relative px-16">
+                    <div class="relative px-8 sm:px-16">
                         <div class="swiper testimonialVideoSwiper">
                             <div class="swiper-wrapper">
                                 @foreach ($testimonialVideos as $video)
@@ -63,7 +75,7 @@
                                     @endphp
                                     <div class="swiper-slide flex justify-center pb-4">
                                         <div 
-                                            class="bg-white rounded-xl shadow-lg overflow-hidden w-72 sm:w-80 h-72 cursor-pointer group hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-red-300 flex flex-col"
+                                            class="bg-white rounded-xl shadow-lg overflow-hidden w-full max-w-[280px] sm:w-72 sm:max-w-80 h-72 cursor-pointer group hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-red-300 flex flex-col mx-auto"
                                             onclick="openVideoModal('{{ $videoId }}')"
                                         >
                                             <div class="relative w-full flex-shrink-0" style="padding-top: 56.25%;">
@@ -88,12 +100,21 @@
                             </div>
                         </div>
 
-                        <div class="swiper-button-prev absolute left-4 top-1/2 -translate-y-1/2 z-20 text-gray-600"></div>
-                        <div class="swiper-button-next absolute right-4 top-1/2 -translate-y-1/2 z-20 text-gray-600"></div>
+                        <!-- Video arrows - hide on mobile when only 1 video -->
+                        <div class="testimonial-video-swiper-button-prev absolute left-0 sm:left-4 top-1/2 -translate-y-1/2 z-20 cursor-pointer @if($testimonialVideos->count() <= 1) hidden sm:block @endif">
+                            <svg class="w-6 h-6 sm:w-8 sm:h-8 text-gray-600 hover:text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                            </svg>
+                        </div>
+                        <div class="testimonial-video-swiper-button-next absolute right-0 sm:right-4 top-1/2 -translate-y-1/2 z-20 cursor-pointer @if($testimonialVideos->count() <= 1) hidden sm:block @endif">
+                            <svg class="w-6 h-6 sm:w-8 sm:h-8 text-gray-600 hover:text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                            </svg>
+                        </div>
                     </div>
                     
                     <!-- Testimonial Video Pagination -->
-                    <div class="testimonial-video-swiper-pagination mt-8"></div>
+                    <div class="testimonial-video-swiper-pagination mt-6 flex justify-center"></div>
                 </div>
             @else
                 <!-- Empty State for Testimonial Videos -->
@@ -122,12 +143,13 @@
                 <div class="w-20 h-1 bg-gradient-to-r from-blue-500 to-red-500 mx-auto mb-4"></div>
             </div>
 
-            <div class="relative w-full max-w-7xl mx-auto">
+            <!-- Testimonial Swiper Container -->
+            <div class="relative w-full max-w-7xl mx-auto px-4 sm:px-8">
                 <div class="swiper testimonial-swiper">
-                    <div class="swiper-wrapper pb-12">
+                    <div class="swiper-wrapper pb-8">
                         @foreach($testimonials as $index => $testimonial)
-                            <div class="swiper-slide flex justify-center" x-data="{ openModal{{ $index }}: false }">
-                                <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 p-8 w-full max-w-sm relative border border-gray-100 flex flex-col" style="height: 440px;">
+                            <div class="swiper-slide" x-data="{ openModal{{ $index }}: false }">
+                                <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 p-8 w-full max-w-sm mx-auto relative border border-gray-100 flex flex-col" style="height: 440px;">
 
                                     <!-- Client logo - Fixed height section -->
                                     <div class="mb-6 pt-4 h-16 flex items-center flex-shrink-0">
@@ -141,11 +163,11 @@
                                     <div class="flex flex-col">
                                         <!-- Headline - Fixed height -->
                                         <div class="mb-4 h-16 flex items-start">
-                                            <h3 class="text-lg font-bold text-gray-800 leading-tight line-clamp-3">"{{ $testimonial->cHeadline }}"</h3>
+                                            <h3 class="text-lg font-bold text-gray-800 leading-tight line-clamp-3 text-left">"{{ $testimonial->cHeadline }}"</h3>
                                         </div>
                                         
                                         <!-- Testimonial text - Fixed height -->
-                                        <div class="text-gray-700 mb-6 leading-relaxed h-28 overflow-hidden">
+                                        <div class="text-gray-700 mb-6 leading-relaxed h-28 overflow-hidden text-left">
                                             <div class="testimonial-text">
                                                 {{ \Illuminate\Support\Str::limit(strip_tags($testimonial->cTestimonial), 100) }}
                                                 @if(strlen(strip_tags($testimonial->cTestimonial)) > 120)
@@ -159,7 +181,7 @@
 
                                     <!-- Author info - Fixed height section -->
                                     <div class="border-t border-gray-100 pt-6 mt-auto flex-shrink-0 h-20 mb-2">
-                                        <div class="flex items-start">
+                                        <div class="flex items-start text-left">
                                             <div class="text-sm">
                                                 <div class="font-bold text-gray-800 line-clamp-1">{{ $testimonial->cNmLengkap }}</div>
                                                 <div class="text-blue-600 font-medium line-clamp-1">{{ $testimonial->cPosisi }}</div>
@@ -169,7 +191,7 @@
                                     </div>
                                 </div>
 
-                                <!-- Replace your existing modal structure with this -->
+                                <!-- Modal Structure -->
                                 <div x-show="openModal{{ $index }}" x-cloak 
                                     class="modal-overlay"
                                     @click.self="openModal{{ $index }} = false">
@@ -183,19 +205,19 @@
                                         
                                         <!-- Modal content -->
                                         <div class="modal-content">
-                                            <div class="mb-6">
+                                            <div class="mb-6 text-left">
                                                 @if(isset($testimonial->client) && !empty($testimonial->client->cLogo))
                                                     <img src="data:image/png;base64,{{ base64_encode($testimonial->client->cLogo) }}"
                                                         class="h-12 w-auto mb-4" alt="{{ $testimonial->client->cKeterangan ?? 'Client Logo' }}">
                                                 @endif
-                                                <h3 class="text-xl sm:text-2xl font-bold text-gray-800 mb-4 leading-tight">"{{ $testimonial->cHeadline }}"</h3>
+                                                <h3 class="text-xl sm:text-2xl font-bold text-gray-800 mb-4 leading-tight text-left">"{{ $testimonial->cHeadline }}"</h3>
                                             </div>
                                             
-                                            <div class="prose prose-gray max-w-none mb-6">
-                                                <p class="text-gray-700 leading-relaxed text-base sm:text-lg">{{ $testimonial->cTestimonial }}</p>
+                                            <div class="prose prose-gray max-w-none mb-6 text-left">
+                                                <p class="text-gray-700 leading-relaxed text-base sm:text-lg text-left">{{ $testimonial->cTestimonial }}</p>
                                             </div>
                                             
-                                            <div class="border-t border-gray-200 pt-6">
+                                            <div class="border-t border-gray-200 pt-6 text-left">
                                                 <div class="flex items-start">
                                                     <div>
                                                         <div class="font-bold text-gray-800 text-base sm:text-lg">{{ $testimonial->cNmLengkap }}</div>
@@ -211,6 +233,21 @@
                         @endforeach
                     </div>
                 </div>
+                
+                <!-- Custom Navigation Arrows for Testimonial Swiper - Now visible on mobile too -->
+                <div class="testimonial-swiper-button-prev absolute left-0 top-1/2 -translate-y-1/2 z-20 cursor-pointer">
+                    <svg class="w-6 h-6 sm:w-8 sm:h-8 text-gray-600 hover:text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                    </svg>
+                </div>
+                <div class="testimonial-swiper-button-next absolute right-0 top-1/2 -translate-y-1/2 z-20 cursor-pointer">
+                    <svg class="w-6 h-6 sm:w-8 sm:h-8 text-gray-600 hover:text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                    </svg>
+                </div>
+                
+                <!-- Pagination -->
+                <div class="testimonial-swiper-pagination mt-6 flex justify-center"></div>
             </div>
         </div>
     </div>
@@ -342,53 +379,100 @@ document.addEventListener('DOMContentLoaded', function () {
     // Testimonial Video Swiper - only initialize if videos exist
     @if(isset($testimonialVideos) && $testimonialVideos->count() > 0)
     new Swiper('.testimonialVideoSwiper', {
-        slidesPerView: 3,
-        slidesPerGroup: 3, // Move 3 slides at once
-        spaceBetween: 20,
+        slidesPerView: 1,
+        slidesPerGroup: 1,
+        spaceBetween: 15,
         loop: true,
+        speed: 300,
+        centeredSlides: true,
         pagination: {
             el: '.testimonial-video-swiper-pagination',
             clickable: true,
         },
         navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
+            nextEl: '.testimonial-video-swiper-button-next',
+            prevEl: '.testimonial-video-swiper-button-prev',
         },
         breakpoints: {
-            320: {
+            480: {
                 slidesPerView: 1,
                 slidesPerGroup: 1,
+                spaceBetween: 20,
+                centeredSlides: true,
+            },
+            640: {
+                slidesPerView: 2,
+                slidesPerGroup: 1,
+                spaceBetween: 20,
+                centeredSlides: false,
             },
             768: {
                 slidesPerView: 2,
                 slidesPerGroup: 2,
+                spaceBetween: 20,
+                centeredSlides: false,
             },
             1024: {
                 slidesPerView: 3,
                 slidesPerGroup: 3,
+                spaceBetween: 20,
+                centeredSlides: false,
             }
         }
     });
     @endif
 
-    // Testimonials Swiper
-    new Swiper('.testimonial-swiper', {
+    // Client Swiper
+    const clientSwiper = new Swiper('.client-swiper', {
+        spaceBetween: 15,
         loop: true,
-        autoplay: {
-            delay: 6000,
-            disableOnInteraction: false,
-        },
+        speed: 300,
         navigation: {
-            nextEl: '.testimonial-swiper .swiper-button-next',
-            prevEl: '.testimonial-swiper .swiper-button-prev',
+            nextEl: '.client-swiper-button-next',
+            prevEl: '.client-swiper-button-prev',
+        },
+        slidesPerView: 2,
+        grabCursor: true,
+        breakpoints: {
+            480: { 
+                slidesPerView: 2, 
+                spaceBetween: 15 
+            },
+            640: { 
+                slidesPerView: 3, 
+                spaceBetween: 20 
+            },
+            768: { 
+                slidesPerView: 4, 
+                spaceBetween: 25 
+            },
+            1024: { 
+                slidesPerView: 5, 
+                spaceBetween: 30 
+            },
+            1280: { 
+                slidesPerView: 6, 
+                spaceBetween: 30 
+            },
+        },
+    });
+
+    // Testimonials Swiper
+    const testimonialSwiper = new Swiper('.testimonial-swiper', {
+        loop: true,
+        speed: 300,
+        navigation: {
+            nextEl: '.testimonial-swiper-button-next',
+            prevEl: '.testimonial-swiper-button-prev',
         },
         pagination: {
-            el: '.testimonial-swiper .swiper-pagination',
+            el: '.testimonial-swiper-pagination',
             clickable: true,
             dynamicBullets: true,
         },
         slidesPerView: 1,
         spaceBetween: 30,
+        grabCursor: true,
         breakpoints: {
             768: { 
                 slidesPerView: 2,
@@ -403,39 +487,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 spaceBetween: 40 
             }
         },
-        // Equal height cards
         watchSlidesProgress: true,
-        on: {
-            progress: function() {
-                // Ensure equal heights
-            }
-        }
-    });
-
-    // Client Swiper
-    new Swiper('.client-swiper', {
-        spaceBetween: 30,
-        loop: true,
-        autoplay: {
-            delay: 1500,
-            disableOnInteraction: false,
-        },
-        navigation: {
-            nextEl: '.client-swiper .swiper-button-next',
-            prevEl: '.client-swiper .swiper-button-prev',
-        },
-        slidesPerView: 2,
-        breakpoints: {
-            640: { slidesPerView: 3, spaceBetween: 30 },
-            768: { slidesPerView: 4, spaceBetween: 30 },
-            1024: { slidesPerView: 5, spaceBetween: 30 },
-            1280: { slidesPerView: 6, spaceBetween: 30 },
-        },
     });
 });
 </script>
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
 <style>
 .line-clamp-1 {
     display: -webkit-box;
@@ -461,7 +520,7 @@ document.addEventListener('DOMContentLoaded', function () {
     overflow: hidden;
 }
 
-/* Mobile Modal Scrolling Fix */
+/* Modal Styles */
 .modal-overlay {
     position: fixed;
     inset: 0;
@@ -521,7 +580,6 @@ document.addEventListener('DOMContentLoaded', function () {
     background: #f9fafb;
 }
 
-/* Prevent body scroll when modal is open */
 .modal-open {
     overflow: hidden;
     position: fixed;
@@ -529,180 +587,17 @@ document.addEventListener('DOMContentLoaded', function () {
     height: 100%;
 }
 
-/* Position arrows outside the swiper container */
-.testimonial-swiper .swiper-button-prev,
-.testimonial-swiper .swiper-button-next {
-  top: 50% !important;
-  transform: translateY(-50%);
-  color: #2C2C2C !important;
-  width: 44px;
-  height: 44px;
-  margin-top: 0;
-  z-index: 10;
+/* Arrow Styles */
+.client-swiper-button-prev svg,
+.client-swiper-button-next svg,
+.testimonial-swiper-button-prev svg,
+.testimonial-swiper-button-next svg,
+.testimonial-video-swiper-button-prev svg,
+.testimonial-video-swiper-button-next svg {
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
 }
 
-.testimonial-swiper .swiper-button-prev {
-  left: -60px !important; /* Position outside left */
-}
-
-.testimonial-swiper .swiper-button-next {
-  right: -60px !important; /* Position outside right */
-}
-
-/* For smaller screens, position arrows closer */
-@media (max-width: 768px) {
-  .testimonial-swiper .swiper-button-prev {
-    left: -40px !important;
-  }
-  .testimonial-swiper .swiper-button-next {
-    right: -40px !important;
-  }
-}
-
-/* Regular swiper arrows */
-.swiper-button-prev, .swiper-button-next {
-  top: 50% !important;
-  transform: translateY(-50%);
-  color: #2C2C2C !important;
-}
-
-.swiper-pagination {
-  position: static !important;
-  margin-top: 1rem;
-}
-
-.swiper-pagination-bullets {
-  display: flex;
-  justify-content: center;
-  margin-top: 1rem;
-}
-
-.swiper-pagination-bullet {
-  background: #B0ADAD;
-  opacity: 1;
-}
-
-.swiper-pagination-bullet-active {
-  background: #2c2c2c;
-}
-
-.swiper-button-prev::after,
-.swiper-button-next::after {
-  color: #2C2C2C !important;
-  font-size: 1.5rem;
-}
-
-/* Position client swiper arrows outside the container */
-.client-swiper .swiper-button-prev,
-.client-swiper .swiper-button-next {
-  top: 50% !important;
-  transform: translateY(-50%);
-  color: #2C2C2C !important;
-  width: 44px;
-  height: 44px;
-  margin-top: 0;
-  z-index: 10;
-}
-
-.client-swiper .swiper-button-prev {
-  left: -60px !important; /* Position outside left */
-}
-
-.client-swiper .swiper-button-next {
-  right: -60px !important; /* Position outside right */
-}
-
-/* For smaller screens, position client arrows closer */
-@media (max-width: 768px) {
-  .client-swiper .swiper-button-prev {
-    left: -40px !important;
-  }
-  .client-swiper .swiper-button-next {
-    right: -40px !important;
-  }
-}
-
-/* Custom pagination styles for testimonial videos */
-.testimonial-video-swiper-pagination {
-    text-align: center;
-}
-
-.testimonial-video-swiper-pagination .swiper-pagination-bullet {
-    width: 8px;
-    height: 8px;
-    background: #d1d5db;
-    opacity: 1;
-    margin: 0 3px;
-}
-
-.testimonial-video-swiper-pagination .swiper-pagination-bullet-active {
-    background: #3b82f6;
-}
-
-/* Add padding to testimonial container to accommodate external arrows */
-.testimonial-container {
-  padding: 0 80px;
-}
-
-/* Add padding to client container to accommodate external arrows */
-.client-container {
-  padding: 0 80px;
-}
-
-@media (max-width: 768px) {
-  .testimonial-container {
-    padding: 0 60px;
-  }
-  .client-container {
-    padding: 0 60px;
-  }
-}
-
-.trix-content ul {
-    list-style-type: disc;
-    margin-left: 1.5rem;
-}
-
-.trix-content ol {
-    list-style-type: decimal;
-    margin-left: 1.5rem;
-}
-
-/* Custom Swiper Styles */
-.swiper-button-next,
-.swiper-button-prev {
-    width: 44px;
-    height: 44px;
-    background: white;
-    border-radius: 50%;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    border: 1px solid #e5e7eb;
-}
-
-.swiper-button-next:after,
-.swiper-button-prev:after {
-    font-size: 16px;
-    font-weight: bold;
-}
-
-.swiper-pagination-bullet {
-    width: 12px;
-    height: 12px;
-    background: #d1d5db;
-    opacity: 1;
-}
-
-.swiper-pagination-bullet-active {
-    background: linear-gradient(135deg, #3b82f6, #06b6d4);
-    transform: scale(1.2);
-}
-
-/* Modal animations */
-[x-cloak] {
-    display: none !important;
-}
-
-/* Hover effects */
+/* Card hover effects */
 .swiper-slide .bg-white {
     transition: all 0.3s ease;
 }
@@ -711,7 +606,33 @@ document.addEventListener('DOMContentLoaded', function () {
     transform: translateY(-4px);
 }
 
-/* Mobile-specific modal improvements */
+/* Swiper pagination styles */
+.swiper-pagination {
+    position: relative !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+
+.swiper-pagination-bullet {
+    background: #d1d5db !important;
+    opacity: 1 !important;
+    width: 8px !important;
+    height: 8px !important;
+    margin: 0 4px !important;
+    transition: all 0.3s ease !important;
+}
+
+.swiper-pagination-bullet-active {
+    background: linear-gradient(135deg, #3b82f6, #06b6d4) !important;
+    transform: scale(1.2) !important;
+}
+
+[x-cloak] {
+    display: none !important;
+}
+
+/* Mobile modal improvements */
 @media (max-width: 640px) {
     .modal-overlay {
         padding: 0;
@@ -744,29 +665,6 @@ document.addEventListener('DOMContentLoaded', function () {
         width: 3rem;
         height: 3rem;
         font-size: 1.75rem;
-    }
-}
-
-/* Additional mobile improvements */
-@media (max-width: 480px) {
-    .modal-content {
-        padding: 5rem 1rem 2rem;
-    }
-    
-    .modal-content h3 {
-        font-size: 1.25rem !important;
-        line-height: 1.4;
-        margin-bottom: 1rem;
-    }
-    
-    .modal-content p {
-        font-size: 1rem !important;
-        line-height: 1.6;
-    }
-    
-    .modal-content .border-t {
-        margin-top: 2rem;
-        padding-top: 1.5rem;
     }
 }
 </style>

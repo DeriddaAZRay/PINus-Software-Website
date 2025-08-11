@@ -76,7 +76,7 @@
 </section>
 
 {{-- Videos Section --}}
-<section id="videos-section" class="bg-white py-16 px-6">
+<section id="videos-section" class="bg-white py-8 px-6">
   <div class="container mx-auto text-center">
     <h2 class="text-3xl font-bold mb-4">Videos</h2>
     <div class="w-24 h-1 bg-gradient-to-r from-blue-500 to-red-500 mx-auto mb-4"></div>
@@ -86,7 +86,6 @@
         <div class="swiper mySwiper">
           <div class="swiper-wrapper">
             @foreach ($videos as $video)
-              @if($video->cJenis == 'v')
                 @php
                   $videoId = Str::before($video->cLink, '?');
                 @endphp
@@ -113,7 +112,6 @@
                     </div>
                   </div>
                 </div>
-              @endif
             @endforeach
           </div>
         </div>
@@ -143,6 +141,108 @@
         ></iframe>
       </div>
   </div>
+</div>
+
+{{-- Photo Gallery Section --}}
+<section id="photos-section" class="bg-white py-8 px-6">
+  <div class="container mx-auto text-center">
+      <h2 class="text-3xl font-bold mb-4">Photo Gallery</h2>
+      <div class="w-24 h-1 bg-gradient-to-r from-blue-500 to-red-500 mx-auto mb-8"></div>
+
+      <!-- Photo Carousel with Mobile-Friendly Layout -->
+      <div class="relative max-w-6xl mx-auto">
+          <div class="relative px-4 sm:px-16">
+              <div class="swiper photoSwiper">
+                  <div class="swiper-wrapper">
+                      @php
+                          $chunkedGalleries = $galleries->chunk(4);
+                      @endphp
+                      @foreach ($chunkedGalleries as $galleryChunk)
+                          <div class="swiper-slide">
+                              <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 pb-4">
+                                  @foreach($galleryChunk as $gallery)
+                                      <!-- Photo Card with Instagram 4:5 Aspect Ratio -->
+                                      <div class="group relative bg-white/70 backdrop-blur-sm rounded-lg shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden cursor-pointer flex flex-col">
+                                          <!-- Image Container with 4:5 aspect ratio -->
+                                          <div class="relative w-full aspect-[4/5] overflow-hidden"
+                                                onclick="openModal('{{ route('gallery.image', $gallery->ID) }}', '{{ $gallery->cJudul }}')">
+                                              <img 
+                                                  src="{{ route('gallery.image', $gallery->ID) }}" 
+                                                  alt="{{ $gallery->cJudul }}"
+                                                  class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                                                  loading="lazy"
+                                              >
+                                              <!-- Overlay on hover -->
+                                              <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                                  <div class="bg-white/20 backdrop-blur-sm border border-white/30 text-white px-2 py-1 sm:px-3 sm:py-2 rounded-lg hover:bg-white/30 transition-colors duration-200">
+                                                      <svg class="w-3 h-3 sm:w-4 sm:h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                                      </svg>
+                                                      <span class="text-xs sm:text-sm">View</span>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          
+                                          <!-- Title - Responsive Height -->
+                                          <div class="p-2 sm:p-3 h-14 sm:h-16 flex-shrink-0 flex flex-col justify-center">
+                                              <h3 class="font-medium text-gray-800 text-center text-xs sm:text-sm line-clamp-2 leading-tight">
+                                                  {{ $gallery->cJudul }}
+                                              </h3>
+                                              @if($gallery->dTgl_Input)
+                                                  <p class="text-xs text-gray-500 text-center mt-1">
+                                                      {{ $gallery->dTgl_Input->format('M d, Y') }}
+                                                  </p>
+                                              @endif
+                                          </div>
+                                      </div>
+                                  @endforeach
+                              </div>
+                          </div>
+                      @endforeach
+                  </div>
+              </div>
+
+              <!-- Navigation arrows with responsive positioning -->
+              <div class="swiper-button-prev photo-prev absolute left-0 sm:left-4 top-1/2 -translate-y-1/2 z-20 text-gray-600"></div>
+              <div class="swiper-button-next photo-next absolute right-0 sm:right-4 top-1/2 -translate-y-1/2 z-20 text-gray-600"></div>
+          </div>
+          
+          <!-- Photo Pagination moved outside and below -->
+          <div class="photo-swiper-pagination mt-6 sm:mt-8"></div>
+      </div>
+  </div>
+</section>
+
+<!-- Modal for Image Preview -->
+<div id="imageModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+    <div class="relative w-full max-w-4xl max-h-[90vh] flex flex-col items-center justify-center">
+
+        <!-- Close Button -->
+        <button 
+            onclick="closeModal()"
+            class="absolute -top-4 -right-4 bg-white/20 backdrop-blur-sm border border-white/30 text-white w-10 h-10 rounded-full hover:bg-white/30 transition-colors duration-200 z-10"
+        >
+            <svg class="w-6 h-6 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
+
+        <!-- Image (no background container) -->
+        <img 
+            id="modalImage" 
+            src="" 
+            alt="" 
+            class="max-h-[70vh] w-auto object-contain rounded-md"
+        >
+
+        <!-- Fully rounded title background -->
+        <div class="w-full bg-white/90 backdrop-blur-sm rounded-lg px-6 py-4 mt-4 max-h-[20vh] overflow-y-auto">
+            <h3 id="modalTitle"
+                class="text-lg font-medium text-gray-800 text-left break-words whitespace-normal leading-snug"
+                style="word-break: break-word; overflow-wrap: break-word;">
+            </h3>
+        </div>
+    </div>
 </div>
 
 {{-- Carousel Clients --}}
@@ -312,6 +412,73 @@
         iframe.src = '';
         modal.classList.add('hidden');
         };
+    });
+
+        // Photo Swiper with Mobile-Friendly Configuration
+    document.addEventListener('DOMContentLoaded', function() {
+        const photoSwiper = new Swiper('.photoSwiper', {
+            slidesPerView: 1,
+            spaceBetween: 10,
+            loop: true,
+            autoplay: {
+                delay: 10000,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: '.photo-swiper-pagination',
+                clickable: true,
+            },
+            navigation: {
+                nextEl: '.photo-next',
+                prevEl: '.photo-prev',
+            },
+            breakpoints: {
+                640: {
+                    spaceBetween: 15,
+                },
+                768: {
+                    spaceBetween: 20,
+                },
+                1024: {
+                    spaceBetween: 20,
+                },
+            }
+        });
+    });
+
+    function openModal(imageSrc, title) {
+        const modal = document.getElementById('imageModal');
+        const modalImage = document.getElementById('modalImage');
+        const modalTitle = document.getElementById('modalTitle');
+        
+        modalImage.src = imageSrc;
+        modalImage.alt = title;
+        modalTitle.textContent = title;
+        
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+        const modal = document.getElementById('imageModal');
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        document.body.style.overflow = 'auto';
+    }
+
+    // Close modal when clicking outside the image
+    document.getElementById('imageModal').addEventListener('click', function(e) {
+        if (e.target === this) {
+            closeModal();
+        }
+    });
+
+    // Close modal with Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            closeModal();
+        }
     });
     </script>
 
